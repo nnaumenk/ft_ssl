@@ -18,9 +18,11 @@ typedef struct		s_rsa_flag
 	int				rand;
 	char			*inform;
 	char			*outform;
+	char			*i;
 	char			*in;
 	int				fd_input;
 	char			*passin;
+	char			*o;
 	char			*out;
 	int				fd_output;
 	char			*passout;
