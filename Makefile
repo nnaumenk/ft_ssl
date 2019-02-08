@@ -68,10 +68,12 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c					\
 				ft_ssl_rsa/flag_manager/flag_rand.c		\
 				ft_ssl_rsa/flag_manager/flag_check.c	\
 				ft_ssl_rsa/flag_manager/flag_des.c		\
+				ft_ssl_rsa/flag_manager/flag_i.c		\
 				ft_ssl_rsa/flag_manager/flag_in.c		\
 				ft_ssl_rsa/flag_manager/flag_inform.c	\
 				ft_ssl_rsa/flag_manager/flag_modulus.c	\
 				ft_ssl_rsa/flag_manager/flag_noout.c	\
+				ft_ssl_rsa/flag_manager/flag_o.c		\
 				ft_ssl_rsa/flag_manager/flag_out.c		\
 				ft_ssl_rsa/flag_manager/flag_outform.c	\
 				ft_ssl_rsa/flag_manager/flag_passin.c	\

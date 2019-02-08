@@ -6,90 +6,99 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/04 16:00:33 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/02/05 17:06:54 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../ft_ssl.h"
 
-static int	ft_val(unsigned char **val, size_t *vlen, char **text, size_t *len)
+static void	ft_set_size(size_t size, char **text)
 {
-	if ((*len)--)////pererobyt pid odnu umovu if (*len < *vlen)
+	size_t	byte_count;
+
+	*(*text)++ = 0x30;
+	if (size >= 0x80)
 	{
-		if (*(*text)++ != 0x2)
-			return (1);
+		byte_count = (size + 255) / 256;
+		*(*text)++ = 0x80 + byte_count;
+		ft_memcpy(*text, size, byte_count);
+		ft_memrev(*text, byte_count);
+		(*text) += byte_count;
 	}
 	else
-		return (1);
-	if ((*len)--)
-		*vlen = *(*text)++;
-	else
-		return (1);
-	if (*len < *vlen)
-		return (1);
-	*val = (unsigned char *)malloc(*vlen);
-	ft_bzero(*val, 0);
-	ft_memcpy(*val, *text, *vlen);////dodaty umovu xhy ye konets (*text) - bytes;
-	(*text) += *vlen;
-	*len -= *vlen;
-	return (0);
+		*(*text)++ = size;
+	*(*text)++ = 0x02;
+	*(*text)++ = 0x01;
+	*(*text)++ = 0x00;
 }
 
-static int	ft_parse_values(t_rsa_data *vl, char **text, size_t *len)
+static void	ft_val(unsigned char *val, size_t vlen, char **text)
 {
-	if (ft_val(&vl->modulus, &vl->modulus_len, text, len))
-		return (1);
-	if (ft_val(&vl->modulus, &vl->modulus_len, text, len))
-		return (1);
-	if (ft_val(&vl->public_exponent, &vl->public_exponent_len, text, len))
-		return (1);
-	if (ft_val(&vl->private_exponent, &vl->private_exponent_len, text, len))
-		return (1);
-	if (ft_val(&vl->prime1, &vl->prime1_len, text, len))
-		return (1);
-	if (ft_val(&vl->prime2, &vl->prime2_len, text, len))
-		return (1);
-	if (ft_val(&vl->exponent1, &vl->exponent1_len, text, len))
-		return (1);
-	if (ft_val(&vl->exponent2, &vl->exponent2_len, text, len))
-		return (1);
-	if (ft_val(&vl->coefficient, &vl->coefficient_len, text, len))
-		return (1);
-	return (0);
-}
+	size_t	byte_count;
 
-static int	ft_parse_size(char **text, size_t *len, size_t *size)
-{
-	size_t	bytes;
-
-	if (*len < 2)
-		return (1);
-	*len -= 2;
-	if (*(*text)++ != 0x30)
-		return (1);
-	if ((unsigned char)**text >= 0x80)
+	*(*text)++ = 0x02;
+	if (vlen >= 0x80)
 	{
-		bytes = (unsigned char)*(*text)++ - 80;
-		if (*len < bytes)
-			return (1);
-		ft_memcpy(size, *text, bytes);
-		*len -= bytes;
-		(*text) += bytes;
+		byte_count = (vlen + 255) / 256;
+		*(*text)++ = 0x80 + byte_count;
+		ft_memcpy(*text, vlen, byte_count);
+		ft_memrev(*text, byte_count);
+		(*text) += byte_count;
 	}
 	else
-		*len = *(*text)++;
-	return (0);
+		*(*text)++ = size;
+	ft_memcpy(*text, val, vlen);
+	ft_memrev(*text, vlen);
+	(*text) += vlen;
 }
 
-int			ft_asn1_encode(t_rsa_data *values, char *text, size_t len)			
+static void	ft_set_values(t_rsa_data data, size_t size, char *text)
+{
+	ft_set_size(size, &text);
+	ft_val(dt.modulus, dt.modulus_len, &text);
+	ft_val(dt.public_exponent, dt.public_exponent_len, &text);
+	ft_val(dt.private_exponent, dt.private_exponent_len, &text);
+	ft_val(dt.prime1, dt.prime1_len, &text);
+	ft_val(dt.prime2, dt.prime2_len, &text);
+	ft_val(dt.exponent1, dt.exponent1_len, &text);
+	ft_val(dt.exponent2, dt.exponent2_len, &text);
+	ft_val(dt.coefficient, dt.coefficient_len, &text);
+}
+
+static void	ft_determine_size(t_rsa_data data, size_t *size, size_t *len)
+{
+	*len = 2 * 8 + 3;
+	if (data.modulus_len >= 0x80)
+		*len += (data.modulus_len + 255) / 256;
+	if (data.modulus_len >= 0x80)
+		*len += (data.public_exponent_len + 255) / 256;
+	if (data.modulus_len >= 0x80)
+		*len += (data.private_exponent_len + 255) / 256; 
+	if (data.modulus_len >= 0x80)
+		*len += (data.prime1_len + 255) / 256; 
+	if (data.modulus_len >= 0x80)
+		*len += (data.prime2_len + 255) / 256; 
+	if (data.modulus_len >= 0x80)
+		*len += (data.exponent1_len + 255) / 256; 
+	if (data.modulus_len >= 0x80)
+		*len += (data.exponent2_len + 255) / 256; 
+	if (data.modulus_len >= 0x80)
+		*len += (data.coefficient_len + 255) / 256;
+	*len += data.modulus_len + data.public_exponent_len +
+	data.private_exponent_len + data.prime1_len + data.prime2_len +
+	data.exponent1_len + data.exponent2_len + coefficient_len;
+	*size = *len;
+	if (*len >= 0x80)
+		*len += (*len + 255) / 256;
+	*len += 2;
+}
+
+int		ft_asn1_encode(t_rsa_data data, char **text, size_t *len)			
 {
 	size_t		size;
 
-	if (ft_parse_size(&text, &len, &size))
-		return (1);
-	if (len != size)
-		return (1);
-	if (ft_parse_values(values, &text, &len))
-		return (1);
+	ft_determine_size(data, &size, len);
+	*text = (char *)malloc(*len);
+	ft_set_values(data, size, text);
 	return (0);
 }

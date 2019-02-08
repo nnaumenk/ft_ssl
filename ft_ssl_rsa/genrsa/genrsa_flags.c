@@ -15,8 +15,8 @@
 static t_rsa_option	g_option[] =
 {
 	{"-rand", ft_rsa_check_flag_rand},
-	{"-in", ft_rsa_check_flag_in},
-	{"-out", ft_rsa_check_flag_out},
+	{"-i", ft_rsa_check_flag_i},
+	{"-o", ft_rsa_check_flag_o},
 	{0, 0}
 };
 

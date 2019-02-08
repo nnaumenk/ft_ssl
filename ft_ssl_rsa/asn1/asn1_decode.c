@@ -58,37 +58,25 @@ static int	ft_val(unsigned char **val, size_t *vlen, char **text, size_t *len)
 	return (0);
 }
 
-static int	ft_parse_values(t_rsa_data *vl, char **text, size_t *len)
+static int	ft_parse_values(t_rsa_data *dt, char **text, size_t *len)
 {
-	if (ft_val(&vl->modulus, &vl->modulus_len, text, len))
-	{
-		ft_print("error in version\n");
+	if (ft_val(&dt->modulus, &dt->modulus_len, text, len))
 		return (1);
-	}
-	if (ft_val(&vl->modulus, &vl->modulus_len, text, len))
-	{
-		ft_print("error in modulus\n");
+	if (ft_val(&dt->modulus, &dt->modulus_len, text, len))
 		return (1);
-	}
-	if (ft_val(&vl->public_exponent, &vl->public_exponent_len, text, len))
-	{
-		ft_print("error in public_exponent\n");
+	if (ft_val(&dt->public_exponent, &dt->public_exponent_len, text, len))
 		return (1);
-	}
-	if (ft_val(&vl->private_exponent, &vl->private_exponent_len, text, len))
-	{
-		ft_print("error in private_exponent\n");
+	if (ft_val(&dt->private_exponent, &dt->private_exponent_len, text, len))
 		return (1);
-	}
-	if (ft_val(&vl->prime1, &vl->prime1_len, text, len))
+	if (ft_val(&dt->prime1, &dt->prime1_len, text, len))
 		return (1);
-	if (ft_val(&vl->prime2, &vl->prime2_len, text, len))
+	if (ft_val(&dt->prime2, &dt->prime2_len, text, len))
 		return (1);
-	if (ft_val(&vl->exponent1, &vl->exponent1_len, text, len))
+	if (ft_val(&dt->exponent1, &dt->exponent1_len, text, len))
 		return (1);
-	if (ft_val(&vl->exponent2, &vl->exponent2_len, text, len))
+	if (ft_val(&dt->exponent2, &dt->exponent2_len, text, len))
 		return (1);
-	if (ft_val(&vl->coefficient, &vl->coefficient_len, text, len))
+	if (ft_val(&dt->coefficient, &dt->coefficient_len, text, len))
 		return (1);
 	return (0);
 }

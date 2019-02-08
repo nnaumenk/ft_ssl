@@ -52,15 +52,17 @@ void	ft_memdiv(void *dst, void *src, size_t n);
 void	ft_memmul_by_2(void *s, size_t n);
 void	ft_memdiv_by_2(void *s, size_t n);
 
-int		ft_asn1_encode(t_rsa_data *values, char *text, size_t len);
-int		ft_asn1_decode(t_rsa_data *values, char *text, size_t len);
+int		ft_asn1_encode(t_rsa_data data, char **text, size_t *len);
+int		ft_asn1_decode(t_rsa_data *data, char *text, size_t len);
 void	ft_print_big_int(char *name, unsigned char *big_int, size_t len);
 
 int		ft_rsa_check_flag_rand(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_inform(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_outform(int *i, int ac, char **av, t_rsa_flag *flag);
+int		ft_rsa_check_flag_i(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_in(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_passin(int *i, int ac, char **av, t_rsa_flag *flag);
+int		ft_rsa_check_flag_o(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_out(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_passout(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_des(int *i, int ac, char **av, t_rsa_flag *flag);
