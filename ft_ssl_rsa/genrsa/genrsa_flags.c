@@ -22,9 +22,9 @@ static t_rsa_option	g_option[] =
 
 static char			*g_options_output =
 
-"-rand\t\tpoka hz\n"		\
-"-in file\t\tpoka hz\n"		\
-"-out file\t\tpoka hz\n"	\
+"-rand\t\tusing dev/urandom\n"		\
+"-in file\t\tusing file as input random data\n"		\
+"-out file\t\toutput to file\n"	\
 
 ;
 

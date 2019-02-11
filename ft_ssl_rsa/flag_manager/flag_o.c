@@ -12,26 +12,18 @@
 
 #include "../../ft_ssl.h"
 
-
-
-int			ft_rsa_make_flag_o(t_rsa *data)
+int		ft_rsa_make_flag_o(t_rsa *data)
 {
-	if (data->flag.text)
-	{
-		if (ft_get_data(&data->data, data->text, data->len))
-		{
-			ft_print("error\n");
-			//ft_strdel(&text);
-			return (1);
-		}
-		ft_strdel(&data->text);
-		ft_print_data(&data->data);
-	}
+	int		fd;
+
+	fd = ft_make_output_fd(data->flag.o);
+	if (fd == -1)
+		return (1);
+	write(fd, data->text, data->len);
+	if (fd != 1)
+		close(fd);
 	return (0);
 }
-
-
-
 
 int		ft_rsa_check_flag_o(int *i, int ac, char **av, t_rsa_flag *flag)
 {
@@ -40,6 +32,6 @@ int		ft_rsa_check_flag_o(int *i, int ac, char **av, t_rsa_flag *flag)
 		ft_print("ft_ssl: missing file argument for %s\n", av[*i - 1]);
 		return (1);
 	}
-	flag->out = av[*i];
+	flag->o = av[*i];
 	return (0);
 }

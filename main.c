@@ -103,6 +103,8 @@ void	ft_parse_from_console(t_alg *my)
 	}
 }
 
+
+
 int		main(int ac, char **av)
 {
 	t_alg	my;

@@ -77,6 +77,9 @@ int		ft_rsa_check_flag_encrypt(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_decrypt(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_hexdump(int *i, int ac, char **av, t_rsa_flag *flag);
 
+
+
+int		ft_rsa_make_flag_o(t_rsa *data);
 int		ft_rsa_make_flag_text(t_rsa *data);
 
 

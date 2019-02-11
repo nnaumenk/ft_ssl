@@ -19,6 +19,6 @@ int		ft_rsa_check_flag_i(int *i, int ac, char **av, t_rsa_flag *flag)
 		ft_print("ft_ssl: missing file argument for %s\n", av[*i - 1]);
 		return (1);
 	}
-	flag->in = av[*i];
+	flag->i = av[*i];
 	return (0);
 }

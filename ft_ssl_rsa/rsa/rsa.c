@@ -12,25 +12,33 @@
 
 #include "../../ft_ssl.h"
 
-// t_rsa_option	g_option[] =
+// typedef struct		s_rsa_data
 // {
-// 	{"-inform", ft_rsa_make_flag_inform},
-// 	{"-outform", ft_rsa_make_flag_outform},
-// 	{"-in", ft_rsa_make_flag_in},
-// 	{"-passin", ft_rsa_make_flag_passin},
-// 	{"-out", ft_rsa_make_flag_out},
-// 	{"-passout", ft_rsa_make_flag_passout},
-// 	{"-des", ft_rsa_make_flag_des},
-// 	{"-text", ft_rsa_make_flag_text},
-// 	{"-noout", ft_rsa_make_flag_noout},
-// 	{"-modulus", ft_rsa_make_flag_modulus},
-// 	{"-check", ft_rsa_make_flag_check},
-// 	{"-pubin", ft_rsa_make_flag_pubin},
-// 	{"-pubout", ft_rsa_make_flag_pubout},
-// 	{0, 0}
-// };
+// 	unsigned char	*modulus;
+// 	size_t			modulus_len;
+// 	unsigned char	*public_exponent;
+// 	size_t			public_exponent_len;
+// 	unsigned char	*private_exponent;
+// 	size_t			private_exponent_len;
+// 	unsigned char	*prime1;
+// 	size_t			prime1_len;
+// 	unsigned char	*prime2;
+// 	size_t			prime2_len;
+// 	unsigned char	*exponent1;
+// 	size_t			exponent1_len;
+// 	unsigned char	*exponent2;
+// 	size_t			exponent2_len;
+// 	unsigned char	*coefficient;
+// 	size_t			coefficient_len;
+// }					t_rsa_data;
 
-
+// typedef struct		s_rsa
+// {
+// 	char			*text;
+// 	size_t			len;
+// 	t_rsa_flag		flag;
+// 	t_rsa_data		data;
+// }					t_rsa;
 
 void	ft_rsa(void *v_data)
 {

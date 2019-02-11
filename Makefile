@@ -89,12 +89,13 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c					\
 				ft_ssl_rsa/rsa/rsa.c					\
 				ft_ssl_rsa/rsa/rsa_flags.c				\
 														\
+				ft_ssl_rsa/genrsa/genrsa.c				\
 				ft_ssl_rsa/genrsa/genrsa_flags.c		\
 														\
+				ft_ssl_rsa/rsautl/rsautl.c				\
 				ft_ssl_rsa/rsautl/rsautl_flags.c		\
 														\
 				ft_ssl_rsa/print_big_int.c				\
-				ft_ssl_rsa/standart_alg.c				\
 														\
 				hex_ascii.c								\
 				read.c									\
@@ -104,7 +105,7 @@ OFILES		=	$(CFILES:.c=.o)
 
 CC			=	gcc
 
-FLAGS		= 	-O2 -Wall -Wextra -Werror
+FLAGS		= 	-O2 #-Wall -Wextra -Werror
 
 LIBFT		=	libft/libft.a
 

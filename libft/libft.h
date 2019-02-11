@@ -56,6 +56,7 @@ int				get_next_line(const int fd, char **line);
 
 int				ft_print(const char *format, ...);
 int				ft_printf(const char *format, ...);
+char			*ft_mem_joiner(size_t *len, const int n, ...);
 void			ft_generate_random(char *str, unsigned int count);
 
 #endif
