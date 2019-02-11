@@ -12,7 +12,7 @@
 
 #include "../../ft_ssl.h"
 
-void		ft_mem_decrement(void *s, size_t n)
+void		ft_mem_decrement(void *memptr, size_t n)
 {
 	// uint64_t	*val64;
 	// uint64_t	sum;

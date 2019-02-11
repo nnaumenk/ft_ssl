@@ -59,7 +59,10 @@
 // }			
 
 
+void	ft_generate_genrsa_data(t_rsa *data)
+{
 
+}
 
 static void	ft_set_values_test(t_rsa_data *data)///ubrat
 {
@@ -128,6 +131,7 @@ void		ft_genrsa(void *v_data)
 	t_rsa	data;
 
 	data.flag = *(t_rsa_flag *)v_data;
+	ft_generate_genrsa_data(&data);
 	ft_set_values_test(&data.data);////change to generation
 	ft_genrsa_make_text(&data);
 	ft_delete_genrsa_data(&data.data);

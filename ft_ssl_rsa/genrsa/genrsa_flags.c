@@ -28,6 +28,21 @@ static char			*g_options_output =
 
 ;
 
+static int		ft_is_flag_numbits(t_rsa_flag *flag, char *str)
+{
+	size_t	numbits;
+
+	if (*str > '0' && *str < '9')
+	{
+		numbits = *str++ - '0';
+		while (*str > '0' && *str < '9')
+			numbits = numbits * 10 + *str++ - '0'
+		flag->numbits = numbits;
+		return (1);
+	}
+	return (0);
+}
+
 static void		ft_search_flags(t_alg *my, t_rsa_flag *flag, int ac, char **av)
 {
 	int		i;
@@ -46,6 +61,8 @@ static void		ft_search_flags(t_alg *my, t_rsa_flag *flag, int ac, char **av)
 			}
 		if (g_option[j].option_name == NULL)
 		{
+			if (ft_is_numbits(t_rsa_flag *flag, av[ac]))
+				break ;
 			ft_print("ft_ssl: '%s' is an unknown option\noptions are\n", av[i]);
 			ft_print("%s\n", g_options_output);
 			return ;

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   div_by_2.c                                         :+:      :+:    :+:   */
+/*   mul_by_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,24 +12,40 @@
 
 #include "../../ft_ssl.h"
 
-void		ft_memdiv_by_2(void *s, size_t n)
+static void	ft_memadd_8byte(void **memptr, size_t shl, unsigned char *overflow)
 {
-	// uint64_t	*val64;
-	// uint64_t	new_val;
-	// uint64_t	carry_out;
-	// int			size64;
+	size_t	overflow;
+	size_t	*mem64;
 	
-	// carry_out = 0;
-	// val64 = (uint64_t *)val8;
-	// size64 = size / 8;
-	// val64 += size64;
-	// while (size64--)
-	// {
-	// 	val64--;
-	// 	new_val = (*val64 >> 1) | (carry_out << 63);
-	// 	carry_out = *val64 & 0x0000000000000001;
-	// 	*val64 = new_val;
-	// }
-	USE(s);
-	USE(n);
+	overflow = 0;
+	mem64 = (size_t *)*memptr;
+	while (n--)
+	{
+		*mem64 = (*mem64 << shl) | overflow;
+		overflow = (*mem64 >> shl)
+		mem64++;
+	}
+	(*memptr) = mem64;
+}
+
+static void	ft_memshl_1byte(void **memptr, size_t shl, size_t n)
+{
+	unsigned char	overflow;
+	unsigned char	*mem8;
+	
+	overflow = 0;
+	mem8 = (unsigned char *)*memptr;
+	while (n--)
+	{
+		*mem8 = (*mem8 << shl) | overflow;
+		overflow = (*mem8 >> shl)
+		mem8++;
+	}
+	(*memptr) = mem64;
+}
+
+void		ft_memshl(void *memptr, size_t shl, size_t n)
+{
+	ft_memshl_8byte(&memptr, shl, n / sizeof(size_t));
+	ft_memshl_1byte(&memptr, shl, n % sizeof(size_t));
 }

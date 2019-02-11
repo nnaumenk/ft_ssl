@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mul_by_2.c                                         :+:      :+:    :+:   */
+/*   div_by_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../../ft_ssl.h"
 
-void		ft_memmul_by_2(void *s, size_t n)
+void		ft_memshr(void *s, size_t n)
 {
 	// uint64_t	*val64;
 	// uint64_t	new_val;
