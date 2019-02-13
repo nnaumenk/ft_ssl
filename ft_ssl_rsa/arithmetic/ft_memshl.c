@@ -12,43 +12,43 @@
 
 #include "../../ft_ssl.h"
 
-// static void	ft_memshl_8byte(void **memptr, size_t shl, unsigned char *overflow)
-// {
-// 	//size_t	overflow;
-// 	size_t	*mem64;
-	
-// 	overflow = 0;
-// 	mem64 = (size_t *)*memptr;
-// 	while (n--)
-// 	{
-// 		*mem64 = (*mem64 << shl) | overflow;
-// 		overflow = (*mem64 >> shl);
-// 		mem64++;
-// 	}
-// 	(*memptr) = mem64;
-// }
+static void	ft_copy_1byte(void *memptr, size_t shift, size_t n)
+{
+	size_t			i;
+	unsigned char	*src8;
+	unsigned char	*dst8;
 
-static void	ft_memshl_1byte(void **memptr, size_t shift, size_t n)
+	if (shift == 0)
+		return ;
+	src8 = (unsigned char *)memptr + n - shift;
+	dst8 = (unsigned char *)memptr + n;
+	i = shift - 1;
+	while (++i < n)
+		*--dst8 = *--src8;
+	ft_bzero(memptr, shift);
+}
+
+static void	ft_shift_1byte(void *memptr, size_t shift, size_t n)
 {
 	unsigned char	overflow;
+	unsigned char	buf;
 	unsigned char	*mem8;
-	
+
+	if (shift == 0)
+		return ;
 	overflow = 0;
-	mem8 = (unsigned char *)*memptr;
+	mem8 = (unsigned char *)memptr;
 	while (n--)
 	{
+		buf = (*mem8 >> (8 - shift));
 		*mem8 = (*mem8 << shift) | overflow;
-		overflow = (*mem8 >> shift);
+		overflow = buf;
 		mem8++;
 	}
-	(*memptr) = mem8;
 }
 
 void		ft_memshl(void *memptr, size_t shift, size_t n)
 {
-	//ft_memshl_byte(&memptr, shl / 8, n / sizeof(size_t));
-	//ft_memshl_8byte(&memptr, shl % 8, n / sizeof(size_t));
-	//ft_memshl_1byte(&memptr, shl % 8, n % sizeof(size_t));
-
-	ft_memshl_1byte(&memptr, shift, n);
+	ft_copy_1byte(memptr, shift / 8, n);
+	ft_shift_1byte(memptr, shift % 8, n);
 }

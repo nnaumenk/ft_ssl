@@ -103,22 +103,13 @@ void	ft_parse_from_console(t_alg *my)
 	}
 }
 
-
-
 int		main(int ac, char **av)
 {
 	t_alg	my;
 
-	USE(ac);
-	USE(av);
-	size_t i = 1000;
-	char *str = malloc(1000);
-	ft_generate_random(str, 1000);
-	while (i--)
-		ft_memshl(str, 50, 1000);
-	// if (ac == 1)
-	// 	ft_parse_from_console(&my);
-	// else if (ft_choose_first_param(&my, av[1]))
-	// 	(my.flag_pointer)(&my, ac - 2, &av[2]);
-	// return (0);
+	if (ac == 1)
+		ft_parse_from_console(&my);
+	else if (ft_choose_first_param(&my, av[1]))
+		(my.flag_pointer)(&my, ac - 2, av + 2);
+	return (0);
 }
