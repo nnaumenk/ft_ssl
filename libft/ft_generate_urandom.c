@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_generate_random.c                               :+:      :+:    :+:   */
+/*   ft_generate_urandom.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-void	ft_generate_random(void *mem, size_t n)
+void	ft_generate_urandom(void *mem, size_t n)
 {
 	static int		fd;
 
 	if (fd == 0)
-		fd = open("/dev/random", O_RDONLY);
+		fd = open("/dev/urandom", O_RDONLY);
 	read(fd, mem, n);
 }

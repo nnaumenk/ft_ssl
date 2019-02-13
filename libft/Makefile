@@ -42,6 +42,7 @@ CFILES	=	ft_free_matrix.c				\
 			ft_strsplit.c					\
 			ft_print.c						\
 			ft_generate_random.c			\
+			ft_generate_urandom.c			\
 			ft_mem_to_bits.c				\
 			ft_bits_to_mem.c				\
 			get_next_line.c					\

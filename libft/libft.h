@@ -19,6 +19,7 @@
 # include <stddef.h>
 # include <fcntl.h>
 # include <stdarg.h>
+# include "bit_field.h"
 
 void			ft_bzero(void *s, size_t n);
 char			*ft_malloc_str(size_t size);
@@ -57,6 +58,7 @@ int				get_next_line(const int fd, char **line);
 int				ft_print(const char *format, ...);
 int				ft_printf(const char *format, ...);
 char			*ft_mem_joiner(size_t *len, const int n, ...);
-void			ft_generate_random(char *str, unsigned int count);
+void			ft_generate_random(void *mem, size_t n);
+void			ft_generate_urandom(void *mem, size_t n);
 
 #endif

@@ -47,7 +47,7 @@ void	ft_memadd(void *dst, void *src, size_t n);
 void	ft_memsub(void *dst, void *src, size_t n);
 void	ft_mem_increment(void *memptr, size_t n);
 void	ft_mem_decrement(void *memptr, size_t n);
-void	ft_memmul(void *dst, void *src, size_t n);
+unsigned char	*ft_memmul(void *dst, void *src, size_t n1, size_t n2);
 void	ft_memdiv(void *dst, void *src, size_t n);
 void	ft_memshl(void *memptr, size_t shift, size_t n);
 void	ft_memshr(void *memptr, size_t shift, size_t n);

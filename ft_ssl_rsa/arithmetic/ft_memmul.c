@@ -12,42 +12,10 @@
 
 #include "../../ft_ssl.h"
 
-// static void	ft_mul_algor(uint8_t *buf, uint8_t *val1, uint8_t *val2, int size)
-// {
-// 	uint16_t	product;
-// 	uint8_t		overflow;
-	
-// 	overflow = 0;
-// 	while (size--)
-// 	{
-// 		product = (*val1) * (*val2) + overflow;
-// 		*buf = product % 0x100;
-// 		overflow = product / 0x100;
-// 		val2++;
-// 		buf++;
-// 	}
-// }
 
 
-void		ft_memmul(void *dst, void *src, size_t n)
-{
-	// uint8_t		val[size];///pererobyt na mallco
-	// uint8_t		val_buf[size];///pererobyt na malloc
-	// int			i;
 
-	// ft_bzero(val, size);
-	// i = -1;
-	// while (++i < size)
-	// {
-	// 	ft_bzero(val_buf, i);
-	// 	ft_mul_algor(val_buf + i, val8_1 + i, val8_2, size - i);
-	// 	//ft_byte_add(val, val_buf, size);
-	// }
-	// ft_memcpy(val8_1, val, size);
-	USE(src);
-	USE(dst);
-	USE(n);
-}
+
 
 // //64 ... 7f
 // static void	ft_mul_algor_fast(uint32_t *buf, uint32_t *val1, uint32_t *val2, int size)
@@ -85,3 +53,44 @@ void		ft_memmul(void *dst, void *src, size_t n)
 // 	}
 // 	ft_memcpy(val8_1, val, size);
 // }
+
+	5
+7	4
+	20
+35
+
+
+static void		ft_mul_algor(uint8_t *res, uint8_t *val1, uint8_t val2, size_t n1)
+{
+	uint16_t	product;
+	uint8_t		overflow;
+	
+	overflow = 0;
+	while (n1--)
+	{
+		product = (*val1) * (val2) + overflow + *res;
+		*res = product % 256;
+		overflow = product / 256;
+		val1++;
+		res++;
+	}
+}
+
+
+unsigned char	*ft_memmul(void *dst, void *src, size_t n1, size_t n2)
+{
+	unsigned char	*val1;
+	unsigned char	*val2;
+	unsigned char	*res;
+	unsigned char	*pointer;
+
+	val1 = dst;
+	val2 = src;
+	res = (unsigned char *)malloc(n1 + n2);
+	ft_bzero(res, n1 + n2);
+	pointer = res;
+	while (n2--)
+		ft_mul_algor(pointer++, val1, *val2++, n1);
+	return (res);
+}
+

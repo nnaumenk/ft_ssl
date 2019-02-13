@@ -58,9 +58,45 @@
 // 	t_rsa_data		data;
 // }			
 
+void	ft_generate_primes(t_rsa_data *data, size_t numbits)
+{
+	const char	mask1[] = {0xff, 0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f};
+	const char	mask2[] = {0x80, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40};
+	size_t		bit_prime1_len;
+	size_t		bit_prime2_len;
+	
+	bit_prime2_len = numbits / 2;
+	bit_prime1_len = numbits - bit_prime2_len;
+	data->prime1_len = (bit_prime1_len + 7) / 8;
+	data->prime2_len = (bit_prime2_len + 7) / 8;
+	data->prime1 = (unsigned char *)malloc(data->prime1_len);
+	data->prime2 = (unsigned char *)malloc(data->prime2_len);
+	ft_generate_urandom(data->prime1, data->prime1_len);
+	ft_generate_urandom(data->prime2, data->prime2_len);
+	data->prime1[0] |= 0x1;
+	data->prime2[0] |= 0x1;
+	data->prime1[data->prime1_len - 1] &= mask1[bit_prime1_len % 8];
+	data->prime2[data->prime2_len - 1] &= mask1[bit_prime2_len % 8];
+	data->prime1[data->prime1_len - 1] |= mask2[bit_prime1_len % 8];
+	data->prime2[data->prime2_len - 1] |= mask2[bit_prime2_len % 8];
+}
+
+void	ft_generate_modulus(t_rsa_data *data, size_t numbits)
+{
+	data->modulus_len = (numbits + 7) / 8;
+	data->modulus = (unsigned char *)malloc(data->modulus_len);
+	ft_bzero(data->modulus, data->modulus_len);
+	// ft_memcpy(data->modulus, data->prime1);
+	ft_memmul(data->modulus, data->prime2, data->modulus_len, data->prime2_len);
+
+}
 
 void	ft_generate_genrsa_data(t_rsa *data)
 {
+	ft_generate_primes(&data->data, data->flag.numbits);
+	ft_generate_modulus(&data->data, data->flag.numbits);
+		//ft_print_big_int();
+
 
 }
 
@@ -78,13 +114,13 @@ static void	ft_set_values_test(t_rsa_data *data)///ubrat
 	ft_memset(data->private_exponent, 64, 64);
 	data->private_exponent_len = 64;
 
-	data->prime1 = (unsigned char *)malloc(64);
-	ft_memset(data->prime1, 64, 64);
-	data->prime1_len = 64;
+	// data->prime1 = (unsigned char *)malloc(64);
+	// ft_memset(data->prime1, 64, 64);
+	// data->prime1_len = 64;
 
-	data->prime2 = (unsigned char *)malloc(64);
-	ft_memset(data->prime2, 64, 64);
-	data->prime2_len = 64;
+	// data->prime2 = (unsigned char *)malloc(64);
+	// ft_memset(data->prime2, 64, 64);
+	// data->prime2_len = 64;
 
 	data->exponent1 = (unsigned char *)malloc(64);
 	ft_memset(data->exponent1, 64, 64);

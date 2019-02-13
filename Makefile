@@ -105,7 +105,7 @@ OFILES		=	$(CFILES:.c=.o)
 
 CC			=	gcc
 
-FLAGS		= 	-O2 #-Wall -Wextra -Werror
+FLAGS		= 	-O2 -Wall -Wextra -Werror
 
 LIBFT		=	libft/libft.a
 

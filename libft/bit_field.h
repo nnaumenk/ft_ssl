@@ -1,22 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_generate_random.c                               :+:      :+:    :+:   */
+/*   bit_field.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2018/08/19 03:49:00 by nnaumenk         ###   ########.fr       */
+/*   Created: 2018/03/20 18:25:40 by nnaumenk          #+#    #+#             */
+/*   Updated: 2019/02/05 19:38:10 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef BIT_FIELD_H
+# define BIT_FIELD_H
 
-void	ft_generate_random(void *mem, size_t n)
+typedef struct	s_bit
 {
-	static int		fd;
+	unsigned 	n8:1;
+	unsigned 	n7:1;
+	unsigned 	n6:1;
+	unsigned 	n5:1;
+	unsigned 	n4:1;
+	unsigned 	n3:1;
+	unsigned 	n2:1;
+	unsigned 	n1:1;
+}				t_bit;
 
-	if (fd == 0)
-		fd = open("/dev/random", O_RDONLY);
-	read(fd, mem, n);
-}
+typedef struct	s_tetrit
+{
+	unsigned 	n4:2;
+	unsigned 	n3:2;
+	unsigned 	n2:2;
+	unsigned 	n1:2;
+}				t_tetrit;
+
+typedef union	s_byte
+{
+	t_bit		bit;
+	t_tetrit	tetrit;
+	char		byte;
+}				t_byte;
+
+#endif

@@ -61,7 +61,7 @@ static void		ft_search_flags(t_alg *my, t_rsa_flag *flag, int ac, char **av)
 			}
 		if (g_option[j].option_name == NULL)
 		{
-			if (ft_is_flag_numbits(flag, av[ac]))
+			if (ft_is_flag_numbits(flag, av[i]))
 				break ;
 			ft_print("ft_ssl: '%s' is an unknown option\n", av[i]);
 			ft_print("options are\n%s\n", g_options_output);

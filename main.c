@@ -107,6 +107,22 @@ int		main(int ac, char **av)
 {
 	t_alg	my;
 
+	unsigned char *val1;
+	unsigned char *val2;
+	unsigned char *res;
+
+	val1 = malloc(4);
+	ft_generate_urandom(val1, 1);
+	val2 = malloc(2);
+	ft_generate_urandom(val2, 1);
+	ft_print_big_int("1", val1, 1);
+	ft_print_big_int("2", val2, 1);
+	res = ft_memmul(val1, val2, 1, 1);
+	ft_print_big_int("3", res, 2);
+
+
+	USE(ac);
+	USE(av);
 	if (ac == 1)
 		ft_parse_from_console(&my);
 	else if (ft_choose_first_param(&my, av[1]))
