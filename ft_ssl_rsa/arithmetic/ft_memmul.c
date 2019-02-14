@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mul.c                                              :+:      :+:    :+:   */
+/*   ft_memmul.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2018/08/19 03:49:00 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/02/14 16:28:53 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,6 @@
 // 	ft_memcpy(val8_1, val, size);
 // }
 
-	5
-7	4
-	20
-35
-
-
 static void		ft_mul_algor(uint8_t *res, uint8_t *val1, uint8_t val2, size_t n1)
 {
 	uint16_t	product;
@@ -74,6 +68,8 @@ static void		ft_mul_algor(uint8_t *res, uint8_t *val1, uint8_t val2, size_t n1)
 		val1++;
 		res++;
 	}
+	if (overflow)
+		*res = overflow;
 }
 
 

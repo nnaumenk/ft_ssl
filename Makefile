@@ -6,7 +6,7 @@
 #    By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/17 21:34:09 by nnaumenk          #+#    #+#              #
-#    Updated: 2019/02/05 20:06:37 by nnaumenk         ###   ########.fr        #
+#    Updated: 2019/02/14 16:23:25 by nnaumenk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,7 +105,7 @@ OFILES		=	$(CFILES:.c=.o)
 
 CC			=	gcc
 
-FLAGS		= 	-O2 -Wall -Wextra -Werror
+FLAGS		= 	-O2 #-Wall -Wextra -Werror
 
 LIBFT		=	libft/libft.a
 
