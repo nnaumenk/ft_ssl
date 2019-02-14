@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 14:10:46 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/14 17:47:24 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/02/14 19:06:50 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,23 +109,25 @@ int		main(int ac, char **av)
 
 	unsigned char	*val1;
 	unsigned char	*val2;
-	size_t			n1 = 1;
+	size_t			n1 = 2;
 	size_t			n2 = 5;
 	size_t			n3;
 	unsigned char	*res;
 
 	val1 = malloc(n1);
-	ft_generate_urandom(val1, n1);
-	// val2 = malloc(n2);
-	// ft_generate_urandom(val2, n2);
+	val1[0] = 0;
+	val1[1] = 100;
+	val2 = malloc(2);
+	val2[0] = 0;
+	val2[1] = 100;
 	ft_print_big_int("1", val1, n1);
 	// ft_print_big_int("2", val2, n2);
 
 	size_t i = 10;
 	while (i--)
 	{
-		val1 = ft_memmul(val1, val1, n1, n1);
-		n1 *= 2;
+		val1 = ft_memmul(val1, val2, n1, n2);
+		n1 += n2;
 		ft_print_big_int("3", val1, n1);
 	}
 	
