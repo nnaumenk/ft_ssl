@@ -110,34 +110,31 @@ int		main(int ac, char **av)
 	unsigned char	*val1;
 	unsigned char	*val2;
 	size_t			n1 = 2;
-	size_t			n2 = 5;
-	size_t			n3;
-	unsigned char	*res;
+	size_t			n2 = 2;
+	unsigned char	*res1;
+	unsigned char	*res2;
+	unsigned char	*res3;
 
 	val1 = malloc(n1);
-	val1[0] = 0;
-	val1[1] = 100;
-	val2 = malloc(2);
-	val2[0] = 0;
-	val2[1] = 100;
-	ft_print_big_int("1", val1, n1);
-	// ft_print_big_int("2", val2, n2);
-
-	size_t i = 10;
-	while (i--)
-	{
-		val1 = ft_memmul(val1, val2, n1, n2);
-		n1 += n2;
-		ft_print_big_int("3", val1, n1);
-	}
-	
+	val1[0] = 255;
+	val1[1] = 0;
+	// val1[1] = 100;
+	// val1[2] = 150;
+	// val1[3] = 200;
+	val2 = malloc(n2);
+	val2[0] = 0xff;
+	val2[1] = 0;
+	// val2[1] = 99;
+	// val2[2] = 133;
+	// val2[3] = 199;
 
 
 	USE(ac);
 	USE(av);
-	if (ac == 1)
-		ft_parse_from_console(&my);
-	else if (ft_choose_first_param(&my, av[1]))
-		(my.flag_pointer)(&my, ac - 2, av + 2);
+	USE(my);
+	// if (ac == 1)
+	// 	ft_parse_from_console(&my);
+	// else if (ft_choose_first_param(&my, av[1]))
+	// 	(my.flag_pointer)(&my, ac - 2, av + 2);
 	return (0);
 }

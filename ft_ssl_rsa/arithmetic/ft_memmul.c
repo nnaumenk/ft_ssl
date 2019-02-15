@@ -12,95 +12,83 @@
 
 #include "../../ft_ssl.h"
 
-static unsigned char	*ft_memmul_4byte
-(unsigned int *val1, unsigned int *val2, size_t size1, size_t size2)
+static void		ft_memmul_1byte(
+unsigned char *res, unsigned char *val1, unsigned char *val2, size_t n2)
 {
 	size_t			i;
-	size_t			j;
-	unsigned int	*res;
-	unsigned int	overflow;
-	size_t			product;
-
-	res = (unsigned int *)malloc(4 * (size1 + size2));
-	ft_bzero(res, 4 * (size1 + size2));
-	overflow = 0;
-	i = -1;
-	while (++i < size1)
-	{
-		j = -1;
-		while (++j < size2)
-		{
-			product = val1[i] * val2[j] + overflow + res[i + j];
-			res[i + j] = product % 0x100000000;
-			overflow = product / 0x100000000;
-		}
-		if (overflow)
-			res[i + j] = overflow;
-	}
-	return (res);
-}
-
-static unsigned char	*ft_memmul_2byte
-(unsigned short *val1, unsigned short *val2, size_t size1, size_t size2)
-{
-	size_t			i;
-	size_t			j;
-	unsigned short	*res;
-	unsigned short	overflow;
-	unsigned int	product;
-
-	res = (unsigned short *)malloc(2 * (size1 + size2));
-	ft_bzero(res, 2 * (size1 + size2));
-	overflow = 0;
-	i = -1;
-	while (++i < size1)
-	{
-		j = -1;
-		while (++j < size2)
-		{
-			product = val1[i] * val2[j] + overflow + res[i + j];
-			res[i + j] = product % 0x10000;
-			overflow = product / 0x10000;
-		}
-		if (overflow)
-			res[i + j] = overflow;
-	}
-	return (res);
-}
-
-static unsigned char	*ft_memmul_1byte
-(unsigned char *val1, unsigned char *val2, size_t size1, size_t size2)
-{
-	size_t			i;
-	size_t			j;
-	unsigned char	*res;
-	unsigned char	overflow;
 	unsigned short	product;
+	unsigned char	overflow;
 
-	res = (unsigned char *)malloc(size1 + size2);
-	ft_bzero(res, size1 + size2);
-	overflow = 0;
-	i = -1;
-	while (++i < size1)
+	while (n2--)
 	{
-		j = -1;
-		while (++j < size2)
-		{
-			product = val1[i] * val2[j] + overflow + res[i + j];
-			res[i + j] = product % 0x100;
-			overflow = product / 0x100;
-		}
-		if (overflow)
-			res[i + j] = overflow;
+		product = *val1 * *val2 + overflow + *res;
+		*res = product % 0x100;
+		overflow = product / 0x100;
+		res++;
+		val2++;
 	}
+	if (overflow)
+		*res = overflow;
+}
+
+static void		ft_memmul_4byte(
+unsigned int *res32, unsigned int *val1, unsigned int *val32_2, size_t n2)
+{
+	size_t			i;
+	size_t			product;
+	unsigned int	overflow;
+	unsigned char	*val8_2;
+	unsigned char	*res8;
+
+	overflow = 0;
+	i = n2 / 4;
+	while (i--)
+	{
+		product = (size_t)*val1 * (size_t)*val32_2 + overflow + *res32;
+		*res32 = product % 0x100000000;
+		overflow = product / 0x100000000;
+		res32++;
+		val32_2++;
+	}
+	if (overflow)
+		*res32 = overflow;
+	val8_2 = (unsigned char	*)val32_2;
+	res8 = (unsigned char *)res32;
+	i = n2 % 4;
+	while (i--)
+		ft_memmul_1byte(res8++, val8_2++, (unsigned char *)val1, 4);
+}
+
+unsigned char	*ft_memmul_algor(
+unsigned char *val8_1, unsigned char *val8_2, size_t n1, size_t n2)
+{
+	size_t			i;
+	unsigned int	*val32_1;
+	unsigned int	*res32;
+	unsigned char	*res8;
+	unsigned char	*res;
+
+	res = (unsigned char *)malloc(n1 + n2);
+	ft_bzero(res, n1 + n2);
+	res32 = (unsigned int *)res;
+	val32_1 = (unsigned int *)val8_1;
+	i = n1 / 4;
+	while (i--)
+		ft_memmul_4byte(res32++, val32_1++, (unsigned int *)val8_2, n2);
+	i = n1 % 4;
+	res8 = (unsigned char *)res32;
+	val8_1 = (unsigned char	*)val32_1;
+	while (i--)
+		ft_memmul_1byte(res8++, val8_1++, val8_2, n2);
 	return (res);
 }
 
-unsigned char			*ft_memmul(void *m1, void *m2, size_t n1, size_t n2)
+unsigned char	*ft_memmul(void *mem1, void *mem2, size_t n1, size_t n2)
 {
-	if (n1 % 4 == 0 && n2 % 4 == 0)
-		return (ft_memmul_4byte(m1, m2, n1 / 4, n2 / 4));
-	if (n1 % 2 == 0 && n2 % 2 == 0)
-		return (ft_memmul_2byte(m1, m2, n1 / 2, n2 / 2));
-	return (ft_memmul_1byte(m1, m2, n1, n2));
+	unsigned char	*val8_1;
+	unsigned char	*val8_2;
+
+	val8_1 = mem1;
+	val8_2 = mem2;
+	return (ft_memmul_algor(val8_1, val8_2, n1, n2));
 }

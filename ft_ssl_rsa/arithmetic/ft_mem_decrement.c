@@ -12,28 +12,63 @@
 
 #include "../../ft_ssl.h"
 
+static void	ft_mem_increment_8byte(void **memptr, size_t i, char *overflow)
+{
+	size_t			*mem64;
+	size_t			sum64;
+
+	mem64 = (size_t *)*memptr;
+	while (i--)
+	{
+		sum64 = *mem64 - *overflow;
+		if (sum64 > *mem64)
+		{
+			*overflow = 1;
+			*mem64 = sum64;
+		}
+		else
+		{
+			*overflow = 0;
+			*mem64 = sum64;
+			break ;
+		}
+		mem64++;
+	}
+	*memptr = mem64;
+}
+
+static void	ft_mem_increment_1byte(void **memptr, size_t i, char *overflow)
+{
+	unsigned char	*mem8;
+	unsigned char	sum8;
+
+	if (*overflow == 0)
+		return ;
+	mem8 = (unsigned char *)*memptr;
+	while (i--)
+	{
+		sum8 = *mem8 - *overflow;
+		if (sum8 > *mem8)
+		{
+			*overflow = 1;
+			*mem8 = sum8;
+		}
+		else
+		{
+			*overflow = 0;
+			*mem8 = sum8;
+			break ;
+		}
+		mem8++;
+	}
+	*memptr = mem8;
+}
+
 void		ft_mem_decrement(void *memptr, size_t n)
 {
-	// uint64_t	*val64;
-	// uint64_t	sum;
-	// uint8_t		overflow;
-	// int			size64;
+	char	overflow;
 
-	// val64 = (uint64_t *)val8;
-	// overflow = 1;
-	// size64 = size / 8;
-	// while (size64--)
-	// {
-	// 	if (overflow == 0)
-	// 		break ;
-	// 	sum = *val64 - overflow;
-	// 	if (sum > *val64)
-	// 		overflow = 1;
-	// 	else
-	// 		overflow = 0;
-	// 	*val64 = sum;
-	// 	val64++;
-	// }
-	USE(memptr);
-	USE(n);
+	overflow = 1;
+	ft_mem_increment_8byte(&memptr, n / sizeof(size_t), &overflow);
+	ft_mem_increment_1byte(&memptr, n % sizeof(size_t), &overflow);
 }
