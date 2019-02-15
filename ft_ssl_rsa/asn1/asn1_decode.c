@@ -60,10 +60,16 @@ static int	ft_val(unsigned char **val, size_t *vlen, char **text, size_t *len)
 
 static int	ft_parse_values(t_rsa_data *dt, char **text, size_t *len)
 {
-	if (ft_val(&dt->modulus, &dt->modulus_len, text, len))
+	if (ft_val(&dt->version, &dt->version_len, text, len))
+	{
+		ft_print("1\n");
 		return (1);
+	}
 	if (ft_val(&dt->modulus, &dt->modulus_len, text, len))
+	{
+		ft_print("2\n");
 		return (1);
+	}
 	if (ft_val(&dt->public_exponent, &dt->public_exponent_len, text, len))
 		return (1);
 	if (ft_val(&dt->private_exponent, &dt->private_exponent_len, text, len))
@@ -86,19 +92,13 @@ static int	ft_check_size(char **text, size_t *len)
 	size_t	size;
 
 	if (*len < 1 || **text != 0x30)
-	{
-		ft_print("eror len1 0x30\n");
 		return (1);
-	}
 	*len -= 1;
 	(*text) += 1;
 	if (ft_get_byte_size(text, len, &size))
 		return (1);
 	if (*len != size)
-	{
-		ft_print("len[%U] != size[%U]\n", *len, size);
 		return (1);
-	}
 	return (0);
 }
 

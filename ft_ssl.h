@@ -37,6 +37,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>/////ubrat
+# include <math.h>///ubrat
 
 # include "ft_ssl_md5/ft_ssl_md5.h"
 # include "ft_ssl_des/ft_ssl_des.h"

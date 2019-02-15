@@ -76,6 +76,7 @@ void		ft_genrsa_flags(void *my, int ac, char **av)
 	t_rsa_flag		flag;
 
 	ft_bzero(&flag, sizeof(t_rsa_flag));
+	flag.numbits = 2048;
 	ft_search_flags(my, &flag, ac, av);
 	USE(my);
 }

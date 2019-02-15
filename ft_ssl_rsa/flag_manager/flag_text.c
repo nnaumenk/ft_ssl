@@ -12,7 +12,7 @@
 
 #include "../../ft_ssl.h"
 
-static int	ft_search_word(char **text, size_t *len, const char *line)
+static int		ft_search_word(char **text, size_t *len, const char *line)
 {
 	size_t		i;
 
@@ -30,7 +30,7 @@ static int	ft_search_word(char **text, size_t *len, const char *line)
 	return (1);
 }
 
-static int	ft_get_data(t_rsa_data *data, char *text, size_t len)
+static int		ft_get_data(t_rsa_data *data, char *text, size_t len)
 {
 	const char	*line1 = "-----BEGIN RSA PRIVATE KEY-----\n";
 	const char	*line2 = "\n-----END RSA PRIVATE KEY-----";
@@ -55,14 +55,41 @@ static int	ft_get_data(t_rsa_data *data, char *text, size_t len)
 		//ft_strdel(&rsa_key);
 		return (1);
 	}
-	ft_print("3\n");
 	ft_strdel(&rsa_key);
 	return (0);
 }
 
+static char	g_logarithm_2[] =
+{
+	-1,  0,  1,  1,  2,  2,  2,  2,  3,  3,  3,  3,  3,  3,  3,  3,
+	 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
+	 5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,
+	 5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,
+	 6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,
+	 6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,
+	 6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,
+	 6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,
+	 7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,
+	 7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,
+	 7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,
+	 7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,
+	 7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,
+	 7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,
+	 7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,
+	 7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,
+};
+
+static void	ft_print_numbits(unsigned char *modulus, size_t len)
+{
+	size_t	numbits;
+
+	numbits = (len - 1) * 8 + g_logarithm_2[modulus[len - 1]] + 1;
+	ft_printf("Private-Key: (%zu bit)\n");
+}
+
 static void	ft_print_data(t_rsa_data *data)
 {
-	ft_print("Private-Key: (%d bit)\n", 2048);
+	ft_print_numbits(data->modulus, data->modulus_len);
 	ft_print_big_int("modulus", data->modulus, data->modulus_len);
 	ft_print_big_int("publicExponent", data->public_exponent,
 	data->public_exponent_len);

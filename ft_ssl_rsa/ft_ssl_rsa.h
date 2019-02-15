@@ -42,6 +42,8 @@ typedef struct		s_rsa_flag
 
 typedef struct		s_rsa_data
 {
+	unsigned char	*version;
+	size_t			version_len;
 	unsigned char	*modulus;
 	size_t			modulus_len;
 	unsigned char	*public_exponent;

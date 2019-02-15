@@ -70,19 +70,19 @@ static void	ft_determine_size(t_rsa_data data, size_t *size, size_t *len)
 	*len = 2 * 8 + 3;
 	if (data.modulus_len >= 0x80)
 		*len += (data.modulus_len + 255) / 256;
-	if (data.modulus_len >= 0x80)
+	if (data.public_exponent_len >= 0x80)
 		*len += (data.public_exponent_len + 255) / 256;
-	if (data.modulus_len >= 0x80)
+	if (data.private_exponent_len >= 0x80)
 		*len += (data.private_exponent_len + 255) / 256; 
-	if (data.modulus_len >= 0x80)
+	if (data.prime1_len >= 0x80)
 		*len += (data.prime1_len + 255) / 256; 
-	if (data.modulus_len >= 0x80)
+	if (data.prime2_len >= 0x80)
 		*len += (data.prime2_len + 255) / 256; 
-	if (data.modulus_len >= 0x80)
+	if (data.exponent1_len >= 0x80)
 		*len += (data.exponent1_len + 255) / 256; 
-	if (data.modulus_len >= 0x80)
+	if (data.exponent2_len >= 0x80)
 		*len += (data.exponent2_len + 255) / 256; 
-	if (data.modulus_len >= 0x80)
+	if (data.coefficient_len >= 0x80)
 		*len += (data.coefficient_len + 255) / 256;
 	*len += data.modulus_len + data.public_exponent_len +
 	data.private_exponent_len + data.prime1_len + data.prime2_len +

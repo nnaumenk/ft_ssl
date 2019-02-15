@@ -58,7 +58,7 @@
 // 	t_rsa_data		data;
 // }			
 
-void	ft_generate_primes(t_rsa_data *data, size_t numbits)
+void	ft_get_primes(t_rsa_data *data, size_t numbits)
 {
 	const char	mask1[] = {0xff, 0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f};
 	const char	mask2[] = {0x80, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40};
@@ -81,20 +81,19 @@ void	ft_generate_primes(t_rsa_data *data, size_t numbits)
 	data->prime2[data->prime2_len - 1] |= mask2[bit_prime2_len % 8];
 }
 
-void	ft_generate_modulus(t_rsa_data *data, size_t numbits)
+void	ft_get_modulus(t_rsa_data *data)
 {
-	data->modulus_len = (numbits + 7) / 8;
-	data->modulus = (unsigned char *)malloc(data->modulus_len);
-	ft_bzero(data->modulus, data->modulus_len);
-	// ft_memcpy(data->modulus, data->prime1);
-	ft_memmul(data->modulus, data->prime2, data->modulus_len, data->prime2_len);
+	data->modulus =
+	ft_memmul(data->prime1, data->prime2, data->prime1_len, data->prime2_len);
+	data->modulus_len = data->prime1_len + data->prime2_len;
 
 }
 
 void	ft_generate_genrsa_data(t_rsa *data)
 {
-	ft_generate_primes(&data->data, data->flag.numbits);
-	ft_generate_modulus(&data->data, data->flag.numbits);
+	ft_get_primes(&data->data, data->flag.numbits);
+	//ft_check_primes();
+	ft_get_modulus(&data->data);
 		//ft_print_big_int();
 
 
@@ -102,9 +101,9 @@ void	ft_generate_genrsa_data(t_rsa *data)
 
 static void	ft_set_values_test(t_rsa_data *data)///ubrat
 {
-	data->modulus = (unsigned char *)malloc(64);
-	ft_memset(data->modulus, 64, 64);
-	data->modulus_len = 64;
+	// data->modulus = (unsigned char *)malloc(64);
+	// ft_memset(data->modulus, 64, 64);
+	// data->modulus_len = 64;
 
 	data->public_exponent = (unsigned char *)malloc(64);
 	ft_memset(data->public_exponent, 64, 64);
