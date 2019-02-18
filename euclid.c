@@ -37,34 +37,7 @@ while (1)
 
 
 
-size_t	gcd1(size_t a, size_t b)
-{
-	size_t tmp;
 
-	while (a)
-	{
-		tmp = a;
-		a = b % a;
-		b = tmp;
-	}
-	return (b);
-}
-
-size_t	gcd2(size_t a, size_t b)
-{
-	if (a == 0)
-		return (b);
-	if (b == 0)
-		return (a);
-	while (a != b)
-	{
-		if (a >= b)
-			a -= b;
-		else
-			b -= a;
-	}
-	return (a);
-}
 
 
 
