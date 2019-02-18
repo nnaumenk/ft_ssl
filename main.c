@@ -103,13 +103,73 @@ void	ft_parse_from_console(t_alg *my)
 	}
 }
 
+size_t	gcd1(size_t a, size_t b)
+{
+	size_t tmp;
+
+	while (a)
+	{
+		tmp = a;
+		a = b % a;
+		b = tmp;
+	}
+	return (b);
+}
+
+size_t	gcd2(size_t a, size_t b)
+{
+	if (a == 0)
+		return (b);
+	if (b == 0)
+		return (a);
+	while (a != b)
+	{
+		if (a >= b)
+			a -= b;
+		else
+			b -= a;
+	}
+	return (a);
+}
+
+
 int		main(int ac, char **av)
 {
-	t_alg	my;
+	// t_alg	my;
 
-	if (ac == 1)
-		ft_parse_from_console(&my);
-	else if (ft_choose_first_param(&my, av[1]))
-		(my.flag_pointer)(&my, ac - 2, av + 2);
+	size_t i = 100000000000000000;
+	while (i--)
+	{
+		gcd1(192285, 723);
+		gcd1(192285, 723);
+		gcd1(192285, 723);
+		gcd1(192285, 723);
+		gcd1(192285, 723);
+		gcd1(192285, 723);
+		gcd1(834, 923620);
+		gcd1(834, 923620);
+		gcd1(834, 923620);
+		gcd1(834, 923620);
+		gcd1(834, 923620);
+		gcd1(834, 923620);
+		gcd1(192285, 723);
+		gcd1(192285, 723);
+		gcd1(192285, 723);
+		gcd1(192285, 723);
+		gcd1(192285, 723);
+		gcd1(192285, 723);
+		gcd1(834, 923620);
+		gcd1(834, 923620);
+		gcd1(834, 923620);
+		gcd1(834, 923620);
+		gcd1(834, 923620);
+		gcd1(834, 923620);
+	}
+
+
+	// if (ac == 1)
+	// 	ft_parse_from_console(&my);
+	// else if (ft_choose_first_param(&my, av[1]))
+	// 	(my.flag_pointer)(&my, ac - 2, av + 2);
 	return (0);
 }

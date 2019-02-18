@@ -17,14 +17,20 @@ static t_rsa_option	g_option[] =
 	{"-rand", ft_rsa_check_flag_rand},
 	{"-i", ft_rsa_check_flag_i},
 	{"-o", ft_rsa_check_flag_o},
+	{"-3", NULL},
+	{"-f4", NULL},
 	{0, 0}
 };
+
+static char			*g_usage = "genrsa [args] [numbits]";
 
 static char			*g_options_output =
 
 "-rand\t\tusing dev/urandom\n"						\
 "-in file\t\tusing file as input random data\n"		\
 "-out file\t\toutput to file\n"						\
+"-3\t\tuse 3 for the E value\n"						\
+"-f4\t\tuse F4 (0x10001) for the E value\n"			\
 
 ;
 
@@ -32,10 +38,10 @@ static int		ft_is_flag_numbits(t_rsa_flag *flag, char *str)
 {
 	size_t	numbits;
 
-	if (*str > '0' && *str < '9')
+	if (*str >= '0' && *str <= '9')
 	{
 		numbits = *str++ - '0';
-		while (*str > '0' && *str < '9')
+		while (*str >= '0' && *str <= '9')
 			numbits = numbits * 10 + *str++ - '0';
 		flag->numbits = numbits;
 		return (1);
@@ -64,6 +70,7 @@ static void		ft_search_flags(t_alg *my, t_rsa_flag *flag, int ac, char **av)
 			if (ft_is_flag_numbits(flag, av[i]))
 				break ;
 			ft_print("ft_ssl: '%s' is an unknown option\n", av[i]);
+			ft_print("usage: \n", g_usage);
 			ft_print("options are\n%s\n", g_options_output);
 			return ;
 		}
@@ -78,5 +85,4 @@ void		ft_genrsa_flags(void *my, int ac, char **av)
 	ft_bzero(&flag, sizeof(t_rsa_flag));
 	flag.numbits = 2048;
 	ft_search_flags(my, &flag, ac, av);
-	USE(my);
 }

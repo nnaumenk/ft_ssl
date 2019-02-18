@@ -17,15 +17,18 @@ static int		ft_search_word(char **text, size_t *len, const char *line)
 	size_t		i;
 
 	i = 0;
-	while ((*len)--)
+	while (*len)
 	{
-		if (*(*text)++ == line[i])
+		if (**text == line[i])
 		{
-			if (line[++i] == 0)
+			++i;
+			if (line[i] == 0)
 				return (0);
 		}
 		else
 			i = 0;
+		(*len)--;
+		(*text)++;
 	}
 	return (1);
 }
@@ -34,25 +37,26 @@ static int		ft_get_data(t_rsa_data *data, char *text, size_t len)
 {
 	const char	*line1 = "-----BEGIN RSA PRIVATE KEY-----\n";
 	const char	*line2 = "\n-----END RSA PRIVATE KEY-----";
-	char		*start;
-	char		*end;
+	char		*start_key;
+	char		*end_key;
 	char		*rsa_key;
 
-	start = text;
-	if (ft_search_word(&start, &len, line1))
+	start_key = text;
+	if (ft_search_word(&start_key, &len, line1))
 		return (1);
-	end = start;
-	if (ft_search_word(&end, &len, line2))
+	start_key += 1;
+	end_key = start_key;
+	if (ft_search_word(&end_key, &len, line2))
 		return (1);
-	len = end - start + 30;
+	end_key -= 29;
+	len = end_key - start_key + 1;
 	rsa_key = (char *)malloc(len);
-	ft_memcpy(rsa_key, start, len);
+	ft_memcpy(rsa_key, start_key, len);
 	rsa_key = ft_b64_decode(rsa_key, &len);
-	ft_print("1\n");
 	if (ft_asn1_decode(data, rsa_key, len))
 	{
 		ft_print("error in decode\n");
-		//ft_strdel(&rsa_key);
+		ft_strdel(&rsa_key);
 		return (1);
 	}
 	ft_strdel(&rsa_key);
@@ -79,12 +83,13 @@ static char	g_logarithm_2[] =
 	 7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,
 };
 
-static void	ft_print_numbits(unsigned char *modulus, size_t len)
+static void	ft_print_numbits(unsigned char *modulus, size_t modulus_len)
 {
 	size_t	numbits;
 
-	numbits = (len - 1) * 8 + g_logarithm_2[modulus[len - 1]] + 1;
-	ft_printf("Private-Key: (%zu bit)\n");
+	numbits =
+	(modulus_len - 1) * 8 + g_logarithm_2[modulus[modulus_len - 1]] + 1;
+	ft_printf("Private-Key: (%zu bit)\n", numbits);
 }
 
 static void	ft_print_data(t_rsa_data *data)
@@ -109,7 +114,7 @@ int			ft_rsa_make_flag_text(t_rsa *data)
 		if (ft_get_data(&data->data, data->text, data->len))
 		{
 			ft_print("error\n");
-			//ft_strdel(&text);
+			ft_strdel(&data->text);
 			return (1);
 		}
 		ft_strdel(&data->text);

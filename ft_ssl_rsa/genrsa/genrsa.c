@@ -94,6 +94,7 @@ void	ft_generate_genrsa_data(t_rsa *data)
 	ft_get_primes(&data->data, data->flag.numbits);
 	//ft_check_primes();
 	ft_get_modulus(&data->data);
+	// ft_get_public_ecponent
 		//ft_print_big_int();
 
 
@@ -165,7 +166,9 @@ void		ft_genrsa(void *v_data)
 {
 	t_rsa	data;
 
+
 	data.flag = *(t_rsa_flag *)v_data;
+	ft_printf("numbits = %zu\n", data.flag.numbits);
 	ft_generate_genrsa_data(&data);
 	ft_set_values_test(&data.data);////change to generation
 	ft_genrsa_make_text(&data);

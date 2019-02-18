@@ -25,7 +25,7 @@ static int	ft_strsplit_counter(char *s, char c)
 		return (0);
 	while (s[i])
 	{
-		if (s[i] == c && (char)s[i + 1] != c && (char)s[i + 1] != '\0')
+		if (s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
 			words++;
 		i++;
 	}
@@ -41,7 +41,7 @@ char		**ft_strsplit(char *s, char c)
 
 	offset = 0;
 	arr_index = 0;
-	arr = (char**)malloc(sizeof(char*) * (ft_strsplit_counter(s, c) + 1));
+	arr = (char **)malloc(sizeof(char *) * (ft_strsplit_counter(s, c) + 1));
 	i = -1;
 	while (s[++i])
 	{

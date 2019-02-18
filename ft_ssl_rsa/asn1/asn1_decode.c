@@ -12,7 +12,7 @@
 
 #include "../../ft_ssl.h"
 
-static int	ft_get_byte_size(char **text, size_t *len, size_t *size)
+static int	ft_get_byte_amount(char **text, size_t *len, size_t *size)
 {
 	size_t			byte_count;
 	unsigned char	value;
@@ -43,13 +43,22 @@ static int	ft_get_byte_size(char **text, size_t *len, size_t *size)
 static int	ft_val(unsigned char **val, size_t *vlen, char **text, size_t *len)
 {
 	if (*len < 1 || **text != 0x02)
+	{
+		ft_print("first != 0x2\n");
 		return (1);
+	}
 	*len -= 1;
 	(*text) += 1;
-	if (ft_get_byte_size(text, len, vlen))
+	if (ft_get_byte_amount(text, len, vlen))
+	{
+		ft_print("byte_size");
 		return (1);
+	}
 	if (*len < *vlen)
+	{
+		ft_printf("len(%zu) < vlen(%zu)\n", *len, *vlen);
 		return (1);
+	}
 	*val = (unsigned char *)malloc(*vlen);
 	ft_memcpy(*val, *text, *vlen);
 	ft_memrev(*val, *vlen);
@@ -62,28 +71,49 @@ static int	ft_parse_values(t_rsa_data *dt, char **text, size_t *len)
 {
 	if (ft_val(&dt->version, &dt->version_len, text, len))
 	{
-		ft_print("1\n");
+		ft_print("1 value\n");
 		return (1);
 	}
 	if (ft_val(&dt->modulus, &dt->modulus_len, text, len))
 	{
-		ft_print("2\n");
+		ft_print("2 value\n");
 		return (1);
 	}
 	if (ft_val(&dt->public_exponent, &dt->public_exponent_len, text, len))
+	{
+		ft_print("3 value\n");
 		return (1);
+	}
 	if (ft_val(&dt->private_exponent, &dt->private_exponent_len, text, len))
+	{
+		ft_print("4 value\n");
 		return (1);
+	}
 	if (ft_val(&dt->prime1, &dt->prime1_len, text, len))
+	{
+		ft_print("5 value\n");
 		return (1);
+	}
 	if (ft_val(&dt->prime2, &dt->prime2_len, text, len))
+	{
+		ft_print("6 value\n");
 		return (1);
+	}
 	if (ft_val(&dt->exponent1, &dt->exponent1_len, text, len))
+	{
+		ft_print("7 value\n");
 		return (1);
+	}
 	if (ft_val(&dt->exponent2, &dt->exponent2_len, text, len))
+	{
+		ft_print("8 value\n");
 		return (1);
+	}
 	if (ft_val(&dt->coefficient, &dt->coefficient_len, text, len))
+	{
+		ft_print("9 value\n");
 		return (1);
+	}
 	return (0);
 }
 
@@ -95,7 +125,7 @@ static int	ft_check_size(char **text, size_t *len)
 		return (1);
 	*len -= 1;
 	(*text) += 1;
-	if (ft_get_byte_size(text, len, &size))
+	if (ft_get_byte_amount(text, len, &size))
 		return (1);
 	if (*len != size)
 		return (1);
@@ -111,7 +141,7 @@ int			ft_asn1_decode(t_rsa_data *data, char *text, size_t len)
 	}
 	if (ft_parse_values(data, &text, &len))
 	{
-		ft_print("error in values\n");
+		ft_print("error in values!\n");
 		return (1);
 	}
 	return (0);
