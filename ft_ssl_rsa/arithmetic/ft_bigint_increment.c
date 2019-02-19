@@ -10,18 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../ft_ssl.h"
+#include "ft_bigint.h"
 
 static void	ft_mem_increment_8byte(void **memptr, size_t i, char *overflow)
 {
-	size_t			*mem64;
-	size_t			sum64;
+	size_t		*mem64;
+	size_t		sum64;
 
 	mem64 = (size_t *)*memptr;
 	while (i--)
 	{
-		sum64 = *mem64 - *overflow;
-		if (sum64 > *mem64)
+		sum64 = *mem64 + *overflow;
+		if (sum64 < *mem64)
 		{
 			*overflow = 1;
 			*mem64 = sum64;
@@ -47,8 +47,8 @@ static void	ft_mem_increment_1byte(void **memptr, size_t i, char *overflow)
 	mem8 = (unsigned char *)*memptr;
 	while (i--)
 	{
-		sum8 = *mem8 - *overflow;
-		if (sum8 > *mem8)
+		sum8 = *mem8 + *overflow;
+		if (sum8 < *mem8)
 		{
 			*overflow = 1;
 			*mem8 = sum8;
@@ -64,7 +64,7 @@ static void	ft_mem_increment_1byte(void **memptr, size_t i, char *overflow)
 	*memptr = mem8;
 }
 
-void		ft_mem_decrement(void *memptr, size_t n)
+void		ft_mem_increment(void *memptr, size_t n)
 {
 	char	overflow;
 

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   div_by_2.c                                         :+:      :+:    :+:   */
+/*   ft_bigint_div.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,28 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../ft_ssl.h"
+#include "ft_bigint.h"
 
-void		ft_memdiv(void *dst, void *src, size_t n)
+
+
+static void	ft_div(unsigned char *val1, unsigned char *val2, size_t n1, size_t n2)
 {
-	// uint64_t	*val64;
-	// uint64_t	new_val;
-	// uint64_t	carry_out;
-	// int			size64;
-	
-	// carry_out = 0;
-	// val64 = (uint64_t *)val8;
-	// size64 = size / 8;
-	// val64 += size64;
-	// while (size64--)
-	// {
-	// 	val64--;
-	// 	new_val = (*val64 >> 1) | (carry_out << 63);
-	// 	carry_out = *val64 & 0x0000000000000001;
-	// 	*val64 = new_val;
-	// }
+	unsigned char	*offset;
+	unsigned char	*buf;
+	size_t			buf_len;
 
-	USE(src);
-	USE(dst);
-	USE(n);
+	offset = val1 + n1 - n2;
+	buf_len = n2;
+	buf = (unsigned char *)malloc(buf_len + 1);
+	buf[buf_len] = 0;
+	ft_memcpy(buf, offset, buf_len);
+	// check if bigger
+	// if no add 1 byte;
+
+	while (ft_bigint_smaller(buf, val2, buf_len, n2))
+	{
+		ft_memsub(buf, val2, buf_len, n2);
+
+		///add next byte
+	}
+
+}
+
+void	ft_bigint_div(void *mem1, void *mem2, size_t n1, size_t n2)
+{
+	if (ft_bigint_smaller(mem1, mem2, n1, n2))
+	{
+		ft_bzero(mem2, n2);
+		ft_memcpy(mem2, mem1, n1);
+		ft_bzero(mem1, n1);
+	}
 }

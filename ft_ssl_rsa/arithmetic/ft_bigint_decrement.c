@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add.c                                              :+:      :+:    :+:   */
+/*   decrement.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,59 +10,65 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../ft_ssl.h"
+#include "ft_bigint.h"
 
-static void	ft_memsub_8byte(void **dst, void **src, size_t i, char *overflow)
+static void	ft_mem_increment_8byte(void **memptr, size_t i, char *overflow)
 {
-	size_t			*dst64;
-	size_t			*src64;
+	size_t			*mem64;
 	size_t			sum64;
 
-	src64 = (size_t *)*src;
-	dst64 = (size_t *)*dst;
+	mem64 = (size_t *)*memptr;
 	while (i--)
 	{
-		sum64 = *dst64 - *src64 - *overflow;
-		if (sum64 > *dst64)
+		sum64 = *mem64 - *overflow;
+		if (sum64 > *mem64)
+		{
 			*overflow = 1;
+			*mem64 = sum64;
+		}
 		else
+		{
 			*overflow = 0;
-		*dst64 = sum64;
-		src64++;
-		dst64++;
+			*mem64 = sum64;
+			break ;
+		}
+		mem64++;
 	}
-	*src = src64;
-	*dst = dst64;
+	*memptr = mem64;
 }
 
-static void	ft_memsub_1byte(void **dst, void **src, size_t i, char *overflow)
+static void	ft_mem_increment_1byte(void **memptr, size_t i, char *overflow)
 {
-	unsigned char	*dst8;
-	unsigned char	*src8;
+	unsigned char	*mem8;
 	unsigned char	sum8;
-	
-	src8 = (unsigned char *)*src;
-	dst8 = (unsigned char *)*dst;
+
+	if (*overflow == 0)
+		return ;
+	mem8 = (unsigned char *)*memptr;
 	while (i--)
 	{
-		sum8 = *dst8 - *src8 - *overflow;
-		if (sum8 > *dst8)
+		sum8 = *mem8 - *overflow;
+		if (sum8 > *mem8)
+		{
 			*overflow = 1;
+			*mem8 = sum8;
+		}
 		else
+		{
 			*overflow = 0;
-		*dst8 = sum8;
-		src8++;
-		dst8++;
+			*mem8 = sum8;
+			break ;
+		}
+		mem8++;
 	}
-	*src = src8;
-	*dst = dst8;
+	*memptr = mem8;
 }
 
-void		ft_memsub(void *dst, void *src, size_t n)
+void		ft_bigint_decrement(void *memptr, size_t n)
 {
 	char	overflow;
 
-	overflow = 0;
-	ft_memsub_8byte(&dst, &src, n / sizeof(size_t), &overflow);
-	ft_memsub_1byte(&dst, &src, n % sizeof(size_t), &overflow);
+	overflow = 1;
+	ft_mem_increment_8byte(&memptr, n / sizeof(size_t), &overflow);
+	ft_mem_increment_1byte(&memptr, n % sizeof(size_t), &overflow);
 }

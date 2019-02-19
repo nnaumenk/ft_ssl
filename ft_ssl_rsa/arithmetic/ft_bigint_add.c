@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   decrement.c                                        :+:      :+:    :+:   */
+/*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,65 +10,59 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../ft_ssl.h"
+#include "ft_bigint.h"
 
-static void	ft_mem_increment_8byte(void **memptr, size_t i, char *overflow)
+static void	ft_add_8byte(void **mem1, void **mem2, size_t i, char *overflow)
 {
-	size_t		*mem64;
-	size_t		sum64;
+	size_t			*val1;
+	size_t			*val2;
+	size_t			sum64;
 
-	mem64 = (size_t *)*memptr;
+	val1 = (size_t *)*mem1;
+	val2 = (size_t *)*mem2;
 	while (i--)
 	{
-		sum64 = *mem64 + *overflow;
-		if (sum64 < *mem64)
-		{
+		sum64 = *val1 + *val2 + *overflow;
+		if (sum64 < *val2)
 			*overflow = 1;
-			*mem64 = sum64;
-		}
 		else
-		{
 			*overflow = 0;
-			*mem64 = sum64;
-			break ;
-		}
-		mem64++;
+		*val1 = sum64;
+		val1++;
+		val2++;
 	}
-	*memptr = mem64;
+	*mem1 = val1;
+	*mem2 = val2;
 }
 
-static void	ft_mem_increment_1byte(void **memptr, size_t i, char *overflow)
+static void	ft_add_1byte(void **mem1, void **mem2, size_t i, char *overflow)
 {
-	unsigned char	*mem8;
+	unsigned char	*val1;
+	unsigned char	*val2;
 	unsigned char	sum8;
-
-	if (*overflow == 0)
-		return ;
-	mem8 = (unsigned char *)*memptr;
+	
+	val1 = (unsigned char *)*mem1;
+	val2 = (unsigned char *)*mem2;
 	while (i--)
 	{
-		sum8 = *mem8 + *overflow;
-		if (sum8 < *mem8)
-		{
+		sum8 = *val1 + *val2 + *overflow;
+		if (sum8 < *val2)
 			*overflow = 1;
-			*mem8 = sum8;
-		}
 		else
-		{
 			*overflow = 0;
-			*mem8 = sum8;
-			break ;
-		}
-		mem8++;
+		*val1 = sum8;
+		val1++;
+		val2++;
 	}
-	*memptr = mem8;
+	*mem1 = val1;
+	*mem2 = val2;
 }
 
-void		ft_mem_increment(void *memptr, size_t n)
+void		ft_bigint_add(void *memptr1, void *memptr2, size_t n)
 {
 	char	overflow;
 
-	overflow = 1;
-	ft_mem_increment_8byte(&memptr, n / sizeof(size_t), &overflow);
-	ft_mem_increment_1byte(&memptr, n % sizeof(size_t), &overflow);
+	overflow = 0;
+	ft_add_8byte(&memptr1, &memptr2, n / sizeof(size_t), &overflow);
+	ft_add_1byte(&memptr1, &memptr2, n % sizeof(size_t), &overflow);
 }

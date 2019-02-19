@@ -14,92 +14,95 @@ NAME		=	ft_ssl
 
 HEADER		=	ft_ssl.h
 
-CFILES		=	ft_ssl_md5/md5/md5_1.c					\
-				ft_ssl_md5/md5/md5_2.c					\
-				ft_ssl_md5/sha1/sha1_1.c				\
-				ft_ssl_md5/sha1/sha1_2.c				\
-				ft_ssl_md5/sha256/sha256_1.c			\
-				ft_ssl_md5/sha256/sha256_2.c			\
-				ft_ssl_md5/sha512/sha512_1.c			\
-				ft_ssl_md5/sha512/sha512_2.c			\
-				ft_ssl_md5/whirlpool/whirlpool_1.c		\
-				ft_ssl_md5/whirlpool/whirlpool_2.c		\
-				ft_ssl_md5/md5_make_output.c			\
-				ft_ssl_md5/md5_flags.c					\
-				ft_ssl_md5/message_digest_alg.c			\
-														\
-				ft_ssl_des/pbkdf/hmac.c					\
-				ft_ssl_des/pbkdf/pbkdf2.c				\
-				ft_ssl_des/pbkdf/evp.c					\
-				ft_ssl_des/base64/base64_encode.c		\
-				ft_ssl_des/base64/base64_decode.c		\
-				ft_ssl_des/base64/base64_flags.c		\
-				ft_ssl_des/des/des_encrypt.c			\
-				ft_ssl_des/des/des_decrypt.c			\
-				ft_ssl_des/des/des_1.c					\
-				ft_ssl_des/des/des_2.c					\
-				ft_ssl_des/des/des_3.c					\
-				ft_ssl_des/des/des3_algors.c			\
-				ft_ssl_des/des/des3_algors_2.c			\
-				ft_ssl_des/des/des_algors.c				\
-				ft_ssl_des/des/des_algors_2.c			\
-				ft_ssl_des/des/des_flags.c				\
-				ft_ssl_des/des/des_flags_2.c			\
-				ft_ssl_des/des/des_flags_decrypt.c		\
-				ft_ssl_des/des/des_flags_encrypt.c		\
-				ft_ssl_des/check_flags_1.c				\
-				ft_ssl_des/check_flags_2.c				\
-				ft_ssl_des/cipher_alg.c					\
-				ft_ssl_des/cipher_alg_2.c				\
-				ft_ssl_des/cipher_alg_3.c				\
-														\
-				ft_ssl_rsa/arithmetic/ft_memadd.c		\
-				ft_ssl_rsa/arithmetic/ft_memsub.c		\
-				ft_ssl_rsa/arithmetic/ft_mem_increment.c\
-				ft_ssl_rsa/arithmetic/ft_mem_decrement.c\
-				ft_ssl_rsa/arithmetic/ft_memmul.c		\
-				ft_ssl_rsa/arithmetic/ft_memdiv.c		\
-				ft_ssl_rsa/arithmetic/ft_memshl.c		\
-				ft_ssl_rsa/arithmetic/ft_memshr.c		\
-														\
-				ft_ssl_rsa/asn1/asn1_encode.c			\
-				ft_ssl_rsa/asn1/asn1_decode.c			\
-														\
-				ft_ssl_rsa/flag_manager/flag_rand.c		\
-				ft_ssl_rsa/flag_manager/flag_check.c	\
-				ft_ssl_rsa/flag_manager/flag_des.c		\
-				ft_ssl_rsa/flag_manager/flag_i.c		\
-				ft_ssl_rsa/flag_manager/flag_in.c		\
-				ft_ssl_rsa/flag_manager/flag_inform.c	\
-				ft_ssl_rsa/flag_manager/flag_modulus.c	\
-				ft_ssl_rsa/flag_manager/flag_noout.c	\
-				ft_ssl_rsa/flag_manager/flag_o.c		\
-				ft_ssl_rsa/flag_manager/flag_out.c		\
-				ft_ssl_rsa/flag_manager/flag_outform.c	\
-				ft_ssl_rsa/flag_manager/flag_passin.c	\
-				ft_ssl_rsa/flag_manager/flag_passout.c	\
-				ft_ssl_rsa/flag_manager/flag_pubin.c	\
-				ft_ssl_rsa/flag_manager/flag_pubout.c	\
-				ft_ssl_rsa/flag_manager/flag_text.c		\
-				ft_ssl_rsa/flag_manager/flag_inkey.c	\
-				ft_ssl_rsa/flag_manager/flag_encrypt.c	\
-				ft_ssl_rsa/flag_manager/flag_decrypt.c	\
-				ft_ssl_rsa/flag_manager/flag_hexdump.c	\
-														\
-				ft_ssl_rsa/rsa/rsa.c					\
-				ft_ssl_rsa/rsa/rsa_flags.c				\
-														\
-				ft_ssl_rsa/genrsa/genrsa.c				\
-				ft_ssl_rsa/genrsa/genrsa_flags.c		\
-														\
-				ft_ssl_rsa/rsautl/rsautl.c				\
-				ft_ssl_rsa/rsautl/rsautl_flags.c		\
-														\
-				ft_ssl_rsa/print_big_int.c				\
-														\
-				hex_ascii.c								\
-				read.c									\
-				main.c									\
+CFILES		=	ft_ssl_md5/md5/md5_1.c						\
+				ft_ssl_md5/md5/md5_2.c						\
+				ft_ssl_md5/sha1/sha1_1.c					\
+				ft_ssl_md5/sha1/sha1_2.c					\
+				ft_ssl_md5/sha256/sha256_1.c				\
+				ft_ssl_md5/sha256/sha256_2.c				\
+				ft_ssl_md5/sha512/sha512_1.c				\
+				ft_ssl_md5/sha512/sha512_2.c				\
+				ft_ssl_md5/whirlpool/whirlpool_1.c			\
+				ft_ssl_md5/whirlpool/whirlpool_2.c			\
+				ft_ssl_md5/md5_make_output.c				\
+				ft_ssl_md5/md5_flags.c						\
+				ft_ssl_md5/message_digest_alg.c				\
+															\
+				ft_ssl_des/pbkdf/hmac.c						\
+				ft_ssl_des/pbkdf/pbkdf2.c					\
+				ft_ssl_des/pbkdf/evp.c						\
+				ft_ssl_des/base64/base64_encode.c			\
+				ft_ssl_des/base64/base64_decode.c			\
+				ft_ssl_des/base64/base64_flags.c			\
+				ft_ssl_des/des/des_encrypt.c				\
+				ft_ssl_des/des/des_decrypt.c				\
+				ft_ssl_des/des/des_1.c						\
+				ft_ssl_des/des/des_2.c						\
+				ft_ssl_des/des/des_3.c						\
+				ft_ssl_des/des/des3_algors.c				\
+				ft_ssl_des/des/des3_algors_2.c				\
+				ft_ssl_des/des/des_algors.c					\
+				ft_ssl_des/des/des_algors_2.c				\
+				ft_ssl_des/des/des_flags.c					\
+				ft_ssl_des/des/des_flags_2.c				\
+				ft_ssl_des/des/des_flags_decrypt.c			\
+				ft_ssl_des/des/des_flags_encrypt.c			\
+				ft_ssl_des/check_flags_1.c					\
+				ft_ssl_des/check_flags_2.c					\
+				ft_ssl_des/cipher_alg.c						\
+				ft_ssl_des/cipher_alg_2.c					\
+				ft_ssl_des/cipher_alg_3.c					\
+															\
+				ft_ssl_rsa/arithmetic/ft_bigint_bigger.c	\
+				ft_ssl_rsa/arithmetic/ft_bigint_smaller.c	\
+				ft_ssl_rsa/arithmetic/ft_bigint_equal.c		\
+				ft_ssl_rsa/arithmetic/ft_bigint_add.c		\
+				ft_ssl_rsa/arithmetic/ft_bigint_sub.c		\
+				ft_ssl_rsa/arithmetic/ft_bigint_increment.c	\
+				ft_ssl_rsa/arithmetic/ft_bigint_decrement.c	\
+				ft_ssl_rsa/arithmetic/ft_bigint_mul.c		\
+				ft_ssl_rsa/arithmetic/ft_bigint_div.c		\
+				ft_ssl_rsa/arithmetic/ft_bigint_shl.c		\
+				ft_ssl_rsa/arithmetic/ft_bigint_shr.c		\
+															\
+				ft_ssl_rsa/asn1/asn1_encode.c				\
+				ft_ssl_rsa/asn1/asn1_decode.c				\
+															\
+				ft_ssl_rsa/flag_manager/flag_rand.c			\
+				ft_ssl_rsa/flag_manager/flag_check.c		\
+				ft_ssl_rsa/flag_manager/flag_des.c			\
+				ft_ssl_rsa/flag_manager/flag_i.c			\
+				ft_ssl_rsa/flag_manager/flag_in.c			\
+				ft_ssl_rsa/flag_manager/flag_inform.c		\
+				ft_ssl_rsa/flag_manager/flag_modulus.c		\
+				ft_ssl_rsa/flag_manager/flag_noout.c		\
+				ft_ssl_rsa/flag_manager/flag_o.c			\
+				ft_ssl_rsa/flag_manager/flag_out.c			\
+				ft_ssl_rsa/flag_manager/flag_outform.c		\
+				ft_ssl_rsa/flag_manager/flag_passin.c		\
+				ft_ssl_rsa/flag_manager/flag_passout.c		\
+				ft_ssl_rsa/flag_manager/flag_pubin.c		\
+				ft_ssl_rsa/flag_manager/flag_pubout.c		\
+				ft_ssl_rsa/flag_manager/flag_text.c			\
+				ft_ssl_rsa/flag_manager/flag_inkey.c		\
+				ft_ssl_rsa/flag_manager/flag_encrypt.c		\
+				ft_ssl_rsa/flag_manager/flag_decrypt.c		\
+				ft_ssl_rsa/flag_manager/flag_hexdump.c		\
+															\
+				ft_ssl_rsa/rsa/rsa.c						\
+				ft_ssl_rsa/rsa/rsa_flags.c					\
+															\
+				ft_ssl_rsa/genrsa/genrsa.c					\
+				ft_ssl_rsa/genrsa/genrsa_flags.c			\
+															\
+				ft_ssl_rsa/rsautl/rsautl.c					\
+				ft_ssl_rsa/rsautl/rsautl_flags.c			\
+															\
+				ft_ssl_rsa/print_big_int.c					\
+															\
+				hex_ascii.c									\
+				read.c										\
+				main.c										\
 
 OFILES		=	$(CFILES:.c=.o)
 

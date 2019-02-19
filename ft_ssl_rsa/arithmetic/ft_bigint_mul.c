@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../ft_ssl.h"
+#include "ft_bigint.h"
 
 static void		ft_memmul_1byte(
 unsigned char *res, unsigned char *val1, unsigned char *val2, size_t n2)

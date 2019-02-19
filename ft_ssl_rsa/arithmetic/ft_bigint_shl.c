@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   div_by_2.c                                         :+:      :+:    :+:   */
+/*   mul_by_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../ft_ssl.h"
+#include "ft_bigint.h"
 
 static void	ft_copy_1byte(void *memptr, size_t shift, size_t n)
 {
@@ -20,12 +20,12 @@ static void	ft_copy_1byte(void *memptr, size_t shift, size_t n)
 
 	if (shift == 0)
 		return ;
-	src8 = (unsigned char *)memptr;
-	dst8 = (unsigned char *)memptr + shift;
+	src8 = (unsigned char *)memptr + n - shift;
+	dst8 = (unsigned char *)memptr + n;
 	i = shift - 1;
 	while (++i < n)
-		*dst8++ = *src8++;
-	ft_bzero(memptr + n - shift, shift);
+		*--dst8 = *--src8;
+	ft_bzero(memptr, shift);
 }
 
 static void	ft_shift_1byte(void *memptr, size_t shift, size_t n)
@@ -37,17 +37,17 @@ static void	ft_shift_1byte(void *memptr, size_t shift, size_t n)
 	if (shift == 0)
 		return ;
 	overflow = 0;
-	mem8 = (unsigned char *)memptr + n - 1;
+	mem8 = (unsigned char *)memptr;
 	while (n--)
 	{
-		buf = (*mem8 << (8 - shift));
-		*mem8 = (*mem8 >> shift) | overflow;
+		buf = (*mem8 >> (8 - shift));
+		*mem8 = (*mem8 << shift) | overflow;
 		overflow = buf;
-		mem8--;
+		mem8++;
 	}
 }
 
-void		ft_memshr(void *memptr, size_t shift, size_t n)
+void		ft_memshl(void *memptr, size_t shift, size_t n)
 {
 	ft_copy_1byte(memptr, shift / 8, n);
 	ft_shift_1byte(memptr, shift % 8, n);

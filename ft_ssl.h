@@ -44,15 +44,6 @@
 # include "ft_ssl_rsa/ft_ssl_rsa.h"	
 # include "main_struct.h"
 
-void	ft_memadd(void *dst, void *src, size_t n);
-void	ft_memsub(void *dst, void *src, size_t n);
-void	ft_mem_increment(void *memptr, size_t n);
-void	ft_mem_decrement(void *memptr, size_t n);
-unsigned char	*ft_memmul(void *dst, void *src, size_t n1, size_t n2);
-void	ft_memdiv(void *dst, void *src, size_t n);
-void	ft_memshl(void *memptr, size_t shift, size_t n);
-void	ft_memshr(void *memptr, size_t shift, size_t n);
-
 int		ft_asn1_encode(t_rsa_data data, char **text, size_t *len);
 int		ft_asn1_decode(t_rsa_data *data, char *text, size_t len);
 void	ft_print_big_int(char *name, unsigned char *big_int, size_t len);

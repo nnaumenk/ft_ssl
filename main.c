@@ -103,7 +103,7 @@ void	ft_parse_from_console(t_alg *my)
 	}
 }
 
-size_t	gcd1(size_t a, size_t b)
+size_t	gcd1_b(size_t a, size_t b)
 {
 	size_t tmp;
 
@@ -116,7 +116,7 @@ size_t	gcd1(size_t a, size_t b)
 	return (b);
 }
 
-size_t	gcd2(size_t a, size_t b)
+size_t	gcd2_b(size_t a, size_t b)
 {
 	if (a == 0)
 		return (b);
@@ -132,40 +132,200 @@ size_t	gcd2(size_t a, size_t b)
 	return (a);
 }
 
+static int	ft_iszero(void *memptr, size_t num)
+{
+	size_t			i;
+	size_t			*str64;
+	unsigned char	*str8;
+
+	str64 = (size_t *)memptr;
+	i = num / sizeof(size_t);
+	while (i--)
+		if (*str64++ != 0)
+			return (0);
+	str8 = (unsigned char *)str64;
+	i = num % sizeof(size_t);
+	while (i--)
+		if (*str8++ != 0)
+			return (0);
+	return (1);
+}
+
+// void	gcd2(unsigned char *mem1, unsigned char *mem2, size_t len1, size_t len2)
+// {
+// 	unsigned char	*res;
+// 	size_t			res_len;
+
+// 	while (ft_bigint_equal(mem1, mem2, len1, len2) == 0)
+// 	{
+// 		if (ft_bigint_bigger(mem1, mem2, len1, len2))
+// 			ft_bigint_sub(mem1, mem2, len1);
+// 		else
+// 			ft_bigint_sub(mem2, mem1, len2);
+// 	}
+// }
+
+
+
+
+// void	gcdex(unsigned char *mem1, unsigned char *mem2, size_t len1, size_t len2)
+// {
+// 	unsigned char	*res;
+// 	size_t			res_len;
+// 	unsigned char	*buf1;
+// 	unsigned char	*buf2;
+	
+// 	if (mem1 + 1 == mem2)
+// 		return ;
+// 	if (mem1 < )
+
+// }
+
+// size_t	gcdex1(size_t val1, size_t val2)
+// {
+// 	size_t		counter;
+// 	size_t		res;
+// 	size_t		buf1;
+// 	size_t		buf2;
+	
+// 	counter = 1;
+// 	buf1 = val1;
+// 	buf2 = val2;
+// 	while (1)
+// 	{
+// 		if (buf1 == buf2 + 1)
+// 			break ; 
+// 		if (buf1 < buf2 + 1)
+// 			while (1)
+// 			{
+// 				counter++;
+// 				buf1 += val1;
+// 				if (buf1 > buf2)
+// 					break ;
+// 			}
+// 		if (buf1 > buf2 + 1)
+// 			while (1)
+// 			{
+// 				buf2 += val2;
+// 				if (buf2 > buf1)
+// 					break ;
+// 			}
+// 	}
+// 	return (counter);
+// }
+
+static int	ft_check_b_null(size_t a, size_t b, size_t *x, size_t *y)
+{
+	if (b == 0)
+	{
+		*x = 1;
+		*y = 0;
+		return (1);
+	}
+	return (0);
+}
+
+// void 		gcdex(size_t a, size_t b, size_t *x, size_t *y)
+// {
+// 	size_t	integer;
+// 	size_t	remainder;
+// 	size_t	xx[2];
+// 	size_t	yy[2];
+
+// 	if (ft_check_b_null(a, b, x, y))
+// 		return ;
+// 	x[1] = 1;
+// 	x[0] = 0;
+// 	y[1] = 0;
+// 	y[0] = 1;
+// 	while (b > 0)
+// 	{
+// 		integer = a / b;
+// 		remainder = a - integer * b;
+// 		*x = x[1] - integer * x[0];
+// 		*y = y[1] - integer * y[0];
+// 		a = b;
+// 		b = remainder;
+// 		x[1] = x[0];
+// 		x[0] = *x;
+// 		y[1] = y[0];
+// 		y[0] = *y;
+// 	}
+// 	*x = x[1];
+// 	*y = y[1];
+// }
 
 int		main(int ac, char **av)
 {
 	// t_alg	my;
+	// size_t	a = 24723892;
+	// size_t	b = 39429;
+	// size_t	x;
+	// size_t	y;
+	// size_t	d;
+	// gcdex(a, b, &x, &y, &d);
 
-	size_t i = 100000000000000000;
-	while (i--)
-	{
-		gcd1(192285, 723);
-		gcd1(192285, 723);
-		gcd1(192285, 723);
-		gcd1(192285, 723);
-		gcd1(192285, 723);
-		gcd1(192285, 723);
-		gcd1(834, 923620);
-		gcd1(834, 923620);
-		gcd1(834, 923620);
-		gcd1(834, 923620);
-		gcd1(834, 923620);
-		gcd1(834, 923620);
-		gcd1(192285, 723);
-		gcd1(192285, 723);
-		gcd1(192285, 723);
-		gcd1(192285, 723);
-		gcd1(192285, 723);
-		gcd1(192285, 723);
-		gcd1(834, 923620);
-		gcd1(834, 923620);
-		gcd1(834, 923620);
-		gcd1(834, 923620);
-		gcd1(834, 923620);
-		gcd1(834, 923620);
-	}
+	// ft_printf("%zu\n", a);
+	// ft_printf("%zu\n", b);
+	// ft_printf("%zu\n", x);
+	// ft_printf("%zu\n", y);
+	// ft_printf("%zu\n", d);
 
+
+	// 123 - 463;
+	// 123 - 123;
+
+	// 888 - 99;
+
+	// 255 - 653;
+	// 255 - 255;
+	// 65533 - 255;
+
+	unsigned char *val1 = malloc(10);
+	unsigned char *val2 = malloc(10);
+	ft_generate_urandom(val1, 10);
+	ft_generate_urandom(val2, 10);
+	// val1[0] = 255;
+	// val2[0] = 1;
+	// val2[1] = 1;
+	// ft_bigint_sub(val1, val2, 1, 1);
+	// ft_print_big_int("1", val1, 1);
+
+	val1[0] = 254;
+
+	val2[0] = 50;
+	ft_bigint_sub(val1, val2, 1, 1);
+	ft_print_big_int("2", val1, 1);
+
+	// val1[0] = 254;
+	// val1[1] = 255;
+	// val2[0] = 255;
+	// ft_bigint_sub(val1, val2, 2, 1);
+	// ft_print_big_int("3", val1, 2);
+
+
+	// unsigned char	*mem1;
+	// unsigned char	*mem2;
+
+	// size_t	len1 = 1024;
+	// size_t	len2 = 1024;
+
+	// mem1 = malloc(len1);
+	// mem2 = malloc(len2);
+
+	// ft_generate_urandom(mem1, len1);
+	// ft_generate_urandom(mem2, len2);
+
+	// ft_print_big_int("mem1", mem1, len1);
+	// ft_print_big_int("mem2", mem2, len2);
+
+	// gcd2(mem1, mem2, len1, len2);
+		
+	// ft_print_big_int("res1", mem1, len1);
+	// ft_print_big_int("res2", mem2, len2);	
+
+	// if (ac == 3)
+	// 	printf("%zu\n", gcdex1(atoi(av[1]), atoi(av[2])));
 
 	// if (ac == 1)
 	// 	ft_parse_from_console(&my);

@@ -64,21 +64,21 @@ void ExtBinEuclid(int *u, int *v, int *u1, int *u2, int *u3)
 	t1 = *v;
 	t2 = *u - 1;
 	t3 = *v;
-	while(1)
+	while (1)
 	{
-		while(1)
+		while (1)
 		{
 			if (isEven(*u3))
 			{
-				if (isOdd(*ul) || isOdd(*u2))
+				if (isOdd(*u1) || isOdd(*u2))
 					*u1 += *v; *u2 += *u;
-				*ul >>= 1;
+				*u1 >>= 1;
 				*u2 >>= 1;
 				*u3 >>= 1;
 			}
 			if (isEven(t3) || *u3 < t3)
 			{
-				swap(*ul, tl);
+				swap(*u1, t1);
 				swap(*u2, t2);
 				swap(*u3, t3);
 			}
@@ -96,9 +96,9 @@ void ExtBinEuclid(int *u, int *v, int *u1, int *u2, int *u3)
 		if (t3 <= 0)
 			break ;
 	}
-	while (*ul >= *v && *u2 >= *u)
+	while (*u1 >= *v && *u2 >= *u)
 	{
-		*ul>l -= *v;
+		*u1 -= *v;
 		*u2 -= *u;
 	}
 	*u <<= k;
