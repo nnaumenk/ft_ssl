@@ -6,7 +6,7 @@
 #    By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/17 21:34:09 by nnaumenk          #+#    #+#              #
-#    Updated: 2019/02/14 16:23:25 by nnaumenk         ###   ########.fr        #
+#    Updated: 2019/02/20 19:42:57 by nnaumenk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_rsa/arithmetic/ft_bigint_div.c		\
 				ft_ssl_rsa/arithmetic/ft_bigint_shl.c		\
 				ft_ssl_rsa/arithmetic/ft_bigint_shr.c		\
+				ft_ssl_rsa/arithmetic/ft_bigint_normalize.c	\
 															\
 				ft_ssl_rsa/asn1/asn1_encode.c				\
 				ft_ssl_rsa/asn1/asn1_decode.c				\

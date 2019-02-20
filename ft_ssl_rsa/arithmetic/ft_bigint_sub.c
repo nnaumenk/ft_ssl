@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add.c                                              :+:      :+:    :+:   */
+/*   ft_bigint_sub.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2018/08/19 03:49:00 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/02/20 20:29:21 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,10 @@ static void	ft_sub_1byte(void **mem1, void **mem2, size_t i, char *overflow)
 	unsigned char	sum8;
 	
 	val1 = (unsigned char *)*mem1;
-	val2 = (unsigned char *)*mem1;
-	ft_printf("a = %hhu\n", val1);
-	ft_printf("b = %hhu\n", val2);
+	val2 = (unsigned char *)*mem2;
 	while (i--)
 	{
 		sum8 = *val1 - *val2 - *overflow;
-		ft_printf("sum = %hhd\n", sum8);
 		if (sum8 > *val1)
 			*overflow = 1;
 		else
@@ -65,13 +62,12 @@ void		ft_bigint_sub(void *memptr1, void *memptr2, size_t n1, size_t n2)
 {
 	char	overflow;
 
-	// if (ft_bigint_smaller(memptr1, memptr2, n1, n2))
-	// {
-	// 	ft_bzero(memptr1, n1);
-	// 	return ;
-	// }
+	if (ft_bigint_smaller(memptr1, memptr2, n1, n2))
+	{
+		ft_bzero(memptr1, n1);
+		return ;
+	}
 	overflow = 0;
-	ft_printf("a\n");
 	ft_sub_8byte(&memptr1, &memptr2, n2 / sizeof(size_t), &overflow);
 	ft_sub_1byte(&memptr1, &memptr2, n2 % sizeof(size_t), &overflow);
 	if (overflow)

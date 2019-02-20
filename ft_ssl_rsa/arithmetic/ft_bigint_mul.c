@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmul.c                                        :+:      :+:    :+:   */
+/*   ft_bigint_mul.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/14 19:08:50 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/02/20 20:29:11 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,17 @@ unsigned char *val8_1, unsigned char *val8_2, size_t n1, size_t n2)
 	return (res);
 }
 
-unsigned char	*ft_memmul(void *mem1, void *mem2, size_t n1, size_t n2)
+void	ft_memmul(void **mem1, void **mem2, size_t *n1, size_t *n2)
 {
+	unsigned char	*res;
 	unsigned char	*val8_1;
 	unsigned char	*val8_2;
 
 	val8_1 = mem1;
 	val8_2 = mem2;
-	return (ft_memmul_algor(val8_1, val8_2, n1, n2));
+	res = ft_memmul_algor(val8_1, val8_2, n1, n2);
+	ft_strdel(mem1);
+	*mem1 = (void *)res;
+	*n1 += *n2;
+	ft_bigint_normalize(*mem1, n1);
 }

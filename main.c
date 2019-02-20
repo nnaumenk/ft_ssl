@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 14:10:46 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/14 19:06:50 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/02/20 20:45:22 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,30 +229,30 @@ static int	ft_check_b_null(size_t a, size_t b, size_t *x, size_t *y)
 // {
 // 	size_t	integer;
 // 	size_t	remainder;
-// 	size_t	xx[2];
-// 	size_t	yy[2];
+// 	size_t	x_buf[2];
+// 	size_t	y_buf[2];
 
 // 	if (ft_check_b_null(a, b, x, y))
 // 		return ;
-// 	x[1] = 1;
-// 	x[0] = 0;
-// 	y[1] = 0;
-// 	y[0] = 1;
+// 	x_buf[1] = 1;
+// 	x_buf[0] = 0;
+// 	y_buf[1] = 0;
+// 	y_buf[0] = 1;
 // 	while (b > 0)
 // 	{
 // 		integer = a / b;
 // 		remainder = a - integer * b;
-// 		*x = x[1] - integer * x[0];
-// 		*y = y[1] - integer * y[0];
+// 		*x = x_buf[1] - integer * x_buf[0];
+// 		*y = y_buf[1] - integer * y_buf[0];
 // 		a = b;
 // 		b = remainder;
-// 		x[1] = x[0];
-// 		x[0] = *x;
-// 		y[1] = y[0];
-// 		y[0] = *y;
+// 		x_buf[1] = x_buf[0];
+// 		x_buf[0] = *x;
+// 		y_buf[1] = y_buf[0];
+// 		y_buf[0] = *y;
 // 	}
-// 	*x = x[1];
-// 	*y = y[1];
+// 	*x = x_buf[1];
+// 	*y = y_buf[1];
 // }
 
 int		main(int ac, char **av)
@@ -281,28 +281,25 @@ int		main(int ac, char **av)
 	// 255 - 255;
 	// 65533 - 255;
 
-	unsigned char *val1 = malloc(10);
-	unsigned char *val2 = malloc(10);
-	ft_generate_urandom(val1, 10);
-	ft_generate_urandom(val2, 10);
-	// val1[0] = 255;
-	// val2[0] = 1;
-	// val2[1] = 1;
-	// ft_bigint_sub(val1, val2, 1, 1);
-	// ft_print_big_int("1", val1, 1);
+	unsigned char	*val1;
+	unsigned char	*val2;
 
-	val1[0] = 254;
+	size_t	len1 = 5;
+	size_t	len2 = 2;
 
-	val2[0] = 50;
-	ft_bigint_sub(val1, val2, 1, 1);
-	ft_print_big_int("2", val1, 1);
+	val1 = malloc(len1);
+	val2 = malloc(len2);
 
-	// val1[0] = 254;
-	// val1[1] = 255;
-	// val2[0] = 255;
-	// ft_bigint_sub(val1, val2, 2, 1);
-	// ft_print_big_int("3", val1, 2);
+	ft_generate_urandom(val1, len1);
+	ft_generate_urandom(val2, len2);
 
+	ft_print_big_int("1", val1, len1);
+	ft_print_big_int("2", val2, len2);
+
+	ft_bigint_div(val1, val2, len1, len2);
+
+	ft_print_big_int("1", val1, len1);
+	ft_print_big_int("2", val2, len2);
 
 	// unsigned char	*mem1;
 	// unsigned char	*mem2;

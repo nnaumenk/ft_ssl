@@ -6,7 +6,7 @@
 #    By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/20 12:25:41 by nnaumenk          #+#    #+#              #
-#    Updated: 2019/02/14 16:23:33 by nnaumenk         ###   ########.fr        #
+#    Updated: 2019/02/20 20:36:52 by nnaumenk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ CFILES	=	ft_free_matrix.c				\
 			ft_memdel.c						\
 			ft_memset.c						\
 			ft_memrev.c						\
+			ft_memswap.c					\
 			ft_xor_mem.c					\
 			ft_xor_mem_value.c				\
 			ft_memequ.c						\
@@ -77,7 +78,7 @@ CFILES	=	ft_free_matrix.c				\
 
 OFILES	=	$(CFILES:.c=.o)
 
-FLAGS	= 	-O2 -Wall -Wextra -Werror
+FLAGS	= 	-O2 #-Wall -Wextra -Werror
 
 CC		=	gcc
 
