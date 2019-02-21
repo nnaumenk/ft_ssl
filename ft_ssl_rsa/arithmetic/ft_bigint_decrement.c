@@ -12,7 +12,7 @@
 
 #include "ft_bigint.h"
 
-static void	ft_mem_increment_8byte(void **memptr, size_t i, char *overflow)
+static void	ft_decrement_8byte(void **memptr, size_t i, char *overflow)
 {
 	size_t			*mem64;
 	size_t			sum64;
@@ -37,7 +37,7 @@ static void	ft_mem_increment_8byte(void **memptr, size_t i, char *overflow)
 	*memptr = mem64;
 }
 
-static void	ft_mem_increment_1byte(void **memptr, size_t i, char *overflow)
+static void	ft_decrement_1byte(void **memptr, size_t i, char *overflow)
 {
 	unsigned char	*mem8;
 	unsigned char	sum8;
@@ -69,6 +69,6 @@ void		ft_bigint_decrement(void *memptr, size_t n)
 	char	overflow;
 
 	overflow = 1;
-	ft_mem_increment_8byte(&memptr, n / sizeof(size_t), &overflow);
-	ft_mem_increment_1byte(&memptr, n % sizeof(size_t), &overflow);
+	ft_decrement_8byte(&memptr, n / sizeof(size_t), &overflow);
+	ft_decrement_1byte(&memptr, n % sizeof(size_t), &overflow);
 }

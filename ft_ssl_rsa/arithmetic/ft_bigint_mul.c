@@ -15,10 +15,10 @@
 static void		ft_memmul_1byte(
 unsigned char *res, unsigned char *val1, unsigned char *val2, size_t n2)
 {
-	size_t			i;
 	unsigned short	product;
 	unsigned char	overflow;
 
+	overflow = 0;
 	while (n2--)
 	{
 		product = *val1 * *val2 + overflow + *res;
@@ -83,16 +83,16 @@ unsigned char *val8_1, unsigned char *val8_2, size_t n1, size_t n2)
 	return (res);
 }
 
-void	ft_memmul(void **mem1, void **mem2, size_t *n1, size_t *n2)
+void	ft_bigint_mul(void **mem1, void **mem2, size_t *n1, size_t *n2)
 {
 	unsigned char	*res;
-	unsigned char	*val8_1;
-	unsigned char	*val8_2;
+	unsigned char	*val1;
+	unsigned char	*val2;
 
-	val8_1 = mem1;
-	val8_2 = mem2;
-	res = ft_memmul_algor(val8_1, val8_2, n1, n2);
-	ft_strdel(mem1);
+	val1 = *mem1;
+	val2 = *mem2;
+	res = ft_memmul_algor(val1, val2, *n1, *n2);
+	ft_memdel(mem1);
 	*mem1 = (void *)res;
 	*n1 += *n2;
 	ft_bigint_normalize(*mem1, n1);

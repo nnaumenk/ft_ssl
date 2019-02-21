@@ -78,7 +78,7 @@ CFILES	=	ft_free_matrix.c				\
 
 OFILES	=	$(CFILES:.c=.o)
 
-FLAGS	= 	-O2 #-Wall -Wextra -Werror
+FLAGS	= 	-O2 -Wall -Wextra -Werror
 
 CC		=	gcc
 

@@ -23,7 +23,7 @@ static void	ft_sub_8byte(void **mem1, void **mem2, size_t i, char *overflow)
 	while (i--)
 	{
 		sum64 = *val1 - *val2 - *overflow;
-		if (sum64 > *val1)
+		if ((size_t)(*val1 - *overflow) < sum64)
 			*overflow = 1;
 		else
 			*overflow = 0;
@@ -34,6 +34,24 @@ static void	ft_sub_8byte(void **mem1, void **mem2, size_t i, char *overflow)
 	*mem1 = val1;
 	*mem2 = val2;
 }
+
+// 254	- 255	- 1 = 254
+// 254	- 255	- 0 = 255
+// 255	- 255	- 0 = 0
+// 255	- 255	- 1 = 255
+// 0	- 1		- 0 = 255
+// 0	- 0		- 1 = 255
+// 0	- 1		- 1 = 254
+
+
+
+
+
+
+// 0 - 0 = 0
+// 0 - 1 = 255 +
+// 1 - 0 = 1
+// 1 - 1 = 0
 
 static void	ft_sub_1byte(void **mem1, void **mem2, size_t i, char *overflow)
 {
@@ -46,7 +64,9 @@ static void	ft_sub_1byte(void **mem1, void **mem2, size_t i, char *overflow)
 	while (i--)
 	{
 		sum8 = *val1 - *val2 - *overflow;
-		if (sum8 > *val1)
+		if (*val2 > *val1)
+			*overflow = 1;
+		else if (*val2 == *val1 && *overflow == 1)
 			*overflow = 1;
 		else
 			*overflow = 0;

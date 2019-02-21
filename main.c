@@ -132,24 +132,24 @@ size_t	gcd2_b(size_t a, size_t b)
 	return (a);
 }
 
-static int	ft_iszero(void *memptr, size_t num)
-{
-	size_t			i;
-	size_t			*str64;
-	unsigned char	*str8;
+// static int	ft_iszero(void *memptr, size_t num)
+// {
+// 	size_t			i;
+// 	size_t			*str64;
+// 	unsigned char	*str8;
 
-	str64 = (size_t *)memptr;
-	i = num / sizeof(size_t);
-	while (i--)
-		if (*str64++ != 0)
-			return (0);
-	str8 = (unsigned char *)str64;
-	i = num % sizeof(size_t);
-	while (i--)
-		if (*str8++ != 0)
-			return (0);
-	return (1);
-}
+// 	str64 = (size_t *)memptr;
+// 	i = num / sizeof(size_t);
+// 	while (i--)
+// 		if (*str64++ != 0)
+// 			return (0);
+// 	str8 = (unsigned char *)str64;
+// 	i = num % sizeof(size_t);
+// 	while (i--)
+// 		if (*str8++ != 0)
+// 			return (0);
+// 	return (1);
+// }
 
 // void	gcd2(unsigned char *mem1, unsigned char *mem2, size_t len1, size_t len2)
 // {
@@ -214,16 +214,16 @@ static int	ft_iszero(void *memptr, size_t num)
 // 	return (counter);
 // }
 
-static int	ft_check_b_null(size_t a, size_t b, size_t *x, size_t *y)
-{
-	if (b == 0)
-	{
-		*x = 1;
-		*y = 0;
-		return (1);
-	}
-	return (0);
-}
+// static int	ft_check_b_null(size_t a, size_t b, size_t *x, size_t *y)
+// {
+// 	if (b == 0)
+// 	{
+// 		*x = 1;
+// 		*y = 0;
+// 		return (1);
+// 	}
+// 	return (0);
+// }
 
 // void 		gcdex(size_t a, size_t b, size_t *x, size_t *y)
 // {
@@ -257,6 +257,11 @@ static int	ft_check_b_null(size_t a, size_t b, size_t *x, size_t *y)
 
 int		main(int ac, char **av)
 {
+
+
+
+
+
 	// t_alg	my;
 	// size_t	a = 24723892;
 	// size_t	b = 39429;
@@ -283,23 +288,59 @@ int		main(int ac, char **av)
 
 	unsigned char	*val1;
 	unsigned char	*val2;
+	unsigned char	*val3;
+	unsigned char	*val4;
 
-	size_t	len1 = 5;
-	size_t	len2 = 2;
+	size_t	len1 = 8;
+	size_t	len2 = 4;
+	size_t	len3;
+	size_t	len4;
 
 	val1 = malloc(len1);
 	val2 = malloc(len2);
+	val3 = malloc(len1);
+	val4 = malloc(len2);
 
-	ft_generate_urandom(val1, len1);
-	ft_generate_urandom(val2, len2);
 
-	ft_print_big_int("1", val1, len1);
-	ft_print_big_int("2", val2, len2);
+	while (1)
+	{
+		len1 = 8;
+		len2 = 4;
+		len3 = len1;
+		len4 = len2;
 
-	ft_bigint_div(val1, val2, len1, len2);
+		ft_generate_urandom(val1, len1);
+		ft_generate_urandom(val2, len2);
+		ft_memcpy(val3, val1, len3);
+		ft_memcpy(val4, val2, len4);
 
-	ft_print_big_int("1", val1, len1);
-	ft_print_big_int("2", val2, len2);
+		ft_print_big_int("1", val1, len1);
+		ft_print_big_int("2", val2, len2);
+
+		ft_bigint_div((void *)&val1, (void *)&val2, &len1, &len2);
+
+		ft_print_big_int("tselaya chast", val1, len1);
+		ft_print_big_int("ostatok", val2, len2);
+	// 
+		ft_bigint_mul((void *)&val4, (void *)&val1, &len4, &len1);
+		ft_print_big_int("otvet1", val4, len4);
+		ft_bigint_add((void *)&val4, (void *)&val2, &len4, &len2);
+		ft_print_big_int("otvet1", val4, len4);
+
+		if (ft_bigint_equal(val3, val4, len3, len4) == 0)
+		{
+			ft_print_big_int("1", val3, len3);
+			ft_print_big_int("2", val4, len4);
+			ft_printf("\n\n\n{error}\n\n\n");
+			break ;
+		}
+	}
+	USE(len3);
+	USE(len4);
+	USE(val3);
+	USE(val4);
+
+//	system("leaks ft_ssl");
 
 	// unsigned char	*mem1;
 	// unsigned char	*mem2;
@@ -328,5 +369,8 @@ int		main(int ac, char **av)
 	// 	ft_parse_from_console(&my);
 	// else if (ft_choose_first_param(&my, av[1]))
 	// 	(my.flag_pointer)(&my, ac - 2, av + 2);
+
+	USE(ac);
+	USE(av);
 	return (0);
 }

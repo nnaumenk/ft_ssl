@@ -12,32 +12,44 @@
 
 #include "libft.h"
 
-static void	ft_swap_8byte(size_t **a, size_t **b, size_t n)
+static void	ft_swap_8byte(void **a, void **b, size_t n)
 {
+	size_t	*x;
+	size_t	*y;
 	size_t	buf;
 
+	x = *a;
+	y = *b;
 	while (n--)
 	{
-		buf = **a;
-		**a = **b;
-		**b = buf;
-		(*a)++;
-		(*b)++;
+		buf = *x;
+		*x = *y;
+		*y = buf;
+		x++;
+		y++;
 	}
+	*a = x;
+	*b = y;
 }
 
-static void	ft_swap_1byte(char **a, char **b, size_t n)
+static void	ft_swap_1byte(void **a, void **b, size_t n)
 {
+	char	*x;
+	char	*y;
 	char	buf;
 
+	x = *a;
+	y = *b;
 	while (n--)
 	{
-		buf = **a;
-		**a = **b;
-		**b = buf;
-		(*a)++;
-		(*b)++;
+		buf = *x;
+		*x = *y;
+		*y = buf;
+		x++;
+		y++;
 	}
+	*a = x;
+	*b = y;
 }
 
 void		ft_memswap(void *a, void *b, size_t n)

@@ -83,6 +83,7 @@ void	ft_get_primes(t_rsa_data *data, size_t numbits)
 
 void	ft_get_modulus(t_rsa_data *data)
 {
+	USE(data);
 	// data->modulus =
 	// ft_bigint_mul(data->prime1, data->prime2, data->prime1_len, data->prime2_len);
 	// data->modulus_len = data->prime1_len + data->prime2_len;

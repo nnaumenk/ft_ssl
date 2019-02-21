@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bigint_increment.c                              :+:      :+:    :+:   */
+/*   decrement.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/20 20:29:09 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2018/08/19 03:49:00 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_bigint.h"
 
-static void	ft_mem_increment_8byte(void **memptr, size_t i, char *overflow)
+static void	ft_increment_8byte(void **memptr, size_t i, char *overflow)
 {
 	size_t		*mem64;
 	size_t		sum64;
@@ -37,7 +37,7 @@ static void	ft_mem_increment_8byte(void **memptr, size_t i, char *overflow)
 	*memptr = mem64;
 }
 
-static void	ft_mem_increment_1byte(void **memptr, size_t i, char *overflow)
+static void	ft_increment_1byte(void **memptr, size_t i, char *overflow)
 {
 	unsigned char	*mem8;
 	unsigned char	sum8;
@@ -64,11 +64,11 @@ static void	ft_mem_increment_1byte(void **memptr, size_t i, char *overflow)
 	*memptr = mem8;
 }
 
-void		ft_mem_increment(void *memptr, size_t n)
+void		ft_bigint_increment(void *memptr, size_t n)
 {
 	char	overflow;
 
 	overflow = 1;
-	ft_mem_increment_8byte(&memptr, n / sizeof(size_t), &overflow);
-	ft_mem_increment_1byte(&memptr, n % sizeof(size_t), &overflow);
+	ft_increment_8byte(&memptr, n / sizeof(size_t), &overflow);
+	ft_increment_1byte(&memptr, n % sizeof(size_t), &overflow);
 }

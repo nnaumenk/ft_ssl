@@ -53,8 +53,9 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_des/cipher_alg_2.c					\
 				ft_ssl_des/cipher_alg_3.c					\
 															\
-				ft_ssl_rsa/arithmetic/ft_bigint_bigger.c	\
 				ft_ssl_rsa/arithmetic/ft_bigint_smaller.c	\
+				ft_ssl_rsa/arithmetic/ft_bigint_bigger.c	\
+				ft_ssl_rsa/arithmetic/ft_bigint_equbigger.c	\
 				ft_ssl_rsa/arithmetic/ft_bigint_equal.c		\
 				ft_ssl_rsa/arithmetic/ft_bigint_add.c		\
 				ft_ssl_rsa/arithmetic/ft_bigint_sub.c		\
@@ -109,7 +110,7 @@ OFILES		=	$(CFILES:.c=.o)
 
 CC			=	gcc
 
-FLAGS		= 	-O2 #-Wall -Wextra -Werror
+FLAGS		= 	-O2 -Wall -Wextra -Werror
 
 LIBFT		=	libft/libft.a
 
