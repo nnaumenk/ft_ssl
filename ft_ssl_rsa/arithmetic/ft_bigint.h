@@ -29,7 +29,7 @@ void	ft_bigint_shl(void *memptr, size_t shift, size_t n);
 void	ft_bigint_shr(void *memptr, size_t shift, size_t n);
 
 void	ft_bigint_add(void **memptr1, void **memptr2, size_t *n1, size_t *n2);
-void	ft_bigint_sub(void *memptr1, void *memptr2, size_t n1, size_t n2);
+void	ft_bigint_sub(void **memptr1, void **memptr2, size_t *n1, size_t *n2);
 
 void	ft_bigint_mul(void **memptr1, void **memptr2, size_t *n1, size_t *n2);
 void	ft_bigint_div(void **memptr1, void **memptr2, size_t *n1, size_t *n2);

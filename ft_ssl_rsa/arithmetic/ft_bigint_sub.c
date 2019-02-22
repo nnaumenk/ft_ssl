@@ -23,7 +23,9 @@ static void	ft_sub_8byte(void **mem1, void **mem2, size_t i, char *overflow)
 	while (i--)
 	{
 		sum64 = *val1 - *val2 - *overflow;
-		if ((size_t)(*val1 - *overflow) < sum64)
+		if (*val2 > *val1)
+			*overflow = 1;
+		else if (*val2 == *val1 && *overflow)
 			*overflow = 1;
 		else
 			*overflow = 0;
@@ -34,24 +36,6 @@ static void	ft_sub_8byte(void **mem1, void **mem2, size_t i, char *overflow)
 	*mem1 = val1;
 	*mem2 = val2;
 }
-
-// 254	- 255	- 1 = 254
-// 254	- 255	- 0 = 255
-// 255	- 255	- 0 = 0
-// 255	- 255	- 1 = 255
-// 0	- 1		- 0 = 255
-// 0	- 0		- 1 = 255
-// 0	- 1		- 1 = 254
-
-
-
-
-
-
-// 0 - 0 = 0
-// 0 - 1 = 255 +
-// 1 - 0 = 1
-// 1 - 1 = 0
 
 static void	ft_sub_1byte(void **mem1, void **mem2, size_t i, char *overflow)
 {
@@ -66,7 +50,7 @@ static void	ft_sub_1byte(void **mem1, void **mem2, size_t i, char *overflow)
 		sum8 = *val1 - *val2 - *overflow;
 		if (*val2 > *val1)
 			*overflow = 1;
-		else if (*val2 == *val1 && *overflow == 1)
+		else if (*val2 == *val1 && *overflow)
 			*overflow = 1;
 		else
 			*overflow = 0;
@@ -78,18 +62,23 @@ static void	ft_sub_1byte(void **mem1, void **mem2, size_t i, char *overflow)
 	*mem2 = val2;
 }
 
-void		ft_bigint_sub(void *memptr1, void *memptr2, size_t n1, size_t n2)
+void		ft_bigint_sub(void **mem1, void **mem2, size_t *n1, size_t *n2)
 {
-	char	overflow;
+	void			*val1;
+	void			*val2;
+	char			overflow;
 
-	if (ft_bigint_smaller(memptr1, memptr2, n1, n2))
+	if (ft_bigint_smaller(*mem1, *mem2, *n1, *n2))
 	{
-		ft_bzero(memptr1, n1);
+		ft_bzero(*mem1, *n1);
 		return ;
 	}
+	val1 = *mem1;
+	val2 = *mem2;
 	overflow = 0;
-	ft_sub_8byte(&memptr1, &memptr2, n2 / sizeof(size_t), &overflow);
-	ft_sub_1byte(&memptr1, &memptr2, n2 % sizeof(size_t), &overflow);
+	ft_sub_8byte(&val1, &val2, *n2 / sizeof(size_t), &overflow);
+	ft_sub_1byte(&val1, &val2, *n2 % sizeof(size_t), &overflow);
 	if (overflow)
-		ft_bigint_decrement(memptr1, n1 - n2);
+		ft_bigint_decrement(val1, *n1 - *n2);
+	ft_bigint_normalize(*mem1, n1);
 }

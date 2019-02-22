@@ -81,13 +81,21 @@ void	ft_get_primes(t_rsa_data *data, size_t numbits)
 	data->prime2[data->prime2_len - 1] |= mask2[bit_prime2_len % 8];
 }
 
+static	void	*ft_memdup(void *memptr, size_t n)
+{
+	void	*newptr;
+
+	newptr = (void *)malloc(n);
+	ft_memcpy(newptr, memptr, n);
+	return (newptr);
+}
+
 void	ft_get_modulus(t_rsa_data *data)
 {
-	USE(data);
-	// data->modulus =
-	// ft_bigint_mul(data->prime1, data->prime2, data->prime1_len, data->prime2_len);
-	// data->modulus_len = data->prime1_len + data->prime2_len;
-
+	data->modulus = (unsigned char *)ft_memdup(data->prime1, data->prime1_len);
+	data->modulus_len = data->prime1_len;
+	ft_bigint_mul((void **)&data->modulus, (void **)&data->prime2,
+	&data->modulus_len, &data->prime2_len);
 }
 
 void	ft_generate_genrsa_data(t_rsa *data)

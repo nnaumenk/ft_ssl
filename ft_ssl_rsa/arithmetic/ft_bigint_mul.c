@@ -83,7 +83,7 @@ unsigned char *val8_1, unsigned char *val8_2, size_t n1, size_t n2)
 	return (res);
 }
 
-void	ft_bigint_mul(void **mem1, void **mem2, size_t *n1, size_t *n2)
+void			ft_bigint_mul(void **mem1, void **mem2, size_t *n1, size_t *n2)
 {
 	unsigned char	*res;
 	unsigned char	*val1;

@@ -103,53 +103,6 @@ void	ft_parse_from_console(t_alg *my)
 	}
 }
 
-size_t	gcd1_b(size_t a, size_t b)
-{
-	size_t tmp;
-
-	while (a)
-	{
-		tmp = a;
-		a = b % a;
-		b = tmp;
-	}
-	return (b);
-}
-
-size_t	gcd2_b(size_t a, size_t b)
-{
-	if (a == 0)
-		return (b);
-	if (b == 0)
-		return (a);
-	while (a != b)
-	{
-		if (a >= b)
-			a -= b;
-		else
-			b -= a;
-	}
-	return (a);
-}
-
-// static int	ft_iszero(void *memptr, size_t num)
-// {
-// 	size_t			i;
-// 	size_t			*str64;
-// 	unsigned char	*str8;
-
-// 	str64 = (size_t *)memptr;
-// 	i = num / sizeof(size_t);
-// 	while (i--)
-// 		if (*str64++ != 0)
-// 			return (0);
-// 	str8 = (unsigned char *)str64;
-// 	i = num % sizeof(size_t);
-// 	while (i--)
-// 		if (*str8++ != 0)
-// 			return (0);
-// 	return (1);
-// }
 
 // void	gcd2(unsigned char *mem1, unsigned char *mem2, size_t len1, size_t len2)
 // {
@@ -181,40 +134,7 @@ size_t	gcd2_b(size_t a, size_t b)
 
 // }
 
-// size_t	gcdex1(size_t val1, size_t val2)
-// {
-// 	size_t		counter;
-// 	size_t		res;
-// 	size_t		buf1;
-// 	size_t		buf2;
-	
-// 	counter = 1;
-// 	buf1 = val1;
-// 	buf2 = val2;
-// 	while (1)
-// 	{
-// 		if (buf1 == buf2 + 1)
-// 			break ; 
-// 		if (buf1 < buf2 + 1)
-// 			while (1)
-// 			{
-// 				counter++;
-// 				buf1 += val1;
-// 				if (buf1 > buf2)
-// 					break ;
-// 			}
-// 		if (buf1 > buf2 + 1)
-// 			while (1)
-// 			{
-// 				buf2 += val2;
-// 				if (buf2 > buf1)
-// 					break ;
-// 			}
-// 	}
-// 	return (counter);
-// }
-
-// static int	ft_check_b_null(size_t a, size_t b, size_t *x, size_t *y)
+// static int	ft_check_b_null(size_t b, size_t *x, size_t *y)
 // {
 // 	if (b == 0)
 // 	{
@@ -225,23 +145,71 @@ size_t	gcd2_b(size_t a, size_t b)
 // 	return (0);
 // }
 
-// void 		gcdex(size_t a, size_t b, size_t *x, size_t *y)
+void 		gcdex(long a, long b, long *x, long *y)
+{
+	long	integer;
+	long	remainder;
+	long	x_buf[2];
+	long	y_buf[2];
+
+	// if (ft_check_b_null(b, x, y))
+	// 	return ;
+	x_buf[1] = 1;
+	x_buf[0] = 0;
+	y_buf[1] = 0;
+	y_buf[0] = 1;
+	while (b > 0)
+	{
+		integer = a / b;
+		remainder = a - integer * b;
+		*x = x_buf[1] - integer * x_buf[0];
+		*y = y_buf[1] - integer * y_buf[0];
+		a = b;
+		b = remainder;
+		x_buf[1] = x_buf[0];
+		x_buf[0] = *x;
+		y_buf[1] = y_buf[0];
+		y_buf[0] = *y;
+	}
+	*x = x_buf[1];
+	*y = y_buf[1];
+}
+
+// void 		ft_bigint_gcdex(void **mem1, void **mem2, size_t *n1, size_t *n2)
 // {
-// 	size_t	integer;
+// 	unsigned char	*integer;
+// 	size_t			integer_len;
+// 	unsigned char	*remainder;
+// 	size_t			remainder_len;
+
+
 // 	size_t	remainder;
 // 	size_t	x_buf[2];
 // 	size_t	y_buf[2];
 
 // 	if (ft_check_b_null(a, b, x, y))
 // 		return ;
-// 	x_buf[1] = 1;
-// 	x_buf[0] = 0;
-// 	y_buf[1] = 0;
-// 	y_buf[0] = 1;
+
+
+
+// 	integer = ft_memdup(*mem1, *n1);
+// 	integer_len = *n1;
+// 	remainder = ft_memdup(*mem2, *n2);
+// 	remainder_len = *n2;
+
 // 	while (b > 0)
 // 	{
+// 		ft_bigint_div(&integer, remainder, &integer_len, &remainder_len);
+
+
+
+
+
+
 // 		integer = a / b;
 // 		remainder = a - integer * b;
+
+
 // 		*x = x_buf[1] - integer * x_buf[0];
 // 		*y = y_buf[1] - integer * y_buf[0];
 // 		a = b;
@@ -255,122 +223,110 @@ size_t	gcd2_b(size_t a, size_t b)
 // 	*y = y_buf[1];
 // }
 
+
+
+
+// void	gcdex2(size_t a, size_t b)
+// {
+// 	size_t			i1;
+// 	size_t			i2;
+
+// 	i1 = 0;
+// 	i2 = 0;
+// 	while (a != b)
+// 	{
+// 		if (a > b)
+// 		{
+// 			while (a > b)
+// 				a -= b;
+// 			++i1;
+// 		}
+// 		else
+// 		{
+// 			while (a <= b)
+// 				b -= a;
+// 			++i2;
+// 		}
+// 	}
+// 	ft_printf("num1 = %zu\n", i1);
+// 	ft_printf("num2 = %zu\n", i2);
+// }
+
+// void	gcdex2(size_t a, size_t b)
+// {
+// 	size_t			c;
+// 	size_t			i;
+
+// 	i = 0;
+// 	while (b)
+// 	{
+// 		c = b;
+// 		b = a % b;
+// 		a = c;
+// 		++i;
+// 	}
+// 	ft_printf("num1 = %zu\n", i);
+// }
+
+void	gcdex2(size_t a, size_t b)
+{
+	size_t buf = b;
+	size_t p;
+	size_t q;
+	size_t r;
+	size_t s;
+	size_t x;
+	size_t y;
+	
+	p = 1;
+	q = 0;
+	r = 0;
+	s = 1;
+	while (a && b)
+	{
+		if (a>=b)
+		{
+			a = a - b;
+			p = p + r;
+			q = q + s;
+		}
+		else
+		{
+			b = b - a;
+			r = r + p;
+			s = s + q;
+		}
+		ft_printf("x = %zu\n", r);
+	}
+	if (a)
+	{
+		ft_printf("1\n");
+		x = p;
+		y = q;
+	}
+	else
+	{
+		ft_printf("2\n");
+		x = r;
+		y = s;
+	}
+	printf("%zu %zu\n", buf - x, y);
+}
+
+
 int		main(int ac, char **av)
 {
-
-
-
-
-
 	// t_alg	my;
-	// size_t	a = 24723892;
-	// size_t	b = 39429;
-	// size_t	x;
-	// size_t	y;
-	// size_t	d;
-	// gcdex(a, b, &x, &y, &d);
+	
+	gcdex2(3, 26);
+	//ft_printf("x = %u\n", x);
 
-	// ft_printf("%zu\n", a);
-	// ft_printf("%zu\n", b);
-	// ft_printf("%zu\n", x);
-	// ft_printf("%zu\n", y);
-	// ft_printf("%zu\n", d);
-
-
-	// 123 - 463;
-	// 123 - 123;
-
-	// 888 - 99;
-
-	// 255 - 653;
-	// 255 - 255;
-	// 65533 - 255;
-
-	unsigned char	*val1;
-	unsigned char	*val2;
-	unsigned char	*val3;
-	unsigned char	*val4;
-
-	size_t	len1 = 8;
-	size_t	len2 = 4;
-	size_t	len3;
-	size_t	len4;
-
-	val1 = malloc(len1);
-	val2 = malloc(len2);
-	val3 = malloc(len1);
-	val4 = malloc(len2);
-
-
-	while (1)
-	{
-		len1 = 8;
-		len2 = 4;
-		len3 = len1;
-		len4 = len2;
-
-		ft_generate_urandom(val1, len1);
-		ft_generate_urandom(val2, len2);
-		ft_memcpy(val3, val1, len3);
-		ft_memcpy(val4, val2, len4);
-
-		ft_print_big_int("1", val1, len1);
-		ft_print_big_int("2", val2, len2);
-
-		ft_bigint_div((void *)&val1, (void *)&val2, &len1, &len2);
-
-		ft_print_big_int("tselaya chast", val1, len1);
-		ft_print_big_int("ostatok", val2, len2);
-	// 
-		ft_bigint_mul((void *)&val4, (void *)&val1, &len4, &len1);
-		ft_print_big_int("otvet1", val4, len4);
-		ft_bigint_add((void *)&val4, (void *)&val2, &len4, &len2);
-		ft_print_big_int("otvet1", val4, len4);
-
-		if (ft_bigint_equal(val3, val4, len3, len4) == 0)
-		{
-			ft_print_big_int("1", val3, len3);
-			ft_print_big_int("2", val4, len4);
-			ft_printf("\n\n\n{error}\n\n\n");
-			break ;
-		}
-	}
-	USE(len3);
-	USE(len4);
-	USE(val3);
-	USE(val4);
-
-//	system("leaks ft_ssl");
-
-	// unsigned char	*mem1;
-	// unsigned char	*mem2;
-
-	// size_t	len1 = 1024;
-	// size_t	len2 = 1024;
-
-	// mem1 = malloc(len1);
-	// mem2 = malloc(len2);
-
-	// ft_generate_urandom(mem1, len1);
-	// ft_generate_urandom(mem2, len2);
-
-	// ft_print_big_int("mem1", mem1, len1);
-	// ft_print_big_int("mem2", mem2, len2);
-
-	// gcd2(mem1, mem2, len1, len2);
-		
-	// ft_print_big_int("res1", mem1, len1);
-	// ft_print_big_int("res2", mem2, len2);	
-
-	// if (ac == 3)
-	// 	printf("%zu\n", gcdex1(atoi(av[1]), atoi(av[2])));
 
 	// if (ac == 1)
 	// 	ft_parse_from_console(&my);
 	// else if (ft_choose_first_param(&my, av[1]))
 	// 	(my.flag_pointer)(&my, ac - 2, av + 2);
-
+	// return (0);
 	USE(ac);
 	USE(av);
-	return (0);
 }
