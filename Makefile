@@ -53,19 +53,25 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_des/cipher_alg_2.c					\
 				ft_ssl_des/cipher_alg_3.c					\
 															\
-				ft_ssl_rsa/arithmetic/ft_bigint_smaller.c	\
-				ft_ssl_rsa/arithmetic/ft_bigint_bigger.c	\
-				ft_ssl_rsa/arithmetic/ft_bigint_equbigger.c	\
-				ft_ssl_rsa/arithmetic/ft_bigint_equal.c		\
-				ft_ssl_rsa/arithmetic/ft_bigint_add.c		\
-				ft_ssl_rsa/arithmetic/ft_bigint_sub.c		\
-				ft_ssl_rsa/arithmetic/ft_bigint_increment.c	\
-				ft_ssl_rsa/arithmetic/ft_bigint_decrement.c	\
-				ft_ssl_rsa/arithmetic/ft_bigint_mul.c		\
-				ft_ssl_rsa/arithmetic/ft_bigint_div.c		\
-				ft_ssl_rsa/arithmetic/ft_bigint_shl.c		\
-				ft_ssl_rsa/arithmetic/ft_bigint_shr.c		\
-				ft_ssl_rsa/arithmetic/ft_bigint_normalize.c	\
+				ft_ssl_rsa/bigint/ft_bigint_dup.c			\
+				ft_ssl_rsa/bigint/ft_bigint_del.c			\
+				ft_ssl_rsa/bigint/ft_bigint_print.c			\
+				ft_ssl_rsa/bigint/ft_bigint_isnull.c		\
+				ft_ssl_rsa/bigint/ft_bigint_notnull.c		\
+				ft_ssl_rsa/bigint/ft_bigint_smaller.c		\
+				ft_ssl_rsa/bigint/ft_bigint_bigger.c		\
+				ft_ssl_rsa/bigint/ft_bigint_equ_bigger.c	\
+				ft_ssl_rsa/bigint/ft_bigint_equ_value.c		\
+				ft_ssl_rsa/bigint/ft_bigint_equal.c			\
+				ft_ssl_rsa/bigint/ft_bigint_add.c			\
+				ft_ssl_rsa/bigint/ft_bigint_sub.c			\
+				ft_ssl_rsa/bigint/ft_bigint_increment.c		\
+				ft_ssl_rsa/bigint/ft_bigint_decrement.c		\
+				ft_ssl_rsa/bigint/ft_bigint_mul.c			\
+				ft_ssl_rsa/bigint/ft_bigint_div.c			\
+				ft_ssl_rsa/bigint/ft_bigint_shl.c			\
+				ft_ssl_rsa/bigint/ft_bigint_shr.c			\
+				ft_ssl_rsa/bigint/ft_bigint_normalize.c		\
 															\
 				ft_ssl_rsa/asn1/asn1_encode.c				\
 				ft_ssl_rsa/asn1/asn1_decode.c				\
@@ -100,7 +106,8 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_rsa/rsautl/rsautl.c					\
 				ft_ssl_rsa/rsautl/rsautl_flags.c			\
 															\
-				ft_ssl_rsa/print_big_int.c					\
+				ft_ssl_rsa/ft_gcdex.c						\
+				ft_ssl_rsa/ft_print_big_int.c				\
 															\
 				hex_ascii.c									\
 				read.c										\

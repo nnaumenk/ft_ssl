@@ -31,14 +31,14 @@ static int	ft_iszero(void *memptr, size_t num)
 	return (1);
 }
 
-static int	ft_mem_equbigger(unsigned char *val1, unsigned char *val2, size_t n)
+static int	ft_mem_bigger(unsigned char *val1, unsigned char *val2, size_t n)
 {
 	size_t			*val64_1;
 	size_t			*val64_2;
 	size_t			i;
 
-	val64_1 = (size_t *)val1;
-	val64_2 = (size_t *)val2;
+	val64_1 = (size_t *)(val1 + n);
+	val64_2 = (size_t *)(val2 + n);
 	i = n / sizeof(size_t);
 	while (i--)
 	{
@@ -57,29 +57,23 @@ static int	ft_mem_equbigger(unsigned char *val1, unsigned char *val2, size_t n)
 		if (*val1 < *val2)
 			return (0);
 	}
-	return (1);
+	return (0);
 }
 
-int			ft_bigint_equbigger(
-			void *memptr1, void *memptr2, size_t n1, size_t n2)
+int			ft_bigint_bigger(t_bigint *a, t_bigint *b)
 {
-	unsigned char *val1;
-	unsigned char *val2;
-
-	if (n1 == n2)
-		return (ft_mem_equbigger(memptr1 + n1, memptr2 + n2, n1));
-	val1 = memptr1;
-	val2 = memptr2;
-	if (n1 < n2)
+	if (a->size == b->size)
+		return (ft_mem_bigger(a->value, b->value, a->size));
+	if (a->size < b->size)
 	{
-		if (ft_iszero(memptr2 + n1, n2 - n1))
-			return (ft_mem_equbigger(memptr1 + n1, memptr2 + n1, n1));
+		if (ft_iszero(b->value + a->size, b->size - a->size))
+			return (ft_mem_bigger(a->value, b->value, a->size));
 		return (0);
 	}
-	if (n1 > n2)
+	if (a->size > b->size)
 	{
-		if (ft_iszero(memptr1 + n2, n1 - n2))
-			return (ft_mem_equbigger(memptr1 + n2, memptr2 + n2, n2));
+		if (ft_iszero(a->value + b->size, a->size - b->size))
+			return (ft_mem_bigger(a->value, b->value, b->size));
 		return (1);
 	}
 	return (0);

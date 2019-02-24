@@ -47,8 +47,8 @@ static void	ft_shift_1byte(void *memptr, size_t shift, size_t n)
 	}
 }
 
-void		ft_memshr(void *memptr, size_t shift, size_t n)
+void		ft_bigint_shr(t_bigint *a, size_t shift)
 {
-	ft_copy_1byte(memptr, shift / 8, n);
-	ft_shift_1byte(memptr, shift % 8, n);
+	ft_copy_1byte(a->value, shift / 8, a->size);
+	ft_shift_1byte(a->value, shift % 8, a->size);
 }

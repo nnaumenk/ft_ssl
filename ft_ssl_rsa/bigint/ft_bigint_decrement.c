@@ -64,11 +64,13 @@ static void	ft_decrement_1byte(void **memptr, size_t i, char *overflow)
 	*memptr = mem8;
 }
 
-void		ft_bigint_decrement(void *memptr, size_t n)
+void		ft_bigint_decrement(t_bigint *a)
 {
+	void	*memptr;
 	char	overflow;
 
 	overflow = 1;
-	ft_decrement_8byte(&memptr, n / sizeof(size_t), &overflow);
-	ft_decrement_1byte(&memptr, n % sizeof(size_t), &overflow);
+	memptr = (void *)a->value;
+	ft_decrement_8byte(&memptr, a->size / sizeof(size_t), &overflow);
+	ft_decrement_1byte(&memptr, a->size % sizeof(size_t), &overflow);
 }

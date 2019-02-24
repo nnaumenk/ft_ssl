@@ -14,24 +14,33 @@
 # define FT_BIGINT_H
 
 # include "../../libft/libft.h"
+# include "ft_bigint_struct.h"
 
-void	ft_bigint_normalize(void *memptr, size_t *len);
+t_bigint	ft_bigint_dup(t_bigint *a);
+void		ft_bigint_del(t_bigint *a);
+void		ft_bigint_print(char *name, t_bigint *a);
 
-int		ft_bigint_bigger(void *memptr1, void *memptr2, size_t n1, size_t n2);
-int		ft_bigint_smaller(void *memptr1, void *memptr2, size_t n1, size_t n2);
-int		ft_bigint_equal(void *memptr1, void *memptr2, size_t n1, size_t n2);
-int		ft_bigint_equbigger(void *memptr1, void *memptr2, size_t n1, size_t n2);
+int			ft_bigint_isnull(t_bigint *a);
+int			ft_bigint_notnull(t_bigint *a);
 
-void	ft_bigint_increment(void *memptr, size_t n);
-void	ft_bigint_decrement(void *memptr, size_t n);
+void		ft_bigint_normalize(t_bigint *a);
 
-void	ft_bigint_shl(void *memptr, size_t shift, size_t n);
-void	ft_bigint_shr(void *memptr, size_t shift, size_t n);
+int			ft_bigint_equ_bigger(t_bigint *a, t_bigint *b);
+int			ft_bigint_bigger(t_bigint *a, t_bigint *b);
+int			ft_bigint_smaller(t_bigint *a, t_bigint *b);
+int			ft_bigint_equal(t_bigint *a, t_bigint *b);
+int			ft_bigint_equ_value(t_bigint *a, unsigned char value);
 
-void	ft_bigint_add(void **memptr1, void **memptr2, size_t *n1, size_t *n2);
-void	ft_bigint_sub(void **memptr1, void **memptr2, size_t *n1, size_t *n2);
+void		ft_bigint_increment(t_bigint *a);
+void		ft_bigint_decrement(t_bigint *a);
 
-void	ft_bigint_mul(void **memptr1, void **memptr2, size_t *n1, size_t *n2);
-void	ft_bigint_div(void **memptr1, void **memptr2, size_t *n1, size_t *n2);
+void		ft_bigint_shl(t_bigint *a, size_t shift);
+void		ft_bigint_shr(t_bigint *a, size_t shift);
+
+void		ft_bigint_add(t_bigint *a, t_bigint *b);
+void		ft_bigint_sub(t_bigint *a, t_bigint *b);
+
+// void		ft_bigint_mul(void **memptr1, void **memptr2, size_t *n1, size_t *n2);
+// void		ft_bigint_div(void **memptr1, void **memptr2, size_t *n1, size_t *n2);
 
 #endif

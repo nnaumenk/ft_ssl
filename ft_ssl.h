@@ -46,7 +46,8 @@
 
 int		ft_asn1_encode(t_rsa_data data, char **text, size_t *len);
 int		ft_asn1_decode(t_rsa_data *data, char *text, size_t len);
-void	ft_print_big_int(char *name, unsigned char *big_int, size_t len);
+
+int		ft_gcdex(t_bigint *rev, t_bigint *a, t_bigint *m);
 
 int		ft_rsa_check_flag_rand(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_inform(int *i, int ac, char **av, t_rsa_flag *flag);

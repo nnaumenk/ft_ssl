@@ -12,37 +12,38 @@
 
 #include "ft_bigint.h"
 
-static void	ft_check_size(void **mem1, size_t *n1, size_t *n2)
+static void	ft_check_size(t_bigint *a, t_bigint *b)
 {
 	void	*newptr;
 	
-	if (*n2 > *n1)
+	if (b->size > a->size)
 	{
-		newptr = (void *)malloc(*n2 + 1);
-		ft_memcpy(newptr, *mem1, *n1);
-		ft_bzero(newptr + *n1, *n2 + 1 - *n1);
-		ft_memdel(mem1);
-		*mem1 = newptr;
-		*n1 = *n2 + 1;
+		newptr = (void *)malloc(b->size + 1);
+		ft_memcpy(newptr, a->value, a->size);
+		ft_bzero(newptr + a->size, b->size + 1 - a->size);
+		free(a->value);
+		a->value = (unsigned char *)newptr;
+		a->size = b->size + 1;
 	}
 }
 
-static void	ft_overflow(void **memptr1, size_t *n1, size_t n2)
+static void	ft_overflow(t_bigint *a, t_bigint *b)
 {
-	unsigned char	*new;
-	size_t			len;
+	unsigned char	*newptr;
+	t_bigint		c;
 
-	len = *n1 - n2;
-	if (len == 0)
+	if (a->size == b->size)
 	{
-		new = malloc(*n1 + 1);
-		ft_memcpy(new, *memptr1, *n1);
-		new[(*n1)++] = 1;
-		ft_memdel(memptr1);
-		*memptr1 = new;
+		newptr = (unsigned char *)malloc(a->size + 1);
+		ft_memcpy(newptr, a->value, a->size);
+		newptr[a->size++] = 1;
+		free(a->value);
+		a->value = newptr;
 		return ;
 	}
-	ft_bigint_increment(*memptr1 + n2, len);
+	c.value = a->value + b->size;
+	c.size = a->size - b->size;
+	ft_bigint_increment(&c);
 }
 
 static void	ft_add_8byte(void **mem1, void **mem2, size_t i, char *overflow)
@@ -95,21 +96,21 @@ static void	ft_add_1byte(void **mem1, void **mem2, size_t i, char *overflow)
 	*mem2 = val2;
 }
 
-
-
-void		ft_bigint_add(void **mem1, void **mem2, size_t *n1, size_t *n2)
+void		ft_bigint_add(t_bigint *a, t_bigint *b)
 {
 	void			*val1;
 	void			*val2;
 	char			overflow;
 
-	ft_check_size(mem1, n1, n2);
-	val1 = *mem1;
-	val2 = *mem2;
+	ft_check_size(a, b);
+	val1 = a->value;
+	val2 = b->value;
 	overflow = 0;
-	ft_add_8byte(&val1, &val2, *n2 / sizeof(size_t), &overflow);
-	ft_add_1byte(&val1, &val2, *n2 % sizeof(size_t), &overflow);
+	ft_add_8byte(&val1, &val2, b->size / sizeof(size_t), &overflow);
+	ft_add_1byte(&val1, &val2, b->size % sizeof(size_t), &overflow);
 	if (overflow)
-		ft_overflow(mem1, n1, *n2);
-	ft_bigint_normalize(*mem1, n1);
+	{
+		ft_overflow(a, b);
+	}
+	//ft_bigint_normalize(*mem1, n1);
 }

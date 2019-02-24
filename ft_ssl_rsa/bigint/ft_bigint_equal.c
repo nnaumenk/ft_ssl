@@ -15,18 +15,18 @@
 static int	ft_iszero(void *memptr, size_t num)
 {
 	size_t			i;
-	size_t			*str64;
-	unsigned char	*str8;
+	size_t			*mem64;
+	unsigned char	*mem8;
 
-	str64 = (size_t *)memptr;
+	mem64 = (size_t *)memptr;
 	i = num / sizeof(size_t);
 	while (i--)
-		if (*str64++ != 0)
+		if (*mem64++ != 0)
 			return (0);
-	str8 = (unsigned char *)str64;
+	mem8 = (unsigned char *)mem64;
 	i = num % sizeof(size_t);
 	while (i--)
-		if (*str8++ != 0)
+		if (*mem8++ != 0)
 			return (0);
 	return (1);
 }
@@ -54,25 +54,20 @@ static int	ft_mem_equal(void *mem1, void *mem2, size_t n)
 	return (1);
 }
 
-int			ft_bigint_equal(void *memptr1, void *memptr2, size_t n1, size_t n2)
+int			ft_bigint_equal(t_bigint *a, t_bigint *b)
 {
-	unsigned char *val1;
-	unsigned char *val2;
-
-	if (n1 == n2)
-		return (ft_mem_equal(memptr1, memptr2, n1));
-	val1 = memptr1;
-	val2 = memptr2;
-	if (n1 < n2)
+	if (a->size == b->size)
+		return (ft_mem_equal(a->value, b->value, a->size));
+	if (a->size < b->size)
 	{
-		if (ft_iszero(memptr2 + n1, n2 - n1))
-			return (ft_mem_equal(memptr1, memptr2, n1));
+		if (ft_iszero(b->value + a->size, b->size - a->size))
+			return (ft_mem_equal(a->value, b->value, a->size));
 		return (0);
 	}
-	if (n1 > n2)
+	if (a->size > b->size)
 	{
-		if (ft_iszero(memptr1 + n2, n1 - n2))
-			return (ft_mem_equal(memptr1, memptr2, n2));
+		if (ft_iszero(a->value + b->size, a->size - b->size))
+			return (ft_mem_equal(a->value, b->value, b->size));
 		return (0);
 	}
 	return (0);

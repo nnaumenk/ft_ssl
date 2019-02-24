@@ -268,57 +268,76 @@ void 		gcdex(long a, long b, long *x, long *y)
 // 	ft_printf("num1 = %zu\n", i);
 // }
 
-void	gcdex2(size_t a, size_t b)
+int	gcdex2(size_t a, size_t b)
 {
 	size_t buf = b;
 	size_t p;
-	size_t q;
 	size_t r;
-	size_t s;
 	size_t x;
-	size_t y;
 	
 	p = 1;
-	q = 0;
 	r = 0;
-	s = 1;
 	while (a && b)
 	{
 		if (a>=b)
 		{
 			a = a - b;
 			p = p + r;
-			q = q + s;
 		}
 		else
 		{
 			b = b - a;
 			r = r + p;
-			s = s + q;
 		}
-		ft_printf("x = %zu\n", r);
 	}
 	if (a)
-	{
-		ft_printf("1\n");
-		x = p;
-		y = q;
-	}
-	else
-	{
-		ft_printf("2\n");
-		x = r;
-		y = s;
-	}
-	printf("%zu %zu\n", buf - x, y);
+		return (1);
+	x = buf - r;
+	return (0);
 }
+
+
+
+
+
+
 
 
 int		main(int ac, char **av)
 {
 	// t_alg	my;
 	
-	gcdex2(3, 26);
+	//gcdex2(299, 250);
+
+	t_bigint a;
+	t_bigint b;
+	t_bigint rev;
+	int ret;
+
+	a.size = 4;
+	b.size = 4;
+	a.value = malloc(a.size);
+	b.value = malloc(b.size);
+
+	// ft_bzero(a.value, a.size);
+	// ft_bzero(b.value, b.size);
+	size_t i = 1;
+	while (i--)
+	{
+		ft_generate_urandom(a.value, a.size);
+		ft_generate_urandom(b.value, b.size);
+		ft_bigint_print("1", &a);
+		ft_bigint_print("2", &b);
+
+		ret = ft_gcdex(&rev, &a, &b);
+		printf("ret = %d\n", ret);
+		if (ret == 0)
+		{
+			ft_bigint_print("1", &a);
+			ft_bigint_print("2", &b);
+			ft_bigint_print("rev", &rev);
+		}
+	}
 	//ft_printf("x = %u\n", x);
 
 

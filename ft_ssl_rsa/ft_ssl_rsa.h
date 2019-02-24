@@ -13,7 +13,7 @@
 #ifndef FT_SSL_RSA_H
 # define FT_SSL_RSA_H
 
-# include "arithmetic/ft_bigint.h"
+# include "bigint/ft_bigint.h"
 
 typedef struct		s_rsa_flag
 {
@@ -44,24 +44,15 @@ typedef struct		s_rsa_flag
 
 typedef struct		s_rsa_data
 {
-	unsigned char	*version;
-	size_t			version_len;
-	unsigned char	*modulus;
-	size_t			modulus_len;
-	unsigned char	*public_exponent;
-	size_t			public_exponent_len;
-	unsigned char	*private_exponent;
-	size_t			private_exponent_len;
-	unsigned char	*prime1;
-	size_t			prime1_len;
-	unsigned char	*prime2;
-	size_t			prime2_len;
-	unsigned char	*exponent1;
-	size_t			exponent1_len;
-	unsigned char	*exponent2;
-	size_t			exponent2_len;
-	unsigned char	*coefficient;
-	size_t			coefficient_len;
+	t_bigint		version;
+	t_bigint		modulus;
+	t_bigint		public_exponent;
+	t_bigint		private_exponent;
+	t_bigint		prime1;
+	t_bigint		prime2;
+	t_bigint		exponent1;
+	t_bigint		exponent2;
+	t_bigint		coefficient;
 }					t_rsa_data;
 
 typedef struct		s_rsa

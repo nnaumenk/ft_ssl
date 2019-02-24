@@ -62,23 +62,28 @@ static void	ft_sub_1byte(void **mem1, void **mem2, size_t i, char *overflow)
 	*mem2 = val2;
 }
 
-void		ft_bigint_sub(void **mem1, void **mem2, size_t *n1, size_t *n2)
+void		ft_bigint_sub(t_bigint *a, t_bigint *b)
 {
 	void			*val1;
 	void			*val2;
 	char			overflow;
+	t_bigint		c;
 
-	if (ft_bigint_smaller(*mem1, *mem2, *n1, *n2))
+	if (ft_bigint_smaller(a, b))
 	{
-		ft_bzero(*mem1, *n1);
+		ft_bzero(a->value, a->size);
 		return ;
 	}
-	val1 = *mem1;
-	val2 = *mem2;
+	val1 = a->value;
+	val2 = b->value;
 	overflow = 0;
-	ft_sub_8byte(&val1, &val2, *n2 / sizeof(size_t), &overflow);
-	ft_sub_1byte(&val1, &val2, *n2 % sizeof(size_t), &overflow);
+	ft_sub_8byte(&val1, &val2, b->size / sizeof(size_t), &overflow);
+	ft_sub_1byte(&val1, &val2, b->size % sizeof(size_t), &overflow);
 	if (overflow)
-		ft_bigint_decrement(val1, *n1 - *n2);
-	ft_bigint_normalize(*mem1, n1);
+	{
+		c.value = (unsigned char *)val1;
+		c.size = a->size - b->size;
+		ft_bigint_decrement(&c);
+	}
+	//ft_bigint_normalize(*mem1, n1);
 }
