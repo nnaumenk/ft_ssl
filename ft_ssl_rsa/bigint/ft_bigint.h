@@ -40,7 +40,7 @@ void		ft_bigint_shr(t_bigint *a, size_t shift);
 void		ft_bigint_add(t_bigint *a, t_bigint *b);
 void		ft_bigint_sub(t_bigint *a, t_bigint *b);
 
-// void		ft_bigint_mul(void **memptr1, void **memptr2, size_t *n1, size_t *n2);
-// void		ft_bigint_div(void **memptr1, void **memptr2, size_t *n1, size_t *n2);
+void		ft_bigint_mul(t_bigint *mul, t_bigint *a, t_bigint *b);
+void		ft_bigint_div(t_bigint *in, t_bigint *rm, t_bigint *a, t_bigint *b);
 
 #endif

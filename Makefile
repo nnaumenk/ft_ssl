@@ -96,6 +96,8 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_rsa/flag_manager/flag_encrypt.c		\
 				ft_ssl_rsa/flag_manager/flag_decrypt.c		\
 				ft_ssl_rsa/flag_manager/flag_hexdump.c		\
+				ft_ssl_rsa/flag_manager/flag_exp_3_value.c	\
+				ft_ssl_rsa/flag_manager/flag_exp_f4_value.c	\
 															\
 				ft_ssl_rsa/rsa/rsa.c						\
 				ft_ssl_rsa/rsa/rsa_flags.c					\
@@ -106,8 +108,7 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_rsa/rsautl/rsautl.c					\
 				ft_ssl_rsa/rsautl/rsautl_flags.c			\
 															\
-				ft_ssl_rsa/ft_gcdex.c						\
-				ft_ssl_rsa/ft_print_big_int.c				\
+				ft_ssl_rsa/ft_mod_inverse.c					\
 															\
 				hex_ascii.c									\
 				read.c										\

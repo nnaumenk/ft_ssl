@@ -104,243 +104,37 @@ void	ft_parse_from_console(t_alg *my)
 }
 
 
-// void	gcd2(unsigned char *mem1, unsigned char *mem2, size_t len1, size_t len2)
-// {
-// 	unsigned char	*res;
-// 	size_t			res_len;
-
-// 	while (ft_bigint_equal(mem1, mem2, len1, len2) == 0)
-// 	{
-// 		if (ft_bigint_bigger(mem1, mem2, len1, len2))
-// 			ft_bigint_sub(mem1, mem2, len1);
-// 		else
-// 			ft_bigint_sub(mem2, mem1, len2);
-// 	}
-// }
-
-
-
-
-// void	gcdex(unsigned char *mem1, unsigned char *mem2, size_t len1, size_t len2)
-// {
-// 	unsigned char	*res;
-// 	size_t			res_len;
-// 	unsigned char	*buf1;
-// 	unsigned char	*buf2;
-	
-// 	if (mem1 + 1 == mem2)
-// 		return ;
-// 	if (mem1 < )
-
-// }
-
-// static int	ft_check_b_null(size_t b, size_t *x, size_t *y)
-// {
-// 	if (b == 0)
-// 	{
-// 		*x = 1;
-// 		*y = 0;
-// 		return (1);
-// 	}
-// 	return (0);
-// }
-
-void 		gcdex(long a, long b, long *x, long *y)
+void	ft_check_mod_inverse(void)
 {
-	long	integer;
-	long	remainder;
-	long	x_buf[2];
-	long	y_buf[2];
-
-	// if (ft_check_b_null(b, x, y))
-	// 	return ;
-	x_buf[1] = 1;
-	x_buf[0] = 0;
-	y_buf[1] = 0;
-	y_buf[0] = 1;
-	while (b > 0)
-	{
-		integer = a / b;
-		remainder = a - integer * b;
-		*x = x_buf[1] - integer * x_buf[0];
-		*y = y_buf[1] - integer * y_buf[0];
-		a = b;
-		b = remainder;
-		x_buf[1] = x_buf[0];
-		x_buf[0] = *x;
-		y_buf[1] = y_buf[0];
-		y_buf[0] = *y;
-	}
-	*x = x_buf[1];
-	*y = y_buf[1];
-}
-
-// void 		ft_bigint_gcdex(void **mem1, void **mem2, size_t *n1, size_t *n2)
-// {
-// 	unsigned char	*integer;
-// 	size_t			integer_len;
-// 	unsigned char	*remainder;
-// 	size_t			remainder_len;
-
-
-// 	size_t	remainder;
-// 	size_t	x_buf[2];
-// 	size_t	y_buf[2];
-
-// 	if (ft_check_b_null(a, b, x, y))
-// 		return ;
-
-
-
-// 	integer = ft_memdup(*mem1, *n1);
-// 	integer_len = *n1;
-// 	remainder = ft_memdup(*mem2, *n2);
-// 	remainder_len = *n2;
-
-// 	while (b > 0)
-// 	{
-// 		ft_bigint_div(&integer, remainder, &integer_len, &remainder_len);
-
-
-
-
-
-
-// 		integer = a / b;
-// 		remainder = a - integer * b;
-
-
-// 		*x = x_buf[1] - integer * x_buf[0];
-// 		*y = y_buf[1] - integer * y_buf[0];
-// 		a = b;
-// 		b = remainder;
-// 		x_buf[1] = x_buf[0];
-// 		x_buf[0] = *x;
-// 		y_buf[1] = y_buf[0];
-// 		y_buf[0] = *y;
-// 	}
-// 	*x = x_buf[1];
-// 	*y = y_buf[1];
-// }
-
-
-
-
-// void	gcdex2(size_t a, size_t b)
-// {
-// 	size_t			i1;
-// 	size_t			i2;
-
-// 	i1 = 0;
-// 	i2 = 0;
-// 	while (a != b)
-// 	{
-// 		if (a > b)
-// 		{
-// 			while (a > b)
-// 				a -= b;
-// 			++i1;
-// 		}
-// 		else
-// 		{
-// 			while (a <= b)
-// 				b -= a;
-// 			++i2;
-// 		}
-// 	}
-// 	ft_printf("num1 = %zu\n", i1);
-// 	ft_printf("num2 = %zu\n", i2);
-// }
-
-// void	gcdex2(size_t a, size_t b)
-// {
-// 	size_t			c;
-// 	size_t			i;
-
-// 	i = 0;
-// 	while (b)
-// 	{
-// 		c = b;
-// 		b = a % b;
-// 		a = c;
-// 		++i;
-// 	}
-// 	ft_printf("num1 = %zu\n", i);
-// }
-
-int	gcdex2(size_t a, size_t b)
-{
-	size_t buf = b;
-	size_t p;
-	size_t r;
-	size_t x;
-	
-	p = 1;
-	r = 0;
-	while (a && b)
-	{
-		if (a>=b)
-		{
-			a = a - b;
-			p = p + r;
-		}
-		else
-		{
-			b = b - a;
-			r = r + p;
-		}
-	}
-	if (a)
-		return (1);
-	x = buf - r;
-	return (0);
-}
-
-
-
-
-
-
-
-
-int		main(int ac, char **av)
-{
-	// t_alg	my;
-	
-	//gcdex2(299, 250);
-
 	t_bigint a;
 	t_bigint b;
 	t_bigint rev;
-	int ret;
 
 	a.size = 4;
 	b.size = 4;
 	a.value = malloc(a.size);
 	b.value = malloc(b.size);
-
-	// ft_bzero(a.value, a.size);
-	// ft_bzero(b.value, b.size);
-	size_t i = 1;
-	while (i--)
+	a.size = 4;
+	b.size = 4;
+	*(size_t *)a.value = 3;
+	*(size_t *)b.value = 9167368;
+	ft_bigint_print("1", &a);
+	ft_bigint_print("2", &b);
+	int ret = ft_mod_inverse(&rev, &a, &b);
+	printf("ret = %d\n", ret);
+	if (ret == 0)
 	{
-		ft_generate_urandom(a.value, a.size);
-		ft_generate_urandom(b.value, b.size);
 		ft_bigint_print("1", &a);
 		ft_bigint_print("2", &b);
-
-		ret = ft_gcdex(&rev, &a, &b);
-		printf("ret = %d\n", ret);
-		if (ret == 0)
-		{
-			ft_bigint_print("1", &a);
-			ft_bigint_print("2", &b);
-			ft_bigint_print("rev", &rev);
-		}
+		ft_bigint_print("inverse", &rev);
 	}
-	//ft_printf("x = %u\n", x);
+}
 
-
+int		main(int ac, char **av)
+{
+	// t_alg	my;
+	
+	ft_check_mod_inverse();
 	// if (ac == 1)
 	// 	ft_parse_from_console(&my);
 	// else if (ft_choose_first_param(&my, av[1]))

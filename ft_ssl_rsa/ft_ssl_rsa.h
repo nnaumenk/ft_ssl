@@ -39,6 +39,7 @@ typedef struct		s_rsa_flag
 	int				encrypt;
 	int				decrypt;
 	int				hexdump;
+	int				exp_value_3;
 	size_t			numbits;
 }					t_rsa_flag;
 

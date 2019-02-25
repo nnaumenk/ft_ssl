@@ -69,11 +69,11 @@ void		ft_bigint_sub(t_bigint *a, t_bigint *b)
 	char			overflow;
 	t_bigint		c;
 
-	if (ft_bigint_smaller(a, b))
-	{
-		ft_bzero(a->value, a->size);
-		return ;
-	}
+	// if (ft_bigint_smaller(a, b))
+	// {
+	// 	ft_bzero(a->value, a->size);
+	// 	return ;
+	// }
 	val1 = a->value;
 	val2 = b->value;
 	overflow = 0;

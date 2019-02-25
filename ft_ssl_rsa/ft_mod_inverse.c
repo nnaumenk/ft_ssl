@@ -23,26 +23,80 @@ static void	ft_init(t_bigint *p, t_bigint *r, t_bigint *m)
 	ft_bigint_increment(p);
 }
 
+// p = 10
+// r = 5
+
+// 100 15
+
+// a = 6
+// mod = 10
+
+//         p = p + r * (a / mod);
+//         a = a % mod;
+
+
+11 - 4
+7 - 4
+= 3 4
+
+a = 4
+mod = 11
+
+
+//////
+
+mod = 3
+a = 4;
+
+
+mod = 11 % 4 = 3
+
+a = 1
+mod = 3;
+
+mod = 3 % 1 = 0;
+
+
+
 static int	ft_algor(t_bigint p, t_bigint r, t_bigint a, t_bigint mod)
 {
+	t_bigint	integer;
+	t_bigint	remainder;
+	t_bigint	mul;
+
 	while (ft_bigint_notnull(&a) && ft_bigint_notnull(&mod))
 	{
-		ft_bigint_print("a", &a);
-		ft_bigint_print("b", &mod);
 		if (ft_bigint_equ_bigger(&a, &mod))
 		{
-			// ft_bigint_sub(&a, &mod);
-			// ft_bigint_add(&p, &r);
-			p = p + r * (a / mod);
-			a = a % mod;
 
+			/// a = a % mod;
+			// p = p + r * (a / mod);
+			// a = a % mod;
+			// ft_bigint_div(&integer, &remainder, &a, &mod);
+			// ft_bigint_mul(&mul, &r, &integer);
+			// ft_bigint_add(&mul, &p);
+			// ft_bigint_del(&p);
+			// ft_bigint_del(&a);
+			// ft_bigint_del(&integer);
+			// p.size = mul.size;
+			// p.value = mul.value;
+			// a.size = remainder.size;
+			// a.value = remainder.value;
 		}
 		else
 		{
-			// ft_bigint_sub(&mod, &a);
-			// ft_bigint_add(&r, &p);
-			r = r + p * (mod / a);
-			mod = mod % a;
+			// r = r + p * (mod / a);
+			// mod = mod % a;
+			ft_bigint_div(&integer, &remainder, &mod, &a);
+			ft_bigint_mul(&mul, &p, &integer);
+			ft_bigint_add(&mul, &r);
+			ft_bigint_del(&r);
+			ft_bigint_del(&mod);
+			ft_bigint_del(&integer);
+			r.size = mul.size;
+			r.value = mul.value;
+			mod.size = remainder.size;
+			mod.value = remainder.value;
 		}
 	}
 	if (ft_bigint_equ_value(&mod, 1) == 0)
@@ -51,8 +105,8 @@ static int	ft_algor(t_bigint p, t_bigint r, t_bigint a, t_bigint mod)
 		ft_bigint_del(&mod);
 		return (1);
 	}
-	ft_bigint_del(&a);
-	ft_bigint_del(&mod);
+	// ft_bigint_del(&a);
+	// ft_bigint_del(&mod);
 	return (0);
 }
 

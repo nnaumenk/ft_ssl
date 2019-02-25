@@ -47,7 +47,7 @@
 int		ft_asn1_encode(t_rsa_data data, char **text, size_t *len);
 int		ft_asn1_decode(t_rsa_data *data, char *text, size_t len);
 
-int		ft_gcdex(t_bigint *rev, t_bigint *a, t_bigint *m);
+int		ft_mod_inverse(t_bigint *inverse, t_bigint *a, t_bigint *mod);
 
 int		ft_rsa_check_flag_rand(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_inform(int *i, int ac, char **av, t_rsa_flag *flag);
@@ -69,6 +69,9 @@ int		ft_rsa_check_flag_inkey(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_encrypt(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_decrypt(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_flag_hexdump(int *i, int ac, char **av, t_rsa_flag *flag);
+int		ft_rsa_check_exp_3_value(int *i, int ac, char **av, t_rsa_flag *flag);
+int		ft_rsa_check_exp_f4_value(int *i, int ac, char **av, t_rsa_flag *flag);
+
 
 
 
