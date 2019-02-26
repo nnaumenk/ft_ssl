@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 14:10:46 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/20 20:45:22 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/02/26 21:00:54 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,30 +111,137 @@ void	ft_check_mod_inverse(void)
 	t_bigint rev;
 
 	a.size = 4;
-	b.size = 4;
+	b.size = 2;
 	a.value = malloc(a.size);
 	b.value = malloc(b.size);
 	a.size = 4;
-	b.size = 4;
-	*(size_t *)a.value = 3;
-	*(size_t *)b.value = 9167368;
+	b.size = 2;
+	ft_generate_urandom(a.value, a.size);
+	ft_generate_urandom(b.value, b.size);
+	// *(size_t *)a.value = 3;
+	// *(size_t *)b.value = 9167368;
 	ft_bigint_print("1", &a);
 	ft_bigint_print("2", &b);
 	int ret = ft_mod_inverse(&rev, &a, &b);
 	printf("ret = %d\n", ret);
 	if (ret == 0)
 	{
+		
+		ft_bigint_print("inverse", &rev);
 		ft_bigint_print("1", &a);
 		ft_bigint_print("2", &b);
-		ft_bigint_print("inverse", &rev);
 	}
 }
+
+
+// 10 > 3
+
+// p = 1 + 0 * 3 = 1
+// a = 10 % 3 = 1;
+
+// 1 < 3
+// r = 0 + 1 * 3 = 3;
+// mod = 3 % 1 = 0
+
+
+int	f(size_t a, size_t mod)
+{
+	size_t	a2 = a;
+	size_t	mod2 = mod;
+	size_t	p;
+	size_t	r;
+
+	p = 1;
+	r = 0;
+	while (a && mod)
+	{
+		if (a >= mod)
+		{
+			p = p + r * (a / mod);
+			a = a % mod;
+		}
+		else
+		{
+			r = r + p * (mod / a);
+			mod = mod % a;
+		}
+	}
+	printf("value1 = %zu\n", mod2 - r);
+	if (mod != 1)
+		return (1);
+	return (0);
+}
+
+// 10 >= 3
+// p = 1 + 0 = 1
+// a = 10 - 3 = 7
+// 7 >= 3
+// p = 1 + 0 = 1;
+// a = 7 - 3 = 4
+// .........
+// 1 < 3
+// r = 0 + 1 = 1;
+// 3 = 3 - 1 = 2;
+// 1 < 2
+// r = 1 + 1 = 2;
+// 2 = 2 - 1 = 1;
+// 1 >= 1
+// p = 1 + 2 = 3;
+// a = 1 - 1 = 0;
+
+
+int	f2(size_t a, size_t mod)
+{
+	size_t	a2 = a;
+	size_t	mod2 = mod;
+	size_t	p;
+	size_t	r;
+
+	p = 1;
+	r = 0;
+	while (a && mod)
+	{
+		if (a >= mod)
+		{
+			p = p + r;
+			a = a - mod;
+
+			// p = p + r * (a / mod);
+			// a = a % mod;
+		}
+		else
+		{
+			r = r + p;
+			mod = mod - a;
+
+			// r = r + p * (mod / a);
+			// mod = mod % a;
+		}
+	}
+	// printf("a = %zu\n", a);
+	// printf("mod = %zu\n", mod);
+	printf("value1 = %zu\n", mod2 - r);
+	// printf("value2 = %zu\n", mod2 - p);
+	// printf("value3 = %zu\n", a2 - r);
+	// printf("value4 = %zu\n", a2 - p);
+
+	if (mod != 1)
+		return (1);
+	
+	return (0);
+}
+
 
 int		main(int ac, char **av)
 {
 	// t_alg	my;
-	
-	ft_check_mod_inverse();
+	size_t a = 10;
+	size_t mod = 3;
+	if (f(a, mod))
+		printf("dich\n");
+	if (f2(a, mod))
+		printf("dich\n");
+	// ft_check_mod_inverse();
 	// if (ac == 1)
 	// 	ft_parse_from_console(&my);
 	// else if (ft_choose_first_param(&my, av[1]))

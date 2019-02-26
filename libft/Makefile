@@ -6,7 +6,7 @@
 #    By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/20 12:25:41 by nnaumenk          #+#    #+#              #
-#    Updated: 2019/02/20 20:36:52 by nnaumenk         ###   ########.fr        #
+#    Updated: 2019/02/26 18:49:17 by nnaumenk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ CFILES	=	ft_free_matrix.c				\
 
 OFILES	=	$(CFILES:.c=.o)
 
-FLAGS	= 	-O2 -Wall -Wextra -Werror
+FLAGS	= 	-O2 #-Wall -Wextra -Werror
 
 CC		=	gcc
 
