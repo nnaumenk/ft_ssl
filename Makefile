@@ -6,7 +6,7 @@
 #    By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/17 21:34:09 by nnaumenk          #+#    #+#              #
-#    Updated: 2019/02/26 18:49:08 by nnaumenk         ###   ########.fr        #
+#    Updated: 2019/02/27 18:41:12 by nnaumenk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_rsa/bigint/ft_bigint_del.c			\
 				ft_ssl_rsa/bigint/ft_bigint_print.c			\
 				ft_ssl_rsa/bigint/ft_bigint_isnull.c		\
-				ft_ssl_rsa/bigint/ft_bigint_notnull.c		\
+				ft_ssl_rsa/bigint/ft_bigint_isvalue.c		\
 				ft_ssl_rsa/bigint/ft_bigint_smaller.c		\
 				ft_ssl_rsa/bigint/ft_bigint_bigger.c		\
 				ft_ssl_rsa/bigint/ft_bigint_equ_bigger.c	\

@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/24 15:45:35 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/26 20:02:30 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/02/27 18:44:55 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../ft_ssl.h"
@@ -22,7 +22,7 @@ static void	ft_init(t_bigint *p, t_bigint *r, t_bigint *m)
 	ft_bigint_increment(p);
 }
 
-static void	ft_alg_iter(t_bigint *p, t_bigint *r, t_bigint *a, t_bigint *mod)
+static void	ft_iteration(t_bigint *p, t_bigint *r, t_bigint *a, t_bigint *mod)
 {
 	t_bigint	integer;
 	t_bigint	remainder;
@@ -40,12 +40,18 @@ static void	ft_alg_iter(t_bigint *p, t_bigint *r, t_bigint *a, t_bigint *mod)
 
 static int	ft_algor(t_bigint *p, t_bigint *r, t_bigint a, t_bigint mod)
 {
-	while (ft_bigint_notnull(&a) && ft_bigint_notnull(&mod))
+	while (ft_bigint_isnull(&a) == 0 && ft_bigint_isnull(&mod) == 0)
 	{
 		if (ft_bigint_equ_bigger(&a, &mod))
-			ft_alg_iter(p, r, &a, &mod);
+			ft_iteration(p, r, &a, &mod);
+		else if (ft_bigint_isvalue(&a, 1))
+		{
+			ft_bigint_decrement(&mod);
+			ft_iteration(r, p, &mod, &a);
+			ft_bigint_increment(&mod);
+		}
 		else
-			ft_alg_iter(r, p, &mod, &a);
+			ft_iteration(r, p, &mod, &a);
 	}
 	if (ft_bigint_equ_value(&mod, 1) == 0)
 	{

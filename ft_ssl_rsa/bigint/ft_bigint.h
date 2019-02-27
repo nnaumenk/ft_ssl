@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 22:12:53 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/20 20:28:35 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/02/27 18:40:54 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		ft_bigint_del(t_bigint *a);
 void		ft_bigint_print(char *name, t_bigint *a);
 
 int			ft_bigint_isnull(t_bigint *a);
-int			ft_bigint_notnull(t_bigint *a);
+int			ft_bigint_isvalue(t_bigint *a, unsigned char value);
 
 void		ft_bigint_normalize(t_bigint *a);
 

@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 14:10:46 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/26 21:00:54 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/02/27 18:22:57 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	ft_check_mod_inverse(void)
 // mod = 3 % 1 = 0
 
 
-int	f(size_t a, size_t mod)
+size_t	f1(size_t a, size_t mod)
 {
 	size_t	a2 = a;
 	size_t	mod2 = mod;
@@ -153,7 +153,7 @@ int	f(size_t a, size_t mod)
 
 	p = 1;
 	r = 0;
-	while (a && mod)
+	while (a > 1 && mod > 1)
 	{
 		if (a >= mod)
 		{
@@ -166,10 +166,29 @@ int	f(size_t a, size_t mod)
 			mod = mod % a;
 		}
 	}
-	printf("value1 = %zu\n", mod2 - r);
+
+// 3 1
+
+// 3 > 1
+// 2 > 1
+// 1 > 1
+
+	while (a && mod)
+	{
+		if (a >= mod)
+		{
+			p = p + r;
+			a = a - mod;
+		}
+		else
+		{
+			r = r + p;
+			mod = mod - a;
+		}
+	}
 	if (mod != 1)
-		return (1);
-	return (0);
+		return (-1);
+	return (mod2 - r);
 }
 
 // 10 >= 3
@@ -190,7 +209,7 @@ int	f(size_t a, size_t mod)
 // a = 1 - 1 = 0;
 
 
-int	f2(size_t a, size_t mod)
+size_t	f2(size_t a, size_t mod)
 {
 	size_t	a2 = a;
 	size_t	mod2 = mod;
@@ -220,33 +239,26 @@ int	f2(size_t a, size_t mod)
 	}
 	// printf("a = %zu\n", a);
 	// printf("mod = %zu\n", mod);
-	printf("value1 = %zu\n", mod2 - r);
+	//printf("value1 = %zu\n", mod2 - r);
 	// printf("value2 = %zu\n", mod2 - p);
 	// printf("value3 = %zu\n", a2 - r);
 	// printf("value4 = %zu\n", a2 - p);
 
 	if (mod != 1)
-		return (1);
+		return (-1);
 	
-	return (0);
+	return (mod2 - r);
 }
-
 
 int		main(int ac, char **av)
 {
-	// t_alg	my;
-	size_t a = 10;
-	size_t mod = 3;
-	if (f(a, mod))
-		printf("dich\n");
-	if (f2(a, mod))
-		printf("dich\n");
-	// ft_check_mod_inverse();
-	// if (ac == 1)
-	// 	ft_parse_from_console(&my);
-	// else if (ft_choose_first_param(&my, av[1]))
-	// 	(my.flag_pointer)(&my, ac - 2, av + 2);
-	// return (0);
+	t_alg	my;
+
+	if (ac == 1)
+		ft_parse_from_console(&my);
+	else if (ft_choose_first_param(&my, av[1]))
+		(my.flag_pointer)(&my, ac - 2, av + 2);
+	return (0);
 	USE(ac);
 	USE(av);
 }
