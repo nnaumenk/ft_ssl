@@ -250,7 +250,7 @@ size_t	f2(size_t a, size_t mod)
 	return (mod2 - r);
 }
 
-void	ft_power_mod(t_bigint *number, t_bigint *pow, t_bigint *mod)
+void	ft_power_mod(t_bigint *res, t_bigint *num, t_bigint *pow, t_bigint *mod)
 {
 	t_bigint	integer;
 	t_bigint	remainder;
@@ -258,25 +258,35 @@ void	ft_power_mod(t_bigint *number, t_bigint *pow, t_bigint *mod)
 	t_bigint	d;
 	t_bigint	t;
 
-	d = ft_bigint_dup(number);
-	t.size = 1;
-	t.value = (unsigned char *)malloc(1);
-	t.value[0] = 1;
-	while (ft_bigint_isnull(pow) == 0)
-	{
-		if (pow->value[0] && 0x01)
-		{
-			ft_bigint_mul(mul, &d, &t);
-			ft_bigint_div(&integer, &remainder, mul, mod);
-			d = remainder;
+	ft_bigint_print("number", number);
+	ft_bigint_print("power", pow);
+	ft_bigint_print("mod", mod);
 
-			///d = d * t mod(mod);
+
+	t = ft_bigint_dup(number);
+	d.size = 1;
+	d.value = (unsigned char *)malloc(1);
+	d.value[0] = 1;
+	while (1)
+	{
+		if (pow->value[0] & 0x01)
+		{
+			ft_bigint_mul(&mul, &d, &t);
+			ft_bigint_div(&integer, &remainder, &mul, mod);
+			d = remainder;
+			ft_bigint_normalize(&d);
+			ft_bigint_print("d", &d);
 		}
-		
-		t = (t * t) mod(mod) 
 		ft_bigint_shr(pow, 1);
+		if (ft_bigint_isnull(pow))
+			break ;
+		ft_bigint_mul(&mul, &t, &t);
+		ft_bigint_div(&integer, &remainder, &mul, mod);
+		t = remainder;
+		ft_bigint_normalize(&t);
 	}
-	ft_bigint_print("result", d);
+	ft_bigint_normalize(&d);
+	ft_bigint_print("result", &d);
 }
 
 int		main(int ac, char **av)
@@ -286,18 +296,21 @@ int		main(int ac, char **av)
 	t_bigint	pow;
 	t_bigint	mod;
 
-	number.size = 1;
-	number.value = malloc(1);
-	number.value[0] = 175;
+	number.size = 8;
+	number.value = malloc(number.size);
+	ft_bzero(number.value, number.size);
+	*(size_t *)number.value = 120;
+	
 
-	pow.size = 1;
-	pow.value = malloc(1);
-	pow.value[0] = 235;
+	pow.size = 8;
+	pow.value = malloc(pow.size);
+	ft_bzero(pow.value, pow.size);
+	*(size_t *)pow.value = 8;
 
-	mod.size = 2;
-	mod.value = malloc(2);
-	mod.value[1] = 1;
-	mod.value[0] = 1;
+	mod.size = 8;
+	mod.value = malloc(mod.size);
+	ft_bzero(mod.value, mod.size);
+	*(size_t *)mod.value = 11;
 
 	ft_power_mod(&number, &pow, &mod);
 	// if (ac == 1)

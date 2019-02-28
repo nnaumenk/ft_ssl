@@ -9,6 +9,7 @@
 /*   Updated: 2019/02/27 18:44:55 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../ft_ssl.h"
 
 static void	ft_init(t_bigint *p, t_bigint *r, t_bigint *m)
