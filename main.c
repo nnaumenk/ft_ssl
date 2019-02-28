@@ -250,15 +250,61 @@ size_t	f2(size_t a, size_t mod)
 	return (mod2 - r);
 }
 
+void	ft_power_mod(t_bigint *number, t_bigint *pow, t_bigint *mod)
+{
+	t_bigint	integer;
+	t_bigint	remainder;
+	t_bigint	mul;
+	t_bigint	d;
+	t_bigint	t;
+
+	d = ft_bigint_dup(number);
+	t.size = 1;
+	t.value = (unsigned char *)malloc(1);
+	t.value[0] = 1;
+	while (ft_bigint_isnull(pow) == 0)
+	{
+		if (pow->value[0] && 0x01)
+		{
+			ft_bigint_mul(mul, &d, &t);
+			ft_bigint_div(&integer, &remainder, mul, mod);
+			d = remainder;
+
+			///d = d * t mod(mod);
+		}
+		
+		t = (t * t) mod(mod) 
+		ft_bigint_shr(pow, 1);
+	}
+	ft_bigint_print("result", d);
+}
+
 int		main(int ac, char **av)
 {
-	t_alg	my;
+	// t_alg	my;
+	t_bigint	number;
+	t_bigint	pow;
+	t_bigint	mod;
 
-	if (ac == 1)
-		ft_parse_from_console(&my);
-	else if (ft_choose_first_param(&my, av[1]))
-		(my.flag_pointer)(&my, ac - 2, av + 2);
-	return (0);
+	number.size = 1;
+	number.value = malloc(1);
+	number.value[0] = 175;
+
+	pow.size = 1;
+	pow.value = malloc(1);
+	pow.value[0] = 235;
+
+	mod.size = 2;
+	mod.value = malloc(2);
+	mod.value[1] = 1;
+	mod.value[0] = 1;
+
+	ft_power_mod(&number, &pow, &mod);
+	// if (ac == 1)
+	// 	ft_parse_from_console(&my);
+	// else if (ft_choose_first_param(&my, av[1]))
+	// 	(my.flag_pointer)(&my, ac - 2, av + 2);
+	// return (0);
 	USE(ac);
 	USE(av);
 }
