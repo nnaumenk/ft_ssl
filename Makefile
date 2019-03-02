@@ -109,6 +109,9 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_rsa/rsautl/rsautl_flags.c			\
 															\
 				ft_ssl_rsa/ft_mod_inverse.c					\
+				ft_ssl_rsa/ft_pow_mod.c						\
+				ft_ssl_rsa/ft_prime_checker_bigint.c		\
+				ft_ssl_rsa/ft_prime_checker_int.c			\
 															\
 				hex_ascii.c									\
 				read.c										\

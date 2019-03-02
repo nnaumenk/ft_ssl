@@ -104,220 +104,36 @@ void	ft_parse_from_console(t_alg *my)
 }
 
 
-void	ft_check_mod_inverse(void)
-{
-	t_bigint a;
-	t_bigint b;
-	t_bigint rev;
-
-	a.size = 4;
-	b.size = 2;
-	a.value = malloc(a.size);
-	b.value = malloc(b.size);
-	a.size = 4;
-	b.size = 2;
-	ft_generate_urandom(a.value, a.size);
-	ft_generate_urandom(b.value, b.size);
-	// *(size_t *)a.value = 3;
-	// *(size_t *)b.value = 9167368;
-	ft_bigint_print("1", &a);
-	ft_bigint_print("2", &b);
-	int ret = ft_mod_inverse(&rev, &a, &b);
-	printf("ret = %d\n", ret);
-	if (ret == 0)
-	{
-		
-		ft_bigint_print("inverse", &rev);
-		ft_bigint_print("1", &a);
-		ft_bigint_print("2", &b);
-	}
-}
 
 
-// 10 > 3
-
-// p = 1 + 0 * 3 = 1
-// a = 10 % 3 = 1;
-
-// 1 < 3
-// r = 0 + 1 * 3 = 3;
-// mod = 3 % 1 = 0
 
 
-size_t	f1(size_t a, size_t mod)
-{
-	size_t	a2 = a;
-	size_t	mod2 = mod;
-	size_t	p;
-	size_t	r;
-
-	p = 1;
-	r = 0;
-	while (a > 1 && mod > 1)
-	{
-		if (a >= mod)
-		{
-			p = p + r * (a / mod);
-			a = a % mod;
-		}
-		else
-		{
-			r = r + p * (mod / a);
-			mod = mod % a;
-		}
-	}
-
-// 3 1
-
-// 3 > 1
-// 2 > 1
-// 1 > 1
-
-	while (a && mod)
-	{
-		if (a >= mod)
-		{
-			p = p + r;
-			a = a - mod;
-		}
-		else
-		{
-			r = r + p;
-			mod = mod - a;
-		}
-	}
-	if (mod != 1)
-		return (-1);
-	return (mod2 - r);
-}
-
-// 10 >= 3
-// p = 1 + 0 = 1
-// a = 10 - 3 = 7
-// 7 >= 3
-// p = 1 + 0 = 1;
-// a = 7 - 3 = 4
-// .........
-// 1 < 3
-// r = 0 + 1 = 1;
-// 3 = 3 - 1 = 2;
-// 1 < 2
-// r = 1 + 1 = 2;
-// 2 = 2 - 1 = 1;
-// 1 >= 1
-// p = 1 + 2 = 3;
-// a = 1 - 1 = 0;
-
-
-size_t	f2(size_t a, size_t mod)
-{
-	size_t	a2 = a;
-	size_t	mod2 = mod;
-	size_t	p;
-	size_t	r;
-
-	p = 1;
-	r = 0;
-	while (a && mod)
-	{
-		if (a >= mod)
-		{
-			p = p + r;
-			a = a - mod;
-
-			// p = p + r * (a / mod);
-			// a = a % mod;
-		}
-		else
-		{
-			r = r + p;
-			mod = mod - a;
-
-			// r = r + p * (mod / a);
-			// mod = mod % a;
-		}
-	}
-	// printf("a = %zu\n", a);
-	// printf("mod = %zu\n", mod);
-	//printf("value1 = %zu\n", mod2 - r);
-	// printf("value2 = %zu\n", mod2 - p);
-	// printf("value3 = %zu\n", a2 - r);
-	// printf("value4 = %zu\n", a2 - p);
-
-	if (mod != 1)
-		return (-1);
-	
-	return (mod2 - r);
-}
-
-void	ft_power_mod(t_bigint *res, t_bigint *num, t_bigint *pow, t_bigint *mod)
-{
-	t_bigint	integer;
-	t_bigint	remainder;
-	t_bigint	mul;
-	t_bigint	d;
-	t_bigint	t;
-
-	ft_bigint_print("number", number);
-	ft_bigint_print("power", pow);
-	ft_bigint_print("mod", mod);
-
-
-	t = ft_bigint_dup(number);
-	d.size = 1;
-	d.value = (unsigned char *)malloc(1);
-	d.value[0] = 1;
-	while (1)
-	{
-		if (pow->value[0] & 0x01)
-		{
-			ft_bigint_mul(&mul, &d, &t);
-			ft_bigint_div(&integer, &remainder, &mul, mod);
-			d = remainder;
-			ft_bigint_normalize(&d);
-			ft_bigint_print("d", &d);
-		}
-		ft_bigint_shr(pow, 1);
-		if (ft_bigint_isnull(pow))
-			break ;
-		ft_bigint_mul(&mul, &t, &t);
-		ft_bigint_div(&integer, &remainder, &mul, mod);
-		t = remainder;
-		ft_bigint_normalize(&t);
-	}
-	ft_bigint_normalize(&d);
-	ft_bigint_print("result", &d);
-}
 
 int		main(int ac, char **av)
 {
-	// t_alg	my;
-	t_bigint	number;
-	t_bigint	pow;
-	t_bigint	mod;
+	t_alg	my;
+	// t_bigint	res;
+	// t_bigint	number;
+	// t_bigint	pow;
+	// t_bigint	mod;
 
-	number.size = 8;
-	number.value = malloc(number.size);
-	ft_bzero(number.value, number.size);
-	*(size_t *)number.value = 120;
-	
+	size_t	num;
 
-	pow.size = 8;
-	pow.value = malloc(pow.size);
-	ft_bzero(pow.value, pow.size);
-	*(size_t *)pow.value = 8;
+	ft_generate_urandom(&num, sizeof(num));
+	ft_printf("num = %zu\n", num);
 
-	mod.size = 8;
-	mod.value = malloc(mod.size);
-	ft_bzero(mod.value, mod.size);
-	*(size_t *)mod.value = 11;
+	if (ft_ssl_is_primary(num, 100))
+		printf("%zu is prime\n", num);
+	else
+		printf("%zu is composite.\n", num);
 
-	ft_power_mod(&number, &pow, &mod);
-	// if (ac == 1)
-	// 	ft_parse_from_console(&my);
-	// else if (ft_choose_first_param(&my, av[1]))
-	// 	(my.flag_pointer)(&my, ac - 2, av + 2);
-	// return (0);
+
+
+	if (ac == 1)
+		ft_parse_from_console(&my);
+	else if (ft_choose_first_param(&my, av[1]))
+		(my.flag_pointer)(&my, ac - 2, av + 2);
+	return (0);
 	USE(ac);
 	USE(av);
 }

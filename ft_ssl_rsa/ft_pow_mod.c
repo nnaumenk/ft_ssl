@@ -12,41 +12,50 @@
 
 #include "../ft_ssl.h"
 
-void	ft_power_mod(t_bigint *res, t_bigint *num, t_bigint *pow, t_bigint *mod)
+static void	ft_algor(t_bigint *d, t_bigint *t, t_bigint *pow, t_bigint *mod)
 {
 	t_bigint	integer;
 	t_bigint	remainder;
 	t_bigint	mul;
-	t_bigint	d;
-	t_bigint	t;
-
-	ft_bigint_print("number", number);
-	ft_bigint_print("power", pow);
-	ft_bigint_print("mod", mod);
-
-
-	t = ft_bigint_dup(number);
-	d.size = 1;
-	d.value = (unsigned char *)malloc(1);
-	d.value[0] = 1;
+	static size_t i;
 	while (1)
 	{
+		ft_printf("u = %zu\n",  i++);
 		if (pow->value[0] & 0x01)
 		{
-			ft_bigint_mul(&mul, &d, &t);
+			ft_bigint_mul(&mul, d, t);
 			ft_bigint_div(&integer, &remainder, &mul, mod);
-			d = remainder;
-			ft_bigint_normalize(&d);
-			ft_bigint_print("d", &d);
+			ft_bigint_del(&mul);
+			ft_bigint_del(&integer);
+			ft_bigint_del(d);
+			*d = remainder;
+			
 		}
 		ft_bigint_shr(pow, 1);
 		if (ft_bigint_isnull(pow))
 			break ;
-		ft_bigint_mul(&mul, &t, &t);
+		ft_bigint_mul(&mul, t, t);
 		ft_bigint_div(&integer, &remainder, &mul, mod);
-		t = remainder;
-		ft_bigint_normalize(&t);
+		ft_bigint_del(&mul);
+		ft_bigint_del(&integer);
+		ft_bigint_del(t);
+		*t = remainder;
 	}
-	ft_bigint_normalize(&d);
-	ft_bigint_print("result", &d);
+}
+
+void		ft_pow_mod(t_bigint *r, t_bigint *num, t_bigint *pow, t_bigint *mod)
+{
+	t_bigint	pow_buf;
+	t_bigint	d;
+	t_bigint	t;
+	
+	pow_buf = ft_bigint_dup(pow);
+	t = ft_bigint_dup(num);
+	d.size = 1;
+	d.value = (unsigned char *)malloc(1);
+	d.value[0] = 1;
+	ft_algor(&d, &t, &pow_buf, mod);
+	ft_bigint_del(&t);
+	ft_bigint_del(&pow_buf);
+	*r = d;
 }
