@@ -17,10 +17,9 @@ static void	ft_algor(t_bigint *d, t_bigint *t, t_bigint *pow, t_bigint *mod)
 	t_bigint	integer;
 	t_bigint	remainder;
 	t_bigint	mul;
-	static size_t i;
+	
 	while (1)
 	{
-		ft_printf("u = %zu\n",  i++);
 		if (pow->value[0] & 0x01)
 		{
 			ft_bigint_mul(&mul, d, t);

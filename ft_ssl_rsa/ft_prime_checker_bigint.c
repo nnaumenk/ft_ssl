@@ -12,7 +12,7 @@
 
 #include "../ft_ssl.h"
 
-static unsigned short	g_prime_arr[] =
+static int	g_prime_arr[] =
 {
 	   2,    3,    5,    7,   11,   13,   17,   19,   23,   29,
 	  31,   37,   41,   43,   37,   53,   59,   61,   67,   71,
@@ -153,29 +153,186 @@ static int	ft_is_composit_by_sieve(t_bigint *prime)
 	{
 		*(unsigned short *)test.value = g_prime_arr[i];
 		ft_bigint_div(&integer, &remainder, prime, &test);
+		ft_bigint_del(&integer);
 		if (ft_bigint_isnull(&remainder))
 		{
 			ft_bigint_del(&test);
-			ft_bigint_del(&integer);
 			ft_bigint_del(&remainder);
 			return (1);
 		}
-		ft_bigint_del(&integer);
 		ft_bigint_del(&remainder);
+	}
+	ft_bigint_del(&test);
+	return (0);
+}
+
+static int	g_probability[] =
+{
+	0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 2, 2, 2, 2,
+	2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
+	2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
+	2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 
+};
+
+
+void		ft_pow_mod3(t_bigint *r, t_bigint *num, t_bigint *pow, t_bigint *mod)
+{
+	t_bigint	mul;
+	t_bigint	remainder;
+	t_bigint	integer;
+
+	if (ft_bigint_isnull(pow))
+	{
+		r->size = 1;
+		r->value = (unsigned char *)malloc(1);
+		r->value[0] = 1;
+		return ;
+	}
+	if (pow->value[0] & 0x01 == 0)
+	{
+		ft_bigint_shr(pow, 1);
+		ft_pow_mod3(r, num, pow, mod);
+		ft_bigint_mul(&mul, r, r);
+		ft_bigint_del(r);
+		ft_bigint_div(&integer, &remainder, mul, mod);
+		*r = remainder;
+		ft_bigint_del(&integer);
+		ft_bigint_del(&mul);
+		return ;	
+	}
+	ft_bigint_decrement(pow);
+	ft_pow_mod3(r, num, pow, mod);
+	ft_bigint_div(&integer, &remainder, num, mod);
+	ft_bigint_mul(&mul, &remainder, r);
+	ft_bigint_del(&integer);
+	ft_bigint_del(&remainder);
+	ft_bigint_del(&r);
+	ft_bigint_div(&integer, &remainder, &mul, mod);
+	ft_bigint_del(&integer);
+	ft_bigint_del(&mul);
+	*r = remainder;
+}
+
+static size_t			ft_get_random_range(size_t min, size_t max)
+{
+	size_t	range;
+	size_t	random;
+
+	range = max - min + 1;
+	ft_generate_urandom(&random, sizeof(random));
+	random = random % range + min;
+	return (random);
+}
+
+static void	ft_get_random_range(t_bigint *rand, t_bigint *min, t_bigint *max)
+{
+	t_bigint	integer;
+	t_bigint	remainder;
+	t_bigint	range;
+
+	range = ft_bigint_dup(max);
+	ft_bigint_sub(range, min);
+	ft_bigint_increment(range)
+	range = max - min + 1;
+	rand->size = range.size;
+	rand->value = (unsigned char *)malloc(rand->size);
+	ft_generate_urandom(rand->value, rand->size);
+	ft_bigint_div(&integer, &remainder, rand, &range);
+	ft_bigint_add(&remainder, min);
+	*rand = remainder;
+	ft_bigint_del(&range);
+	ft_bigint_del(&integer);
+}
+
+static int	ft_is_composit_by_miller_rabin(t_bigint *prime, unsigned probability)
+{
+	t_bigint	value_1;
+	t_bigint	prime_minus1;
+	t_bigint	a;
+	t_bigint	s;
+	t_bigint	d;
+	t_bigint	res;
+	t_bigint	power;
+
+	s.size = prime->size;
+	s.value = (unsigned char *)malloc(s.size);
+	ft_bzero(s.value, s.size);
+	prime_minus1 = ft_bigint_dup(prime);
+	ft_bigint_decrement(&d);
+	d = ft_bigint_dup(&prime_minus1);
+	while (1)
+	{
+		ft_bigint_shr(&d);
+		ft_bigint_increment(&s);
+		if (d.value[0] & 0x01)
+			break ;
+	}
+	if (probability >= 100)
+		probability = 99;
+	else if (probability == 0)
+		probability = 1;
+	probability = g_probability[probability];
+	value_1.size = 1;
+	value_1.value = (unsigned char *)malloc(1);
+	value_1.value[0] = 1;
+	while (probability--)
+	{
+		ft_get_random_range(&a, &value_1, &prime_minus1);
+		ft_pow_mod3(&res, &a, &d, prime);
+		if (ft_bigint_equ(&res, &value_1))
+			break ;
+		if (ft_bigint_equ(&res, &prime_minus1))
+			break ;
+		while (1)
+		{
+			ft_bigint_decrement(&s);
+			if (ft_bigint_isnull(&s))
+				break ;
+			ft_bigint_shl(&d);
+			// ft_bigint_
+			// ft_pow_2(pow) * d
+			// ft_pow_mod3(&res, &a, &d, prime);
+			zrobyt shob d;
+			if (ft_bigint_equ(&res, &prime_minus1))
+				break ;
+
+		}
+		return (1);
 	}
 	return (0);
 }
 
-static int	ft_is_composit_by_miller_rabin(t_bigint *prime)
+
+// 		while (--pow)
+// 		{
+// 			res = ft_pow_mod3(a, ft_pow_2(pow) * buf, num);
+// 			if (res == num - 1)
+// 				break;
+// 		}
+// 		return (1);
+// 	}
+// 	return (0);
+// }
+// res = ft_pow_mod2(a, buf, num);
+
+
+int			ft_ssl_is_primary(t_bigint *number, unsigned probability)
 {
-
-
+	if (ft_is_composit_by_sieve(number))
+	{
+		ft_printf("sieve\n");
+		return (0);
+	}
+	if (ft_is_composit_by_miller_rabin(number, probability))
+	{
+		ft_printf("miller-rabin\n");
+		return (0);
+	}
+	return (1);
 }
-
-
-
-// int			ft_ssl_is_primary(size_t number, unsigned probability)
-// {
-
-//}
-

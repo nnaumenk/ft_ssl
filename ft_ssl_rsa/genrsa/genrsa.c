@@ -342,6 +342,11 @@ void		ft_genrsa(void *v_data)
 	t_rsa	rsa;
 	ft_print("1\n");
 	rsa.flag = *(t_rsa_flag *)v_data;
+	if (rsa.flag.numbits <= 30)
+	{
+		ft_print("ft_ssl: key's size is too small\n");
+		return ;
+	}
 	ft_make_genrsa_data(&rsa);
 	ft_print("2\n");
 	ft_genrsa_make_text(&rsa);

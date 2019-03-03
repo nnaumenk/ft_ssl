@@ -146,9 +146,7 @@ static int				ft_is_composit_by_sieve(size_t number)
 	i = -1;
 	while (++i < 1230)
 	{
-		if (number == g_prime_arr[i])
-			return (0);
-		if (number % g_prime_arr[i])
+		if (number % g_prime_arr[i] == 0)
 			return (1);
 	}
 	return (0);
@@ -175,19 +173,27 @@ size_t			ft_pow_2(size_t pow)
 	return (a);
 }
 
+size_t	ft_pow_mod2(size_t num, size_t pow, size_t mod)
+{
+	size_t	res;
+
+	if (pow == 0)
+		return (1);
+	else if (pow % 2 == 0)
+	{
+		res = ft_pow_mod2(num, pow / 2, mod);
+		return ((res * res) % mod);
+	}
+	return (((num % mod) * ft_pow_mod2(num, pow - 1, mod)) % mod);
+}
+
 static int				ft_is_composit_by_miller_rabin(size_t num, unsigned prb)
 {
-	t_bigint	big_res;
-	t_bigint	big_num;
-	t_bigint	big_pow;
-	t_bigint	big_mod;
-	t_bigint	big_r_minus;
+	size_t		res;
 	size_t		a;
 	size_t		buf;
 	size_t		pow;
 
-	if (num % 2 == 0)
-		return (1);
 	pow = 0;
 	buf = num - 1;
 	while (1)
@@ -197,43 +203,22 @@ static int				ft_is_composit_by_miller_rabin(size_t num, unsigned prb)
 		if (buf % 2)
 			break ;
 	}
-	ft_printf("before get_random_smaller\n");
-	a = ft_get_random_range(1, num - 1);
-
-	big_num.size = 8;
-	big_num.value = malloc(big_num.size);
-	big_num.value[0] = a;
-
-	big_pow.size = 8;
-	big_pow.value = malloc(big_pow.size);
-	big_pow.value[0] = buf;////(pow^0) * buf
-
-	big_mod.size = 8;
-	big_mod.value = malloc(big_mod.size);
-	big_mod.value[0] = num;
-
-	big_r_minus.size = 8;
-	big_r_minus.value = malloc(big_r_minus.size);
-	big_r_minus.value[0] = num - 1;
-
-	ft_printf("before mod\n");
-	ft_pow_mod(&big_res, &big_num, &big_pow, &big_mod);
-	ft_printf("before equ value\n");
-	if (ft_bigint_equ_value(&big_res, 1))
-		return (1);
-	ft_printf("before equal\n");
-	if (ft_bigint_equal(&big_res, &big_r_minus))
-		return (1);
-	static int i = 0;
-	while (--pow)
+	size_t	i = 1;
+	while (i--)
 	{
-		ft_printf("%u\n", i);
 		a = ft_get_random_range(1, num - 1);
-		big_num.value[0] = a;
-		big_pow.value[0] = ft_pow_2(pow) * buf;////(pow^0) * buf
-		ft_pow_mod(&big_res, &big_num, &big_pow, &big_mod);
-		if (ft_bigint_equal(&big_res, &big_r_minus))
-			return (1);
+		res = ft_pow_mod2(a, buf, num);
+		if (res == 1)
+			break ;
+		if (res == num - 1)
+			break ;
+		while (--pow)
+		{
+			res = ft_pow_mod2(a, ft_pow_2(pow) * buf, num);
+			if (res == num - 1)
+				break;
+		}
+		return (1);
 	}
 	return (0);
 }
@@ -242,11 +227,11 @@ static int				ft_is_composit_by_miller_rabin(size_t num, unsigned prb)
 
 int						ft_ssl_is_primary(size_t number, unsigned probability)
 {
-	// if (ft_is_composit_by_sieve(number))
-	// {
-	// 	ft_printf("sieve\n");
-	// 	return (0);
-	// }
+	if (ft_is_composit_by_sieve(number))
+	{
+		ft_printf("sieve\n");
+		return (0);
+	}
 	if (ft_is_composit_by_miller_rabin(number, probability))
 		return (0);
 	return (1);
