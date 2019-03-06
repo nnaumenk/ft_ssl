@@ -35,6 +35,7 @@ void		ft_bigint_increment(t_bigint *a);
 void		ft_bigint_decrement(t_bigint *a);
 
 void		ft_bigint_shl(t_bigint *a, size_t shift);
+void		ft_bigint_shl_overflow(t_bigint *a, size_t shift);
 void		ft_bigint_shr(t_bigint *a, size_t shift);
 
 void		ft_bigint_add(t_bigint *a, t_bigint *b);

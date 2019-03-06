@@ -70,6 +70,7 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_rsa/bigint/ft_bigint_mul.c			\
 				ft_ssl_rsa/bigint/ft_bigint_div.c			\
 				ft_ssl_rsa/bigint/ft_bigint_shl.c			\
+				ft_ssl_rsa/bigint/ft_bigint_shl_overflow.c	\
 				ft_ssl_rsa/bigint/ft_bigint_shr.c			\
 				ft_ssl_rsa/bigint/ft_bigint_normalize.c		\
 															\
@@ -108,10 +109,11 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_rsa/rsautl/rsautl.c					\
 				ft_ssl_rsa/rsautl/rsautl_flags.c			\
 															\
+				ft_ssl_rsa/ft_initial_sieve.c				\
+				ft_ssl_rsa/ft_miller_rabin.c				\
 				ft_ssl_rsa/ft_mod_inverse.c					\
 				ft_ssl_rsa/ft_pow_mod.c						\
-				ft_ssl_rsa/ft_prime_checker_bigint.c		\
-				ft_ssl_rsa/ft_prime_checker_int.c			\
+				ft_ssl_rsa/ft_ssl_is_primary.c				\
 															\
 				hex_ascii.c									\
 				read.c										\

@@ -62,5 +62,6 @@ int				ft_printf(const char *format, ...);
 char			*ft_mem_joiner(size_t *len, const int n, ...);
 void			ft_generate_random(void *mem, size_t n);
 void			ft_generate_urandom(void *mem, size_t n);
+size_t			ft_get_random_in_range(size_t min, size_t max);
 
 #endif

@@ -13,6 +13,27 @@
 #include "libft.h"
 #define GNL_SIZE 4096
 
+void	*ft_memcpy2(void *dst, void *src, size_t n)
+{
+	size_t			i;
+	size_t			*dst64;
+	size_t			*src64;
+	unsigned char	*dst8;
+	unsigned char	*src8;
+
+	src64 = (size_t *)src;
+	dst64 = (size_t *)dst;
+	i = n / sizeof(size_t);
+	while (i--)
+		*dst64++ = *src64++;
+	src8 = (unsigned char *)src64;
+	dst8 = (unsigned char *)dst64;
+	i = n % sizeof(size_t);
+	while (i--)
+		*dst8++ = *src8++;
+	return (dst);
+}
+
 static int		ft_line(char **str, size_t *len, char *pointer, char **line)
 {
 	size_t	line_len;
@@ -20,11 +41,11 @@ static int		ft_line(char **str, size_t *len, char *pointer, char **line)
 
 	line_len = pointer - *str;
 	(*line) = ft_strnew(line_len);
-	ft_memcpy(*line, *str, line_len);
+	ft_memcpy2(*line, *str, line_len);
 	line_len++;
 	*len -= line_len;
 	new = ft_strnew(*len);
-	ft_memcpy(new, *str + line_len, *len);
+	ft_memcpy2(new, *str + line_len, *len);
 	ft_strdel(str);
 	*str = new;
 	return (1);
@@ -35,7 +56,7 @@ static int		ft_last_line(char **str, size_t *len, char **line)
 	if (*len)
 	{
 		(*line) = ft_strnew(*len);
-		ft_memcpy(*line, *str, *len);
+		ft_memcpy2(*line, *str, *len);
 		*len = 0;
 		ft_strdel(str);
 		return (1);
