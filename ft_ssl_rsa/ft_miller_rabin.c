@@ -12,20 +12,6 @@
 
 #include "../ft_ssl.h"
 
-static char	g_probability[] =
-{
-	0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 2, 2, 2, 2,
-	2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
-	2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
-	2, 2, 2, 2, 3, 3, 3, 3, 3, 4
-};
-
 static void	ft_get_random_1_to_prime_minus_1(t_bigint *rand, t_bigint *prime)
 {
 	t_bigint	integer;
@@ -64,9 +50,7 @@ static int	ft_is_pseudoprime_by_1_statement(
 {
 	t_bigint result;
 
-	ft_printf("a\n");
 	ft_pow_mod(&result, rand, min_odd, prime);
-	ft_printf("b\n");
 	if (ft_bigint_equ_value(&result, 1))
 		return (1);
 	ft_bigint_decrement(prime);
@@ -79,7 +63,7 @@ static int	ft_is_pseudoprime_by_1_statement(
 	return (0);
 }
 
-static int	ft_is_pseudoprime_by_2_statement(
+static int	ft_is_composit_by_2_statement(
 			t_bigint *rand, t_bigint *min_odd, t_bigint *prime, t_bigint *pow)
 {
 	t_bigint			result;
@@ -94,48 +78,41 @@ static int	ft_is_pseudoprime_by_2_statement(
 		ft_bigint_shl_overflow(&iteration_pow, 1);
 		ft_pow_mod(&result, rand, &iteration_pow, prime);
 		ft_bigint_decrement(prime);
-		if (ft_bigint_equal(&result, prime))
+		if (ft_bigint_equal(&result, prime) == 0)
 		{
 			ft_bigint_increment(prime);
 			ft_bigint_del(&iteration_pow);
 			ft_bigint_del(&counter);
-			return (1);
+			return (0);
 		}
 		ft_bigint_increment(prime);
 		ft_bigint_decrement(&counter);
 	}
 	ft_bigint_del(&iteration_pow);
 	ft_bigint_del(&counter);
-	return (0);
+	return (1);
 }
 
-int			ft_is_composit_by_miller_rabin(
-			t_bigint *prime, unsigned probability)
+int			ft_is_composit_by_miller_rabin(t_bigint *prime, unsigned rounds)
 {
 	t_bigint	rand;
 	t_bigint	minimal_odd;
 	t_bigint	pow;
 
-
 	ft_find_minimal_odd(&minimal_odd, &pow, prime);
-	probability = g_probability[probability];
-	while (probability--)
+	while (rounds--)
 	{
-		ft_printf("1\n");
 		ft_get_random_1_to_prime_minus_1(&rand, prime);
-		ft_printf("2\n");
 		if (ft_is_pseudoprime_by_1_statement(&rand, &minimal_odd, prime))
 		{
 			ft_bigint_del(&rand);
 			continue ;
 		}
-		ft_printf("3\n");
-		if (ft_is_pseudoprime_by_2_statement(&rand, &minimal_odd, prime, &pow))
+		if (ft_is_composit_by_2_statement(&rand, &minimal_odd, prime, &pow))
 		{
 			ft_bigint_del(&rand);
 			continue ;
 		}
-		ft_printf("4\n");
 		ft_bigint_del(&rand);
 		return (1);
 	}

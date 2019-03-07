@@ -92,4 +92,5 @@ void					ft_bigint_mul(t_bigint *mul, t_bigint *a, t_bigint *b)
 	val2 = b->value;
 	mul->value = ft_mul_algor(val1, val2, a->size, b->size);
 	mul->size = a->size + b->size;
+	ft_bigint_normalize(mul);
 }

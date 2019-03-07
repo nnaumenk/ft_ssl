@@ -155,6 +155,10 @@ size_t	ft_pow_mod2(size_t num, size_t pow, size_t mod)
 {
 	size_t	res;
 
+	ft_printf("num = %zu\n", num);
+	ft_printf("pow = %zu\n", pow);
+	ft_printf("mod = %zu\n", mod);
+
 	if (pow == 0)
 		return (1);
 	else if (pow % 2 == 0)
@@ -200,10 +204,16 @@ static int	ft_is_pseudoprime_by_2_statement(
 
 	while (--pow)
 	{
+		ft_printf("hh\n");
 		minimal_odd <<= 1;
 		result = ft_pow_mod2(random, minimal_odd, prime);
+		ft_printf("res = %zu\n", result);
+		ft_printf("prime = %zu\n", prime - 1);
 		if (result == prime - 1)
+		{
+			ft_printf("return\n");
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -222,14 +232,24 @@ int			ft_is_composit_by_miller_rabin_int(
 	probability = g_probability[probability];
 	while (probability--)
 	{
-		random = ft_get_random_in_range(1, prime - 1);
+		random = ft_get_random_in_range(1, prime - 1);///dodat
+		//random = 120;////ubrat
 		result = ft_pow_mod2(random, minimal_odd, prime);
 		if (result == 1)
+		{
+			ft_printf("1\n");
 			continue ;
+		}
 		if (result == prime - 1)
+		{
+			ft_printf("2\n");
 			continue ;
+		}
 		if (ft_is_pseudoprime_by_2_statement(random, minimal_odd, prime, pow))
+		{
+			ft_printf("3\n");
 			continue ;
+		}
 		return (1);
 	}
 	return (0);
@@ -319,25 +339,27 @@ int		main(int ac, char **av)
 
 	t_bigint	a;
 
-	a.size = 2;
+	a.size = 512;
 	a.value = malloc(a.size);
+		
+	// if (ft_is_composit_by_miller_rabin_int(b, 1))
+	// 	printf("%zu int is composite by miller\n", b);
+	// else
+	// 	printf("%zu int is prime by miller\n", b);
 	ft_generate_urandom(a.value, a.size);
+	//*(size_t *)a.value = 9861730039487616943;
+	a.value[0] |= 1;
 
-	size_t b = *(short *)a.value;
+	ft_find_nearest_pseudoprime(&a);
 
-	ft_bigint_print("bigint", &a);
-	if (ft_ssl_is_primary(&a, 99))
-		printf("is prime by miller\n");
-	else
-		printf("is composite by miller\n");
+	//ft_bigint_print("res", &a);
+
+		// else
+		// 	printf("bigint is composite by miller\n");
+		// ft_bigint_increment(&a);
+		// ft_bigint_increment(&a);
 
 	
-
-	if (ft_is_composit_by_miller_rabin_int(b, 99))
-		printf("%zu is composite by miller\n", b);
-	else
-		printf("%zu is prime by miller\n", b);
-
 
 	// if (ac == 1)
 	// 	ft_parse_from_console(&my);

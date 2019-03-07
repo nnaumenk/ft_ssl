@@ -54,10 +54,10 @@ int		ft_asn1_decode(t_rsa_data *data, char *text, size_t len);
 
 int		ft_mod_inverse(t_bigint *inverse, t_bigint *a, t_bigint *mod);
 
-int		ft_is_composit_by_initial_sieve(t_bigint *prime);
+int		ft_is_composit_by_initial_sieve(void);
 int		ft_is_composit_by_miller_rabin(t_bigint *prime, unsigned probability);
 int		ft_ssl_is_primary(t_bigint *number, unsigned probability);
-
+void	ft_find_nearest_pseudoprime(t_bigint *prime);
 
 
 size_t	ft_pow_mod_int(size_t num, size_t pow, size_t mod);

@@ -45,4 +45,6 @@ void		ft_bigint_div(t_bigint *in, t_bigint *rm, t_bigint *a, t_bigint *b)
 		block.value--;
 	}
 	ft_memrev(in->value, in->size);
+	ft_bigint_normalize(in);
+	ft_bigint_normalize(rm);
 }
