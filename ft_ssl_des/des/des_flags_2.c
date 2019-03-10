@@ -20,13 +20,13 @@ int		ft_des_process_vector_if_key(t_des *data)
 		if (data->des_alg_fun != ft_des_ecb_enc_dec &&
 		data->des_alg_fun != ft_des3_ecb_enc_dec)
 		{
-			ft_print("vector undefined\n");
+			ft_print_fd(2, "vector undefined\n");
 			return (1);
 		}
 	}
 	else if (ft_hex_to_ascii(data->flag.vector8, data->flag.vector, 8))
 	{
-		ft_print("invalid hex vector value\n");
+		ft_print_fd(2, "invalid hex vector value\n");
 		return (1);
 	}
 	return (0);
@@ -68,13 +68,13 @@ int		ft_des_process_key_n_vector_if_password(t_des *data)
 	}
 	else if (ft_strlen(data->flag.vector) > 32)
 	{
-		ft_print("hex string is too long\n");
-		ft_print("invalid hex vector value\n");
+		ft_print_fd(2, "hex string is too long\n");
+		ft_print_fd(2, "invalid hex vector value\n");
 		return (1);
 	}
 	else if (ft_hex_to_ascii(data->flag.vector8, data->flag.vector, 8))
 	{
-		ft_print("invalid hex vector value\n");
+		ft_print_fd(2, "invalid hex vector value\n");
 		return (1);
 	}
 	ft_des_process_key_if_password(data);

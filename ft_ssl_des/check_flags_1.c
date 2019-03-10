@@ -16,7 +16,7 @@ int		ft_check_flag_i(int *i, int ac, char **av, t_des *data)
 {
 	if (++(*i) == ac)
 	{
-		ft_print("ft_ssl: missing file argument for %s\n", av[*i - 1]);
+		ft_print_fd(2, "ft_ssl: missing file argument for %s\n", av[*i - 1]);
 		return (1);
 	}
 	data->flag.name_input = av[*i];
@@ -27,7 +27,7 @@ int		ft_check_flag_o(int *i, int ac, char **av, t_des *data)
 {
 	if (++(*i) == ac)
 	{
-		ft_print("ft_ssl: missing file argument for %s\n", av[*i - 1]);
+		ft_print_fd(2, "ft_ssl: missing file argument for %s\n", av[*i - 1]);
 		return (1);
 	}
 	data->flag.name_output = av[*i];

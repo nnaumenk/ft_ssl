@@ -18,7 +18,7 @@ int		ft_md5_check_flag(int *i, int ac, char **av, t_md5_flags *flags)
 	{
 		if (++*i == ac)
 		{
-			ft_print("ft_ssl: missing string argument for -s\n");
+			ft_print_fd(2, "ft_ssl: missing string argument for -s\n");
 			return (0);
 		}
 		flags->s = 1;
@@ -34,8 +34,8 @@ int		ft_md5_check_flag(int *i, int ac, char **av, t_md5_flags *flags)
 		flags->r = 1;
 	else
 	{
-		ft_print("ft_ssl: '%s' is an unknown option\noptions are\n", av[*i]);
-		ft_print("%s\n%s\n%s\n%s\n", MD5_OPTIONS);
+		ft_print_fd(2, "ft_ssl: '%s' is an unknown option\n", av[*i]);
+		ft_print_fd(2, "options are\n%s\n%s\n%s\n%s\n", MD5_OPTIONS);
 		return (0);
 	}
 	return (1);

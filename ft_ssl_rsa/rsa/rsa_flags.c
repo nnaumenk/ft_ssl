@@ -66,8 +66,8 @@ static void		ft_search_flags(t_alg *my, t_rsa_flag *flag, int ac, char **av)
 			}
 		if (g_option[j].option_name == NULL)
 		{
-			ft_print("ft_ssl: '%s' is an unknown option\noptions are\n", av[i]);
-			ft_print("%s\n", g_options_output);
+			ft_print_fd(2, "ft_ssl: '%s' is an unknown option\n", av[i]);
+			ft_print_fd(2, "options are\n%s\n", g_options_output);
 			return ;
 		}
 	}

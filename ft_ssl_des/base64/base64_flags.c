@@ -28,6 +28,15 @@ int		ft_b64_process_flags(t_alg *my, t_des *data)
 	return (0);
 }
 
+static char			*g_options_output =
+
+"-d\t\tdecode mode\n"													\
+"-e\t\tencode mode(default)\n"											\
+"-i file\t\tinput file(default stdin)\n"								\
+"-o file\t\toutput file(default stdout)\n"								\
+
+;
+
 void	ft_b64_search_flags(t_alg *my, t_des *data, int argc, char **argv)
 {
 	const t_des_options		options[] = {BASE64_OPTIONS_FUNCTIONS};
@@ -47,8 +56,8 @@ void	ft_b64_search_flags(t_alg *my, t_des *data, int argc, char **argv)
 			}
 		if (options[j].name == NULL)
 		{
-			ft_print("ft_ssl: '%s' is an unknown option\n", argv[i]);
-			ft_print("options are\n%s\n%s\n%s\n%s\n", BASE64_OPTIONS);
+			ft_print_fd(2, "ft_ssl: '%s' is an unknown option\n", argv[i]);
+			ft_print_fd(2, "options are\n%s\n", g_options_output);
 			return ;
 		}
 	}

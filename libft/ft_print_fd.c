@@ -114,7 +114,7 @@ static void	ft_percent(char *format, va_list ap, char *buf, size_t *full_len)
 	*full_len += len;
 }
 
-int			ft_print(const char *format, ...)
+int			ft_print_fd(const int fd, const char *format, ...)
 {
 	va_list	argptr;
 	char	buf[BUF_SIZE];
@@ -123,7 +123,7 @@ int			ft_print(const char *format, ...)
 	va_start(argptr, format);
 	len = 0;
 	ft_percent((char *)format, argptr, buf, &len);
-	write(1, buf, len);
+	len = write(fd, buf, len);
 	va_end(argptr);
 	return (len);
 }

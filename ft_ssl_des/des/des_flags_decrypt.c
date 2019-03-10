@@ -18,7 +18,7 @@ int		ft_des_read_password(t_des *data)
 	data->flag.password = getpass("Enter des decryption password:");
 	if (data->flag.password[0] == 0)
 	{
-		ft_print("bad password read\n");
+		ft_print_fd(2, "bad password read\n");
 		return (1);
 	}
 	return (0);
@@ -29,13 +29,13 @@ int		ft_des_decrypt_process_salt(t_des *data)
 	if (data->len < 16)
 	{
 		ft_strdel(&data->text);
-		ft_print("error reading input file\n");
+		ft_print_fd(2, "error reading input file\n");
 		return (1);
 	}
 	if (ft_memequ(data->text, "Salted__", 8) == 0)
 	{
 		ft_strdel(&data->text);
-		ft_print("bad magic number\n");
+		ft_print_fd(2, "bad magic number\n");
 		return (1);
 	}
 	ft_memcpy(data->flag.salt8, data->text + 8, 8);
@@ -77,7 +77,7 @@ int		ft_des_decrypt_if_key(t_des *data)
 		return (1);
 	if (ft_hex_to_ascii(data->flag.key8, data->flag.key, data->key_len))
 	{
-		ft_print("invalid hex key value\n");
+		ft_print_fd(2, "invalid hex key value\n");
 		return (1);
 	}
 	data->text = ft_read_from(data->flag.fd_input, &data->len);

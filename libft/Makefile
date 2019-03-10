@@ -41,7 +41,7 @@ CFILES	=	ft_free_matrix.c				\
 			ft_strequ.c						\
 			ft_strtrim.c					\
 			ft_strsplit.c					\
-			ft_print.c						\
+			ft_print_fd.c					\
 			ft_generate_random.c			\
 			ft_generate_urandom.c			\
 			ft_get_random_in_range.c		\

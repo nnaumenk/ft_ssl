@@ -38,20 +38,57 @@ t_alg	g_algors_arr[] =
 	{0, 0, 0, 0}
 };
 
-int		ft_choose_first_param(t_alg *my, char *av)
+static char			*g_all_commands =
+
+"\nStandard commands:\n"				\
+"rsa\n"									\
+"genrsa\n"								\
+"rsautl\n"								\
+										\
+"\nMessage Digest commands:\n"			\
+"md5\n"									\
+"sha1\n"								\
+"sha256\n"								\
+"sha512\n"								\
+"whirlpool\n"							\
+										\
+"\nCipher commands:\n"					\
+"base64\n"								\
+"des\n"									\
+"des-ecb\n"								\
+"dec-cbc\n"								\
+"des-ofb\n"								\
+"des-pcbc\n"							\
+"des-cfb\n"								\
+"des3\n"								\
+"des3-ecb\n"							\
+"des3-cbc\n"							\
+"des3-ofb\n"							\
+"des3-pcbc\n"							\
+"des3-cfb\n"							\
+
+;
+
+int		ft_choose_first_param(t_alg *my, char *str)
 {
 	int			i;
 
 	i = -1;
 	while (g_algors_arr[++i].name_big)
 	{
-		*my = g_algors_arr[i];
-		if (ft_strequ(av, g_algors_arr[i].name_big))
+		if (ft_strequ(str, g_algors_arr[i].name_big))
+		{
+			*my = g_algors_arr[i];
 			return (1);
-		if (ft_strequ(av, g_algors_arr[i].name_small))
+		}
+		if (ft_strequ(str, g_algors_arr[i].name_small))
+		{
+			*my = g_algors_arr[i];
 			return (1);
+		}
 	}
-	ft_print("ft_ssl: '%s' is an invalid command.\n%s", av, ALL_CMD);
+	ft_print_fd(2, "ft_ssl: '%s' is an invalid command.\n", str);
+	ft_print_fd(2, "%s\n", g_all_commands);
 	return (0);
 }
 
@@ -75,27 +112,38 @@ char	*ft_strtrim_comma(char *str)
 	return (str);
 }
 
+void	ft_split_argument_line(t_alg *my, char *line)
+{
+	int		ac;
+	char	**av;
+
+	av = ft_strsplit(line, ' ');
+	if (av[0])
+	{
+		ac = -1;
+		while (av[++ac])
+			av[ac] = ft_strtrim_comma(av[ac]);
+		if (ft_choose_first_param(my, *av))
+			(my->flag_pointer)(my, ac - 1, av + 1);
+	}
+	ft_free_matrix(&av);
+}
+
 void	ft_parse_from_console(t_alg *my)
 {
 	char	*line;
-	char	**av;
-	int		ac;
 
 	while (1)
 	{
-		ft_print("ft_ssl> ");
-		if (get_next_line(0, &line))
+		ft_print_fd(1, "ft_ssl> ");
+		if (get_next_line(0, &line) == 1)
 		{
-			av = ft_strsplit(line, ' ');
-			if (av[0])
+			if (ft_strequ(line, "exit"))
 			{
-				ac = -1;
-				while (av[++ac])
-					av[ac] = ft_strtrim_comma(av[ac]);
-				if (ft_choose_first_param(my, *av))
-					(my->flag_pointer)(my, ac - 1, av + 1);
+				ft_strdel(&line);
+				break ;
 			}
-			ft_free_matrix(&av);
+			ft_split_argument_line(my, line);
 			ft_strdel(&line);
 			continue ;
 		}
@@ -204,21 +252,13 @@ static int	ft_is_pseudoprime_by_2_statement(
 
 	while (--pow)
 	{
-		ft_printf("hh\n");
 		minimal_odd <<= 1;
 		result = ft_pow_mod2(random, minimal_odd, prime);
-		ft_printf("res = %zu\n", result);
-		ft_printf("prime = %zu\n", prime - 1);
 		if (result == prime - 1)
-		{
-			ft_printf("return\n");
 			return (1);
-		}
 	}
 	return (0);
 }
-
-
 
 int			ft_is_composit_by_miller_rabin_int(
 			size_t prime, unsigned probability)
@@ -233,139 +273,87 @@ int			ft_is_composit_by_miller_rabin_int(
 	while (probability--)
 	{
 		random = ft_get_random_in_range(1, prime - 1);///dodat
-		//random = 120;////ubrat
 		result = ft_pow_mod2(random, minimal_odd, prime);
 		if (result == 1)
-		{
-			ft_printf("1\n");
 			continue ;
-		}
 		if (result == prime - 1)
-		{
-			ft_printf("2\n");
 			continue ;
-		}
 		if (ft_is_pseudoprime_by_2_statement(random, minimal_odd, prime, pow))
-		{
-			ft_printf("3\n");
 			continue ;
-		}
 		return (1);
 	}
 	return (0);
 }
 
+// a2 = ((a1 % c) * (a1 % c)) % c 	\
+// a1 = ((a1 % c)*(a0 % c)) % c 	
+size_t	ft_pow_mod_int(size_t num, size_t pow, size_t mod)
+{
+	size_t	res;
+
+	if (pow == 0)
+		return (1);
+	else if (pow % 2 == 0)
+	{
+		pow /= 2;
+		res = ft_pow_mod_int(num, pow, mod);
+		res = res * res;
+		res = res % mod;
+		return (res);
+	}
+	pow -= 1;
+	res = ft_pow_mod_int(num, pow, mod);
+	res = (num % mod) * (res % mod);
+	res = res % mod;
+	return (res);
+}
 
 int		main(int ac, char **av)
 {
-	t_alg	my;
-	// size_t		r;
-	// size_t		num;
-	// size_t		pow;
-	// size_t		mod;
-
-	// num = 0x2935823985923993;
-	// pow = 0x2503748572438574;
-	// mod = 0x9305709475345438;
+	// t_bigint r;
+	// t_bigint num;
+	// t_bigint pow;
+	// t_bigint mod;
 
 
-
-	// size_t	i = 100000;
-	// while (i--)
-	// {
-	// 	ft_generate_urandom(&num, sizeof(num));
-	// 	ft_generate_urandom(&pow, sizeof(pow));
-	// 	ft_generate_urandom(&mod, sizeof(mod));
-	// 	r = ft_pow_mod2(num, pow, mod);
-	// 	ft_print("res = %U\n", r);
-
-	// }
-
-
-	// num.size = 8;
+	// num.size = 1;
 	// num.value = malloc(num.size);
-	// ft_bzero(num.value, num.size);
-	// *(size_t *)num.value = 2;
+	// num.value[0] = 153;
 
-	// pow.size = 8;
+	// pow.size = 1;
 	// pow.value = malloc(pow.size);
-	// ft_bzero(pow.value, pow.size);
-	// *(size_t *)pow.value = 0xffffffffffffffff;
+	// pow.value[0] = 55;
 
-	// mod.size = 8;
+	// mod.size = 1;
 	// mod.value = malloc(mod.size);
-	// ft_bzero(mod.value, mod.size);
-	// *(size_t *)mod.value = 35237;
+	// mod.value[0] = 200;
+
+	// ft_pow_mod(&r, &num, &pow, &mod);
+	// ft_bigint_print("res = ", &r);
+
+	// size_t num = 0x954bcc532564a877;//10757916792386267255;
+	// size_t pow = 0x0ad9fb3d93346ce1;//781932252206755041;
+	// size_t mod = 0xad9fb3d93346ce11;//12510916035308080657;
+
+	size_t num = 0x2564a877;//10757916792386267255;
+	size_t pow = 0x93346ce1;//781932252206755041;
+	size_t mod = 0x3346ce11;//12510916035308080657;
+
+	ft_printf("num = %zu\n", num);
+	ft_printf("pow = %zu\n", pow);
+	ft_printf("mod = %zu\n", mod);
+
+	ft_printf("res = %zu\n", ft_pow_mod_int(num, pow, mod));
 
 
-	// r = ft_pow_mod2(num, pow, mod);
-	// ft_printf("r = %zu\n", r);
-	// r = ft_pow_mod3(num, pow, mod);
-	// ft_printf("r = %zu\n", r);
-
-	// return (0);
 
 
 
-
-
-
-	// size_t	num = 1608;// = 3616092561227787833;// = 600;
-
-	// //ft_generate_urandom(&num, sizeof(num));
-	// while (1)
-	// {
-		
-	// 	//ft_printf("num = %zu\n", num);
-
-	// 	if (ft_ssl_is_primary(num, 100))
-	// 	{
-	// 		break ;
-	// 		//printf("%zu is prime by miller\n", num);
-	// 	}
-	// //	else
-	// 		//printf("%zu is composite by miller\n", num);
-
-	// 	if (ft_is_composit_by_sieve(num) == 0)
-	// 		break ;
-	// 	// else
-	// 	// {
-			
-	// 	// 	//printf("%zu is prime by sieve\n", num);
-			
-	// 	// }
-	// 	num++;
-	// }
-
-	t_bigint	a;
-
-	a.size = 512;
-	a.value = malloc(a.size);
-		
-	// if (ft_is_composit_by_miller_rabin_int(b, 1))
-	// 	printf("%zu int is composite by miller\n", b);
-	// else
-	// 	printf("%zu int is prime by miller\n", b);
-	ft_generate_urandom(a.value, a.size);
-	//*(size_t *)a.value = 9861730039487616943;
-	a.value[0] |= 1;
-
-	ft_find_nearest_pseudoprime(&a);
-
-	//ft_bigint_print("res", &a);
-
-		// else
-		// 	printf("bigint is composite by miller\n");
-		// ft_bigint_increment(&a);
-		// ft_bigint_increment(&a);
-
-	
+	// t_alg	my;
 
 	// if (ac == 1)
 	// 	ft_parse_from_console(&my);
 	// else if (ft_choose_first_param(&my, av[1]))
 	// 	(my.flag_pointer)(&my, ac - 2, av + 2);
 	// return (0);
-	USE(ac);
-	USE(av);
 }

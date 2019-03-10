@@ -18,7 +18,7 @@ static void	ft_big_int(char *name, t_bigint *a)
 	unsigned char	*byte;
 	
 	byte = a->value + a->size;
-	ft_printf("%s:\n    %.2hhx:", name, *--byte);
+	ft_printf("%s\n    %.2hhx:", name, *--byte);
 	i = 0;
 	while (++i < a->size - 1)
 	{
@@ -41,6 +41,6 @@ void		ft_bigint_print(char *name, t_bigint *a)
 	{
 		number = 0;
 		ft_memcpy(&number, a->value, a->size);
-		ft_printf("%s: %lu (0x%lx)\n", name, number, number);
+		ft_printf("%s %lu (0x%lx)\n", name, number, number);
 	}
 }

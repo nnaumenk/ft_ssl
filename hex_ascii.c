@@ -41,7 +41,7 @@ int		ft_hex_to_dec(uint8_t hex)
 		dec = (hex - 'a' + 10);
 	else
 	{
-		ft_print("no-hex digit\n");
+		ft_print_fd(2, "no-hex digit\n");
 		return (-1);
 	}
 	return (dec);

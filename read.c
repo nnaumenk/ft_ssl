@@ -14,6 +14,13 @@
 
 #define READ_BUF 1000
 
+void	ft_close_fd(int fd)
+{
+	if (fd == 0 || fd == 1 || fd == 2)
+		return ;
+	close(fd);
+}
+
 char	*ft_read_from(int fd, size_t *len)
 {
 	char		*str;
@@ -42,17 +49,21 @@ int		ft_make_input_fd(char *file)
 		fd = open(file, O_RDONLY);
 		if (fd == -1)
 		{
-			ft_print("ft_ssl: '%s' %s\n", file, "is not a file");
+			ft_print_fd(2, "ft_ssl: '%s' %s\n", file, "is not a file");
 			return (-1);
 		}
-		if (read(fd, 0, 0) == -1)
-		{
-			ft_print("ft_ssl: '%s' %s\n", file, "is incorrect file");
-			return (-1);
-		}
-		return (fd);
 	}
-	return (0);
+	else
+	{
+		file = "STDIN";
+		fd = 0;
+	}
+	if (read(fd, 0, 0) == -1)
+	{
+		ft_print_fd(2, "ft_ssl: error in reading '%s'\n", file);
+		return (-1);
+	}
+	return (fd);
 }
 
 int		ft_make_output_fd(char *file)
@@ -64,15 +75,19 @@ int		ft_make_output_fd(char *file)
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 		if (fd == -1)
 		{
-			ft_print("ft_ssl: '%s' %s\n", file, "is not a file");
+			ft_print_fd(2, "ft_ssl: '%s' %s\n", file, "is not a file");
 			return (-1);
 		}
-		if (write(fd, 0, 0) == -1)
-		{
-			ft_print("ft_ssl: '%s' %s\n", file, "is incorrect file");
-			return (-1);
-		}
-		return (fd);
 	}
-	return (1);
+	else
+	{
+		file = "STDOUT";
+		fd = 1;
+	}
+	if (write(fd, 0, 0) == -1)
+	{
+		ft_print_fd(2, "ft_ssl: error in reading '%s'\n", file);
+		return (-1);
+	}
+	return (fd);
 }

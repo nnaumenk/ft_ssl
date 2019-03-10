@@ -56,7 +56,7 @@ void	ft_des_check_padding(uint8_t *last_block, size_t *len, int pad_flag)
 	if (padded_number < 1 || padded_number > 8)
 	{
 		*len = (*len - 1) / 8 * 8;
-		ft_print("Bad decrypt\n");
+		ft_print_fd(2, "Bad decrypt\n");
 		return ;
 	}
 	pointer = &last_block[7];
@@ -66,7 +66,7 @@ void	ft_des_check_padding(uint8_t *last_block, size_t *len, int pad_flag)
 		if (*pointer-- != padded_number)
 		{
 			*len = (*len - 1) / 8 * 8;
-			ft_print("Bad decrypt\n");
+			ft_print_fd(2, "Bad decrypt\n");
 			return ;
 		}
 	}

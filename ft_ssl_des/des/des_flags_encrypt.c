@@ -20,7 +20,7 @@ int		ft_des_read_password_verify(t_des *data)
 	password = getpass("Enter des encryption password:");
 	if (password[0] == 0)
 	{
-		ft_print("bad password read\n");
+		ft_print_fd(2, "bad password read\n");
 		return (1);
 	}
 	password = ft_strdup(password);
@@ -28,14 +28,14 @@ int		ft_des_read_password_verify(t_des *data)
 	getpass("Verifying - enter des encryption password:");
 	if (data->flag.password[0] == 0)
 	{
-		ft_print("bad password read\n");
+		ft_print_fd(2, "bad password read\n");
 		ft_strdel(&password);
 		return (1);
 	}
 	if (ft_strequ(password, data->flag.password) == 0)
 	{
 		ft_strdel(&password);
-		ft_print("Verify failure\nbad password read\n");
+		ft_print_fd(2, "Verify failure\nbad password read\n");
 		return (1);
 	}
 	ft_strdel(&password);
@@ -50,13 +50,13 @@ int		ft_des_encrypt_process_salt(t_des *data)
 		ft_generate_random((char *)data->flag.salt8, 8);
 	else if (ft_strlen(data->flag.salt) > 16)
 	{
-		ft_print("hex string is too long\n");
-		ft_print("invalid hex salt value\n");
+		ft_print_fd(2, "hex string is too long\n");
+		ft_print_fd(2, "invalid hex salt value\n");
 		return (1);
 	}
 	else if (ft_hex_to_ascii(data->flag.salt8, data->flag.salt, 8))
 	{
-		ft_print("invalid hex salt value\n");
+		ft_print_fd(2, "invalid hex salt value\n");
 		return (1);
 	}
 	if (data->flag.a == 0)
@@ -100,7 +100,7 @@ int		ft_des_encrypt_if_key(t_des *data)
 		return (1);
 	if (ft_hex_to_ascii(data->flag.key8, data->flag.key, data->key_len))
 	{
-		ft_print("invalid hex key value\n");
+		ft_print_fd(2, "invalid hex key value\n");
 		return (1);
 	}
 	data->text = ft_read_from(data->flag.fd_input, &data->len);

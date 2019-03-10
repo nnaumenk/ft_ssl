@@ -16,7 +16,7 @@ int		ft_check_flag_k(int *i, int ac, char **av, t_des *data)
 {
 	if (++(*i) == ac)
 	{
-		ft_print("ft_ssl: missing key argument for %s\n", av[*i - 1]);
+		ft_print_fd(2, "ft_ssl: missing key argument for %s\n", av[*i - 1]);
 		return (1);
 	}
 	data->flag.key = av[*i];
@@ -27,7 +27,7 @@ int		ft_check_flag_v(int *i, int ac, char **av, t_des *data)
 {
 	if (++(*i) == ac)
 	{
-		ft_print("ft_ssl: missing IV argument for %s\n", av[*i - 1]);
+		ft_print_fd(2, "ft_ssl: missing IV argument for %s\n", av[*i - 1]);
 		return (1);
 	}
 	data->flag.vector = av[*i];
@@ -38,7 +38,7 @@ int		ft_check_flag_p(int *i, int ac, char **av, t_des *data)
 {
 	if (++(*i) == ac)
 	{
-		ft_print("ft_ssl: missing source argument for %s\n", av[*i - 1]);
+		ft_print_fd(2, "ft_ssl: missing source argument for %s\n", av[*i - 1]);
 		return (1);
 	}
 	data->flag.password = av[*i];
@@ -49,7 +49,7 @@ int		ft_check_flag_s(int *i, int ac, char **av, t_des *data)
 {
 	if (++(*i) == ac)
 	{
-		ft_print("ft_ssl: missing salt argument for %s\n", av[*i - 1]);
+		ft_print_fd(2, "ft_ssl: missing salt argument for %s\n", av[*i - 1]);
 		return (1);
 	}
 	data->flag.salt = av[*i];

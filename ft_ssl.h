@@ -13,19 +13,6 @@
 #ifndef FT_SSL_H
 # define FT_SSL_H
 
-# define ALL_CMD	STD_CM MD_CM CPH_CM
-
-# define STD_CM		"\nStandard commands:\n" STD_CM_ALL
-# define STD_CM_ALL	"rsa\ngenrsa\nrsautl\n"
-
-# define MD_CM		"\nMessage Digest commands:\n" MD_CM_ALL
-# define MD_CM_ALL	"md5\nsha1\nsha256\nsha512\nwhirlpool\n"
-
-# define CPH_CM		"\nCipher commands:\n" CPH_CM_ALL
-# define CPH_CM_ALL	"base64\n" CPH_CM_1 CPH_CM_2
-# define CPH_CM_1	"des\ndes-ecb\ndes-cbc\ndes-ofb\ndes-pcbc\ndes-cfb\n"
-# define CPH_CM_2	"des3\ndes3-ecb\ndes3-cbc\ndes3-ofb\ndes3-pcbc\ndes3-cfb\n"
-
 # define USE(x) (void)(x);
 
 # define IS_DOWN_HEX(x) (x >= 'a' && x <= 'f' ? 1 : 0)
@@ -52,12 +39,11 @@
 int		ft_asn1_encode(t_rsa_data data, char **text, size_t *len);
 int		ft_asn1_decode(t_rsa_data *data, char *text, size_t len);
 
-int		ft_mod_inverse(t_bigint *inverse, t_bigint *a, t_bigint *mod);
-
-int		ft_is_composit_by_initial_sieve(void);
+void	ft_find_prime_number(t_bigint *prime);
+int		ft_is_composit_by_initial_sieve(short *mod_array_2048);
 int		ft_is_composit_by_miller_rabin(t_bigint *prime, unsigned probability);
-int		ft_ssl_is_primary(t_bigint *number, unsigned probability);
-void	ft_find_nearest_pseudoprime(t_bigint *prime);
+int		ft_mod_inverse(t_bigint *inverse, t_bigint *a, t_bigint *mod);
+//int		ft_ssl_is_primary(t_bigint *number, unsigned probability);
 
 
 size_t	ft_pow_mod_int(size_t num, size_t pow, size_t mod);
@@ -261,12 +247,14 @@ void	ft_ascii_to_hex(char *hex, char *str, size_t len);
 int		ft_hex_to_dec(uint8_t hex);
 int		ft_hex_to_ascii(uint8_t *bytes, char *hex, size_t len);
 
+void	ft_close_fd(int fd);
 char	*ft_read_from(int fd, size_t *len);
 int		ft_make_input_fd(char *file);
 int		ft_make_output_fd(char *file);
 
-int		ft_choose_first_param(t_alg *my, char *av);
+int		ft_choose_first_param(t_alg *my, char *str);
 char	*ft_strtrim_comma(char *str);
+void	ft_split_argument_line(t_alg *my, char *line);
 void	ft_parse_from_console(t_alg *my);
 int		main(int ac, char **av);
 

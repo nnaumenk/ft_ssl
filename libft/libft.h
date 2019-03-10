@@ -57,7 +57,7 @@ char			**ft_strsplit(char *s, char c);
 
 int				get_next_line(const int fd, char **line);
 
-int				ft_print(const char *format, ...);
+int				ft_print_fd(const int fd, const char *format, ...);
 int				ft_printf(const char *format, ...);
 char			*ft_mem_joiner(size_t *len, const int n, ...);
 void			ft_generate_random(void *mem, size_t n);

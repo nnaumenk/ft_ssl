@@ -28,21 +28,6 @@
 # define DES_FUN_OPTION_2	DF_7, DF_8, DF_9, DF_A, DF_0
 # define DES_OPTIONS_FUNCTIONS DES_FUN_OPTION_1, DES_FUN_OPTION_2
 
-# define DES_FL_1 "-a 		decode/encode the input/output in base64"
-# define DES_FL_1_1 ", depending on the encrypt mode"
-# define DES_FL_2 "-d		decrypt mode"
-# define DES_FL_3 "-e		encrypt mode"
-# define DES_FL_4 "-i		input file for message"
-# define DES_FL_5 "-k		key in hex is the next arguement"
-# define DES_FL_6 "-o		output file for message"
-# define DES_FL_7 "-p		password in ascii is the next argument"
-# define DES_FL_8 "-s		the salt in hex is the next argument"
-# define DES_FL_9 "-v		initialization vector in hex is the next argument"
-# define DES_FL_10 "-pbkdf2		using pbkdf2 function as default"
-# define DES_FL_OPTION_1 	DES_FL_1, DES_FL_1_1, DES_FL_2, DES_FL_3, DES_FL_4
-# define DES_FL_OPTION_2 	DES_FL_5, DES_FL_6, DES_FL_7, DES_FL_8, DES_FL_9
-# define DES_OPTIONS		DES_FL_OPTION_1, DES_FL_OPTION_2, DES_FL_10
-
 # define IP_0 58, 50, 42, 34, 26, 18, 10, 2, 60, 52, 44, 36, 28, 20, 12, 4
 # define IP_1 62, 54, 46, 38, 30, 22, 14, 6, 64, 56, 48, 40, 32, 24, 16, 8
 # define IP_2 57, 49, 41, 33, 25, 17,  9, 1, 59, 51, 43, 35, 27, 19, 11, 3

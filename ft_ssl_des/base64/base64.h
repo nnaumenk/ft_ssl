@@ -20,12 +20,6 @@
 # define B64_F0 {0, 0}
 # define BASE64_OPTIONS_FUNCTIONS B64_F1, B64_F2, B64_F3, B64_F4, B64_F0
 
-# define BASE64_FL_1 "-d		decode mode"
-# define BASE64_FL_2 "-e		encode mode"
-# define BASE64_FL_3 "-i		input file"
-# define BASE64_FL_4 "-o		output file"
-# define BASE64_OPTIONS BASE64_FL_1, BASE64_FL_2, BASE64_FL_3, BASE64_FL_4
-
 # define BASE_1 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 # define BASE_2 "abcdefghijklmnopqrstuvwxyz"
 # define BASE_3 "0123456789+/=\n"

@@ -109,6 +109,7 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_rsa/rsautl/rsautl.c					\
 				ft_ssl_rsa/rsautl/rsautl_flags.c			\
 															\
+				ft_ssl_rsa/ft_find_prime_number.c			\
 				ft_ssl_rsa/ft_initial_sieve.c				\
 				ft_ssl_rsa/ft_miller_rabin.c				\
 				ft_ssl_rsa/ft_mod_inverse.c					\

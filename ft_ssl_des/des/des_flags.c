@@ -22,6 +22,20 @@ void	ft_delete_flags(t_des *data)
 		close(data->flag.fd_output);
 }
 
+static char			*g_options_output =
+
+"-a\t\tperform base64 encoding/decoding\n"								\
+"-d\t\tdecrypt mode\n"													\
+"-e\t\tencrypt mode(default)\n"											\
+"-i file\t\tinput file(default stdin)\n"								\
+"-o file\t\toutput file(default stdout)\n"								\
+"-k key\t\tkey in hex is the next argument\n"							\
+"-p source\tpassword in ascii is the next argument\n"					\
+"-s salt\t\tsalt in hex is the next argument\n"							\
+"-v IV\t\tinitialization vector in hex is the next argument\n"			\
+
+;
+
 void	ft_des_search_flags(t_alg *my, t_des *data, int ac, char **av)
 {
 	const t_des_options		options[] = {DES_OPTIONS_FUNCTIONS};
@@ -41,8 +55,8 @@ void	ft_des_search_flags(t_alg *my, t_des *data, int ac, char **av)
 			}
 		if (options[j].name == NULL)
 		{
-			ft_print("ft_ssl: '%s' is an unknown option\noptions are\n", av[i]);
-			ft_print("%s%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", DES_OPTIONS);
+			ft_print_fd(2, "ft_ssl: '%s' is an unknown option\n", av[i]);
+			ft_print_fd(2, "options are\n%s\n", g_options_output);
 			return ;
 		}
 	}
