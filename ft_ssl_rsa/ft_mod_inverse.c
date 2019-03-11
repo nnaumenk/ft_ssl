@@ -81,5 +81,6 @@ int			ft_mod_inverse(t_bigint *inverse, t_bigint *a, t_bigint *mod)
 	ft_bigint_sub(inverse, &r);
 	ft_bigint_del(&r);
 	ft_bigint_del(&p);
+	ft_bigint_normalize(inverse);
 	return (0);
 }

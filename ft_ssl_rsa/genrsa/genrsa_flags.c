@@ -27,8 +27,8 @@ static char			*g_usage = "genrsa [args] [numbits]";
 static char			*g_options_output =
 
 "-rand\t\tusing dev/urandom as input random data (default)\n"	\
-"-in file\tusing input file as input random data\n"				\
-"-out file\toutput to file\n"									\
+"-i file\t\tusing input file as input random data\n"			\
+"-o file\t\toutput to file\n"									\
 "-3\t\tuse 3 for the E value\n"									\
 "-f4\t\tuse F4 (0x10001) for the E value\n"						\
 

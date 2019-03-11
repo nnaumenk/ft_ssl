@@ -56,12 +56,7 @@ static int	ft_is_prime_by_1_statement(
 {
 	t_bigint result;
 
-	ft_bigint_print("base", rand);
-	ft_bigint_print("exp", min_odd);
-	ft_bigint_print("mod", prime);
-
 	ft_pow_mod(&result, rand, min_odd, prime);
-	ft_bigint_print("result(should be 1) = ", &result);
 	ft_bigint_del(rand);
 	*rand = result;
 	if (ft_bigint_equ_value(rand, 1))
@@ -111,21 +106,14 @@ int			ft_is_composit_by_miller_rabin(t_bigint *prime, unsigned rounds)
 	ft_find_minimal_odd(&min_odd, &pow, &prime_minus_1, prime);
 	while (rounds--)
 	{
-		//ft_get_random_2_to_prime_minus_2(&rand, prime);
-
-		rand.size = prime->size;
-		rand.value = malloc(prime->size);
-		*(size_t *)rand.value = 10757916792386267255;
-		ft_printf("round\n");
+		ft_get_random_2_to_prime_minus_2(&rand, prime);
 		if (ft_is_prime_by_1_statement(&rand, &min_odd, prime, &prime_minus_1))
 		{
-			ft_printf("a1\n");
 			ft_bigint_del(&rand);
 			continue ;
 		}
 		if (ft_is_prime_by_2_statement(&rand, prime, &pow, &prime_minus_1))
 		{
-			ft_printf("a2\n");
 			ft_bigint_del(&rand);
 			continue ;
 		}

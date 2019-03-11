@@ -12,85 +12,62 @@
 
 #include "ft_bigint.h"
 
-static void				ft_memmul_1byte(
-unsigned char *res, unsigned char *val1, unsigned char *val2, size_t n2)
-{
-	unsigned short	product;
-	unsigned char	overflow;
-
-	overflow = 0;
-	while (n2--)
-	{
-		product = *val1 * *val2 + overflow + *res;
-		*res = product % 0x100;
-		overflow = product / 0x100;
-		res++;
-		val2++;
-	}
-	if (overflow)
-		*res = overflow;
-}
-
-static void				ft_memmul_4byte(
-unsigned int *res32, unsigned int *val1, unsigned int *val32_2, size_t n2)
+static void		ft_mul_4byte(
+		unsigned int *mul32, unsigned int *a32, unsigned int *b32, size_t n)
 {
 	size_t			i;
 	size_t			product;
-	unsigned int	overflow;
-	unsigned char	*val8_2;
-	unsigned char	*res8;
+	size_t			overflow;
+	unsigned int	buf;
 
 	overflow = 0;
-	i = n2 / 4;
+	i = n / sizeof(unsigned int);
 	while (i--)
 	{
-		product = (size_t)*val1 * (size_t)*val32_2 + overflow + *res32;
-		*res32 = product % 0x100000000;
+		product = (size_t)(*a32) * (size_t)(*b32) + overflow + *mul32;
 		overflow = product / 0x100000000;
-		res32++;
-		val32_2++;
+		*mul32 = product - overflow * 0x100000000;
+		mul32++;
+		b32++;
 	}
-	if (overflow)
-		*res32 = overflow;
-	val8_2 = (unsigned char	*)val32_2;
-	res8 = (unsigned char *)res32;
-	i = n2 % 4;
-	while (i--)
-		ft_memmul_1byte(res8++, val8_2++, (unsigned char *)val1, 4);
+	i = n % sizeof(unsigned int);
+	buf = 0;
+	ft_memcpy(&buf, b32, i);
+	product = (size_t)(*a32) * (size_t)(buf) + overflow + *mul32;
+	overflow = product / 0x100000000;
+	*mul32 = product - overflow * 0x100000000;
+	*++mul32 = overflow;
 }
 
-static unsigned char	*ft_mul_algor(
-unsigned char *val8_1, unsigned char *val8_2, size_t n1, size_t n2)
+static void		ft_mul_algor(t_bigint *mul, t_bigint *a, t_bigint *b)
 {
 	size_t			i;
-	unsigned int	*val32_1;
-	unsigned int	*res32;
-	unsigned char	*res8;
-	unsigned char	*res;
+	unsigned int	*mul32;
+	unsigned int	*a32;
+	unsigned int	*b32;
+	unsigned int	buf;
 
-	res = (unsigned char *)malloc(n1 + n2);
-	ft_bzero(res, n1 + n2);
-	res32 = (unsigned int *)res;
-	val32_1 = (unsigned int *)val8_1;
-	i = n1 / 4;
+	mul32 = (unsigned int *)mul->value;
+	a32 = (unsigned int *)a->value;
+	b32 = (unsigned int *)b->value;
+	i = a->size / sizeof(unsigned int);
 	while (i--)
-		ft_memmul_4byte(res32++, val32_1++, (unsigned int *)val8_2, n2);
-	i = n1 % 4;
-	res8 = (unsigned char *)res32;
-	val8_1 = (unsigned char	*)val32_1;
-	while (i--)
-		ft_memmul_1byte(res8++, val8_1++, val8_2, n2);
-	return (res);
+	{
+		ft_mul_4byte(mul32, a32, b32, b->size);
+		mul32++;
+		a32++;
+	}
+	if ((i = a->size % sizeof(unsigned int)) == 0)
+		return ;
+	ft_memcpy(&buf, a32, i);
+	ft_mul_4byte(mul32, &buf, b32, b->size);
 }
 
 void					ft_bigint_mul(t_bigint *mul, t_bigint *a, t_bigint *b)
 {
-	unsigned char	*val1;
-	unsigned char	*val2;
-
-	val1 = a->value;
-	val2 = b->value;
-	mul->value = ft_mul_algor(val1, val2, a->size, b->size);
-	mul->size = a->size + b->size;
+	mul->size = a->size + b->size + 4;
+	mul->value = (unsigned char *)malloc(mul->size);
+	ft_bzero(mul->value, mul->size);
+	ft_mul_algor(mul, a, b);
 	ft_bigint_normalize(mul);
 }

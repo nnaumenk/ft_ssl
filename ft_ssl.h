@@ -45,6 +45,8 @@ int		ft_is_composit_by_miller_rabin(t_bigint *prime, unsigned probability);
 int		ft_mod_inverse(t_bigint *inverse, t_bigint *a, t_bigint *mod);
 //int		ft_ssl_is_primary(t_bigint *number, unsigned probability);
 
+void	ft_make_genrsa_data(t_rsa *rsa);
+
 
 size_t	ft_pow_mod_int(size_t num, size_t pow, size_t mod);
 void	ft_pow_mod(t_bigint *r, t_bigint *num, t_bigint *pow, t_bigint *mod);

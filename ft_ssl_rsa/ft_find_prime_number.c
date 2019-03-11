@@ -223,7 +223,7 @@ static short	g_primes_2048[2048] =
 
 static short	g_mods_2048[2048];
 
-void			ft_recalculate_mods(void)
+void			ft_recalculate_mods(t_bigint *prime)
 {
 	size_t		i;
 	
@@ -234,9 +234,11 @@ void			ft_recalculate_mods(void)
 		if (g_mods_2048[i] >= g_primes_2048[i])
 			g_mods_2048[i] -= g_primes_2048[i];
 	}
+	ft_bigint_increment(prime);
+	ft_bigint_increment(prime);
 }
 
-void			ft_calculate_mods(t_bigint *prime)
+static void		ft_calculate_mods(t_bigint *prime)
 {
 	size_t		i;
 	t_bigint	test;
@@ -257,7 +259,7 @@ void			ft_calculate_mods(t_bigint *prime)
 	ft_bigint_del(&test);
 }
 
-void			ft_get_round_number(t_bigint *prime, unsigned *rounds)
+static void		ft_get_round_number(t_bigint *prime, unsigned *rounds)
 {
 	if (prime->size < 16)
 	{
@@ -277,29 +279,9 @@ void			ft_get_round_number(t_bigint *prime, unsigned *rounds)
 	*rounds = 2;
 }
 
-int				ft_is_not_safe_prime(t_bigint *prime, unsigned rounds)
-{
-	t_bigint	new;
-	t_bigint	integer;
-	t_bigint	remainder;
-
-	new = ft_bigint_dup(prime);
-	ft_bigint_decrement(&new);
-	ft_bigint_shr(&new, 1);
-	if (ft_is_composit_by_miller_rabin(&new, rounds))
-	{
-		ft_bigint_del(&new);
-		return (1);
-	}
-	return (0);
-}
-
 void			ft_find_prime_number(t_bigint *prime)
 {
 	unsigned rounds;
-
-	*(size_t *)prime->value = 12510916035308080657;
-	ft_bigint_print("1 = ", prime);
 
 	ft_get_round_number(prime, &rounds);
 	ft_calculate_mods(prime);
@@ -307,44 +289,18 @@ void			ft_find_prime_number(t_bigint *prime)
 	{
 		if (ft_is_composit_by_initial_sieve((short *)g_mods_2048))
 		{
-			ft_recalculate_mods();
-			ft_bigint_increment(prime);
-			ft_bigint_increment(prime);
+			ft_recalculate_mods(prime);
 			continue ;
 		}
-
-		// size_t i = -1;
-		// while (++i < 5)
-		// 	if (g_mods_2048[i] == 0)
-		// 		ft_printf("%u ", g_mods_2048[i]);
-		// ft_printf("OK\n");
-		// ft_bigint_print("prime = ", prime);
 		ft_printf(".");
 		if (ft_is_composit_by_miller_rabin(prime, rounds))
 		{
-			ft_recalculate_mods();
-			ft_bigint_increment(prime);
-			ft_bigint_increment(prime);
-			ft_printf("composit\n");
-			exit(0);
+			ft_recalculate_mods(prime);
 			continue ;
 		}
-		ft_printf("prime\n");
-		exit(0);
 		while (rounds--)
 			ft_printf("+");
-		ft_bigint_print("2 = ", prime);
-	
-		// if (ft_is_not_safe_prime(prime, rounds))
-		// {
-		// 	ft_printf("*");
-		// 	ft_recalculate_mods();
-		// 	ft_bigint_increment(prime);
-		// 	ft_bigint_increment(prime);
-		// 	continue ;
-		// }
 		ft_printf("\n");
-		exit(0);
 		break ;
 	}
 }

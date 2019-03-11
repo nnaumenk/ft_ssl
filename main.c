@@ -310,50 +310,11 @@ size_t	ft_pow_mod_int(size_t num, size_t pow, size_t mod)
 
 int		main(int ac, char **av)
 {
-	// t_bigint r;
-	// t_bigint num;
-	// t_bigint pow;
-	// t_bigint mod;
+	t_alg	my;
 
-
-	// num.size = 1;
-	// num.value = malloc(num.size);
-	// num.value[0] = 153;
-
-	// pow.size = 1;
-	// pow.value = malloc(pow.size);
-	// pow.value[0] = 55;
-
-	// mod.size = 1;
-	// mod.value = malloc(mod.size);
-	// mod.value[0] = 200;
-
-	// ft_pow_mod(&r, &num, &pow, &mod);
-	// ft_bigint_print("res = ", &r);
-
-	// size_t num = 0x954bcc532564a877;//10757916792386267255;
-	// size_t pow = 0x0ad9fb3d93346ce1;//781932252206755041;
-	// size_t mod = 0xad9fb3d93346ce11;//12510916035308080657;
-
-	size_t num = 0x2564a877;//10757916792386267255;
-	size_t pow = 0x93346ce1;//781932252206755041;
-	size_t mod = 0x3346ce11;//12510916035308080657;
-
-	ft_printf("num = %zu\n", num);
-	ft_printf("pow = %zu\n", pow);
-	ft_printf("mod = %zu\n", mod);
-
-	ft_printf("res = %zu\n", ft_pow_mod_int(num, pow, mod));
-
-
-
-
-
-	// t_alg	my;
-
-	// if (ac == 1)
-	// 	ft_parse_from_console(&my);
-	// else if (ft_choose_first_param(&my, av[1]))
-	// 	(my.flag_pointer)(&my, ac - 2, av + 2);
-	// return (0);
+	if (ac == 1)
+		ft_parse_from_console(&my);
+	else if (ft_choose_first_param(&my, av[1]))
+		(my.flag_pointer)(&my, ac - 2, av + 2);
+	return (0);
 }
