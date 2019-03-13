@@ -42,11 +42,12 @@
 
 void	ft_rsa(void *v_data)
 {
-	t_rsa	data;
+	// t_rsa	data;
 
-	data.flag = *(t_rsa_flag *)v_data;
-	data.flag.fd_input = ft_make_input_fd(data.flag.in);
-	data.flag.fd_output = ft_make_output_fd(data.flag.out);
-	data.text = ft_read_from(data.flag.fd_input, &data.len);
-	ft_rsa_make_flag_text(&data);
+	// data.flag = *(t_rsa_flag *)v_data;
+	// data.flag.fd_input = ft_make_input_fd(data.flag.in);
+	// data.flag.fd_output = ft_make_output_fd(data.flag.out);
+	// data.text = ft_read_from(data.flag.fd_input, &data.len);
+	// ft_rsa_make_flag_text(&data);
+	USE(v_data);
 }

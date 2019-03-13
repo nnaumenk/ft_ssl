@@ -51,37 +51,37 @@ static void	ft_set_size(size_t size, char **text)
 	*(*text)++ = 0x00;
 }
 
-static void	ft_val(unsigned char *val, size_t vlen, char **text)
+static void	ft_val(t_bigint a, char **text)
 {
 	size_t	byte_count;
 
 	*(*text)++ = 0x02;
-	if (vlen >= 0x80)
+	if (a.size >= 0x80)
 	{
-		byte_count = ft_get_byte_amount(vlen);
+		byte_count = ft_get_byte_amount(a.size);
 		*(*text)++ = 0x80 + byte_count;
-		ft_memcpy(*text, &vlen, byte_count);
+		ft_memcpy(*text, &a.size, byte_count);
 		ft_memrev(*text, byte_count);
 		(*text) += byte_count;
 	}
 	else
-		*(*text)++ = vlen;
-	ft_memcpy(*text, val, vlen);
-	ft_memrev(*text, vlen);
-	(*text) += vlen;
+		*(*text)++ = a.size;
+	ft_memcpy(*text, a.value, a.size);
+	ft_memrev(*text, a.size);
+	(*text) += a.size;
 }
 
 static void	ft_set_values(t_rsa_data data, size_t size, char *text)
 {
 	ft_set_size(size, &text);
-	ft_val(data.modulus.value, data.modulus.size, &text);
-	ft_val(data.public_exponent.value, data.public_exponent.size, &text);
-	ft_val(data.private_exponent.value, data.private_exponent.size, &text);
-	ft_val(data.prime1.value, data.prime1.size, &text);
-	ft_val(data.prime2.value, data.prime2.size, &text);
-	ft_val(data.exponent1.value, data.exponent1.size, &text);
-	ft_val(data.exponent2.value, data.exponent2.size, &text);
-	ft_val(data.coefficient.value, data.coefficient.size, &text);
+	ft_val(data.modulus, &text);
+	ft_val(data.public_exponent, &text);
+	ft_val(data.private_exponent, &text);
+	ft_val(data.prime1, &text);
+	ft_val(data.prime2, &text);
+	ft_val(data.exponent1, &text);
+	ft_val(data.exponent2, &text);
+	ft_val(data.coefficient, &text);
 }
 
 static void	ft_determine_size(t_rsa_data data, size_t *size, size_t *len)
@@ -112,12 +112,41 @@ static void	ft_determine_size(t_rsa_data data, size_t *size, size_t *len)
 	*len += 2;
 }
 
-int		ft_asn1_encode(t_rsa_data data, char **text, size_t *len)			
+void	ft_asn1_normalize_value(t_bigint *a)
+{
+	t_bigint	new;
+
+	if (a->value[a->size - 1] >= 0x80)
+	{
+		new.size = a->size + 1;
+		new.value = (unsigned char *)malloc(new.size);
+		ft_memcpy(new.value, a->value, a->size);
+		new.value[new.size - 1] = 0;
+		ft_bigint_del(a);
+		*a = new;
+	}
+}
+
+void	ft_asn1_normalize(t_rsa_data *data)
+{
+	ft_asn1_normalize_value(&data->modulus);
+	ft_asn1_normalize_value(&data->public_exponent);
+	ft_asn1_normalize_value(&data->private_exponent);
+	ft_asn1_normalize_value(&data->prime1);
+	ft_asn1_normalize_value(&data->prime2);
+	ft_asn1_normalize_value(&data->exponent1);
+	ft_asn1_normalize_value(&data->exponent2);
+	ft_asn1_normalize_value(&data->coefficient);
+}
+
+int		ft_asn1_encode(t_rsa_data *data, char **text, size_t *len)			
 {
 	size_t		size;
 
-	ft_determine_size(data, &size, len);
+	ft_asn1_normalize(data);
+	ft_determine_size(*data, &size, len);
 	*text = (char *)malloc(*len);
-	ft_set_values(data, size, *text);
+	ft_set_values(*data, size, *text);
+	//exit(0);
 	return (0);
 }

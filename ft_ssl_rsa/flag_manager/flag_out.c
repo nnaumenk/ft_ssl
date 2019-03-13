@@ -12,6 +12,16 @@
 
 #include "../../ft_ssl.h"
 
+int		ft_rsa_make_flag_out(char *text, size_t len, char *flag_out)
+{
+	int		fd;
+
+	fd = ft_make_output_fd(flag_out);
+	write(fd, text, len);
+	ft_close_fd(fd);
+	return (0);
+}
+
 int		ft_rsa_check_flag_out(int *i, int ac, char **av, t_rsa_flag *flag)
 {
 	if (++(*i) == ac)

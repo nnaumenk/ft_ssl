@@ -32,19 +32,19 @@ static t_rsa_option	g_option[] =
 
 static char			*g_options_output =
 
-"-inform format\t\tinput format (DER, NET or PEM(default))\n"	\
-"-outform format\t\toutput format (DER, NET or PEM(default))\n"	\
-"-in file\t\tinput file (default stdin)\n"						\
-"-passin src\t\tinput file passphrase source\n"					\
-"-out file\t\toutput file (default stdout)\n"					\
-"-passout src\t\toutput file passphrase source\n"				\
-"-des\t\t\tencrypt key using des-cbc algorithm\n"				\
-"-text\t\t\tprint in plain text in addition to encoded\n"		\
-"-noout\t\t\tdo not print encoded version of the key\n"			\
-"-modulus\t\tprint the RSA key modulus\n"						\
-"-check\t\t\tcheck consistency of RSA private key\n"			\
-"-pubin\t\t\texpect a public key (default private key)\n"		\
-"-pubout\t\t\toutput a public key (default private key)\n"		\
+"-inform format\tinput format (DER, NET or PEM(default))\n"		\
+"-outform format\toutput format (DER, NET or PEM(default))\n"	\
+"-in file\tinput file (default stdin)\n"						\
+"-passin src\tinput file passphrase source\n"					\
+"-out file\toutput file (default stdout)\n"						\
+"-passout src\toutput file passphrase source\n"					\
+"-des\t\tencrypt key using des-cbc algorithm\n"					\
+"-text\t\tprint in plain text in addition to encoded\n"			\
+"-noout\t\tdo not print encoded version of the key\n"			\
+"-modulus\tprint the RSA key modulus\n"							\
+"-check\t\tcheck consistency of RSA private key\n"				\
+"-pubin\t\texpect a public key (default private key)\n"			\
+"-pubout\t\toutput a public key (default private key)\n"		\
 
 ;
 

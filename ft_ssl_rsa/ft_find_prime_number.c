@@ -279,6 +279,22 @@ static void		ft_get_round_number(t_bigint *prime, unsigned *rounds)
 	*rounds = 2;
 }
 
+static int		ft_is_safe_prime(t_bigint *prime)
+{
+	t_bigint	safe_prime;
+
+	safe_prime = ft_bigint_dup(prime);
+	ft_bigint_decrement(&safe_prime);
+	ft_bigint_shr(&safe_prime, 1);
+	if (ft_is_composit_by_miller_rabin(&safe_prime, 2))
+	{
+		ft_bigint_del(&safe_prime);
+		return (0);
+	}
+	ft_bigint_del(&safe_prime);
+	return (1);
+}
+
 void			ft_find_prime_number(t_bigint *prime)
 {
 	unsigned rounds;
@@ -300,6 +316,14 @@ void			ft_find_prime_number(t_bigint *prime)
 		}
 		while (rounds--)
 			ft_printf("+");
+		ft_bigint_print("1", prime);
+		if (ft_is_safe_prime(prime) == 0)
+		{
+			ft_printf("*");
+			ft_recalculate_mods(prime);
+			ft_bigint_print("1", prime);
+			continue ;
+		}
 		ft_printf("\n");
 		break ;
 	}

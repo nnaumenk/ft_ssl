@@ -15,8 +15,8 @@
 static t_rsa_option	g_option[] =
 {
 	{"-rand", ft_rsa_check_flag_rand},
-	{"-i", ft_rsa_check_flag_i},
-	{"-o", ft_rsa_check_flag_o},
+	{"-i", ft_rsa_check_flag_in},
+	{"-o", ft_rsa_check_flag_out},
 	{"-3", ft_rsa_check_exp_3_value},
 	{"-f4", ft_rsa_check_exp_f4_value},
 	{0, 0}
@@ -83,6 +83,6 @@ void		ft_genrsa_flags(void *my, int ac, char **av)
 	t_rsa_flag		flag;
 
 	ft_bzero(&flag, sizeof(flag));
-	flag.numbits = 2048;
+	flag.numbits = 64;
 	ft_search_flags(my, &flag, ac, av);
 }

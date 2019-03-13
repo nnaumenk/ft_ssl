@@ -22,13 +22,13 @@ static t_rsa_option	g_option[] =
 
 static char			*g_options_output =
 
-"-in file\t\tinput file\n"					\
-"-out file\t\toutput file\n"				\
-"-inkey file\t\tinput key\n"				\
+"-in file\tinput file\n"					\
+"-out file\toutput file\n"					\
+"-inkey file\tinput key\n"					\
 "-pubin\t\tinput is an RSA public\n"		\
-"-encrypt\t\tencrypt with public key\n"		\
-"-decrypt\t\tdecrypt with private key\n"	\
-"-hexdump\t\thex dump output\n"				\
+"-encrypt\tencrypt with public key\n"		\
+"-decrypt\tdecrypt with private key\n"		\
+"-hexdump\thex dump output\n"				\
 
 ;
 

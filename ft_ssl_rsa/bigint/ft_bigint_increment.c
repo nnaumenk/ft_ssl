@@ -64,13 +64,30 @@ static void	ft_increment_1byte(void **memptr, size_t i, char *overflow)
 	*memptr = mem8;
 }
 
+void		ft_check_overflow(t_bigint *a, char overflow)
+{
+	t_bigint	new;
+	
+	if (overflow)
+	{
+		new.size = a->size + 1;
+		new.value = (unsigned char *)malloc(new.size);
+		ft_memcpy(new.value, a->value, a->size);
+		new.value[new.size - 1] = 1;
+		ft_bigint_del(a);
+		*a = new;
+	}
+}
+
 void		ft_bigint_increment(t_bigint *a)
 {
-	void	*memptr;
-	char	overflow;
+	void		*memptr;
+	char		overflow;
 
 	overflow = 1;
 	memptr = (void *)a->value;
 	ft_increment_8byte(&memptr, a->size / sizeof(size_t), &overflow);
 	ft_increment_1byte(&memptr, a->size % sizeof(size_t), &overflow);
+	ft_check_overflow(a, overflow);
+	
 }

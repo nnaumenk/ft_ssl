@@ -12,28 +12,39 @@
 
 #include "../../ft_ssl.h"
 
-void	ft_generate_rand_numbers(t_rsa_data *data, size_t numbits)
+static int	ft_generate_rand_number(int rand_fd, t_bigint *prime, size_t bitlen)
 {
 	const char	mask1[] = {0xff, 0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f};
 	const char	mask2[] = {0x80, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40};
-	size_t		bit_prime1_len;
-	size_t		bit_prime2_len;
+
+	prime->size = (bitlen + 7) / 8;
+	prime->value = (unsigned char *)malloc(prime->size);
+	if (read(rand_fd, prime->value, prime->size) != prime->size)
+	{
+		free(prime->value);
+		return (1);
+	}
+	prime->value[0] |= 0x1;
+	prime->value[prime->size - 1] &= mask1[bitlen % 8];
+	prime->value[prime->size - 1] |= mask2[bitlen % 8];
+	return (0);
+}
+
+
+static int	ft_generate_primes(t_rsa *rsa)
+{
+	size_t		bit_len1;
+	size_t		bit_len2;
 	
-	ft_printf("Generating RSA private key, %zu bit long modulus\n", numbits);
-	bit_prime2_len = numbits / 2;
-	bit_prime1_len = numbits - bit_prime2_len;
-	data->prime1.size = (bit_prime1_len + 7) / 8;
-	data->prime2.size = (bit_prime2_len + 7) / 8;
-	data->prime1.value = (unsigned char *)malloc(data->prime1.size);
-	data->prime2.value = (unsigned char *)malloc(data->prime2.size);
-	ft_generate_urandom(data->prime1.value, data->prime1.size);
-	ft_generate_urandom(data->prime2.value, data->prime2.size);
-	data->prime1.value[0] |= 0x1;
-	data->prime2.value[0] |= 0x1;
-	data->prime1.value[data->prime1.size - 1] &= mask1[bit_prime1_len % 8];
-	data->prime2.value[data->prime2.size - 1] &= mask1[bit_prime2_len % 8];
-	data->prime1.value[data->prime1.size - 1] |= mask2[bit_prime1_len % 8];
-	data->prime2.value[data->prime2.size - 1] |= mask2[bit_prime2_len % 8];
+	ft_printf("Generating RSA private key, %zu bit long modulus\n",
+	rsa->flag.numbits);
+	bit_len1 = rsa->flag.numbits / 2;
+	bit_len2 = rsa->flag.numbits - bit_len1;
+	if (ft_generate_rand_number(rsa->flag.rand_fd, &rsa->data.prime1, bit_len1))
+		return (1);
+	if (ft_generate_rand_number(rsa->flag.rand_fd, &rsa->data.prime2, bit_len2))
+		return (1);
+	return (0);
 }
 
 static void	ft_make_exponent(t_bigint *exp, t_bigint *pr_exp, t_bigint *prime)
@@ -48,7 +59,7 @@ static void	ft_make_exponent(t_bigint *exp, t_bigint *pr_exp, t_bigint *prime)
 	ft_bigint_del(&integer);
 }
 
-static void	ft_make_private_exponent(
+static int	ft_make_private_exponent(
 			t_bigint *exp, t_bigint *publ_exp, t_bigint *p1, t_bigint *p2)
 {
 	t_bigint	eiler;
@@ -58,8 +69,13 @@ static void	ft_make_private_exponent(
 	ft_bigint_mul(&eiler, p1, p2);
 	ft_bigint_increment(p1);
 	ft_bigint_increment(p2);
-	ft_mod_inverse(exp, publ_exp, &eiler);
+	if (ft_mod_inverse(exp, publ_exp, &eiler))
+	{
+		ft_printf("inverse error\n");
+		return (1);
+	}
 	ft_bigint_del(&eiler);
+	return (0);
 }
 
 static void	ft_make_public_exponent(t_bigint *exp, int exp_value_3)
@@ -79,11 +95,14 @@ static void	ft_make_public_exponent(t_bigint *exp, int exp_value_3)
 	ft_bigint_print("e is", exp);
 }
 
-void		ft_make_genrsa_data(t_rsa *rsa)
+int		ft_make_genrsa_data(t_rsa *rsa)
 {
-	ft_generate_rand_numbers(&rsa->data, rsa->flag.numbits);
+	if (ft_generate_primes(rsa))
+		return (1);
 	ft_find_prime_number(&rsa->data.prime1);
 	ft_find_prime_number(&rsa->data.prime2);
+	ft_bigint_print("1", &rsa->data.prime1);
+	ft_bigint_print("2", &rsa->data.prime2);
 	ft_bigint_mul(&rsa->data.modulus, &rsa->data.prime1, &rsa->data.prime2);
 	ft_make_public_exponent(&rsa->data.public_exponent, rsa->flag.exp_value_3);
 	ft_make_private_exponent(&rsa->data.private_exponent,
@@ -94,4 +113,5 @@ void		ft_make_genrsa_data(t_rsa *rsa)
 	&rsa->data.prime2);
 	ft_mod_inverse(
 	&rsa->data.coefficient, &rsa->data.prime2, &rsa->data.prime1);
+	return (0);
 }

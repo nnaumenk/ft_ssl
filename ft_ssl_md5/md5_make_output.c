@@ -39,7 +39,6 @@ void		ft_md5_output_flag_s(t_alg *my, t_md5_flags *flags, char *text)
 {
 	char			output[128 + 1];
 	t_md5_data		data;
-	int			fd;
 
 	data.text = text;
 	data.len = ft_strlen(text);
