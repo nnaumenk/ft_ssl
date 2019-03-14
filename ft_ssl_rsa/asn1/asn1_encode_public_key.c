@@ -139,7 +139,7 @@ void	ft_asn1_normalize(t_rsa_data *data)
 	ft_asn1_normalize_value(&data->coefficient);
 }
 
-int		ft_asn1_encode(t_rsa_data *data, char **text, size_t *len)			
+int		ft_asn1_encode_public_key(t_rsa_data *data, char **text, size_t *len)			
 {
 	size_t		size;
 
@@ -147,6 +147,11 @@ int		ft_asn1_encode(t_rsa_data *data, char **text, size_t *len)
 	ft_determine_size(*data, &size, len);
 	*text = (char *)malloc(*len);
 	ft_set_values(*data, size, *text);
-	//exit(0);
 	return (0);
 }
+
+
+
+
+/////////////////////
+///////////////////////

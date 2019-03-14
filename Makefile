@@ -74,8 +74,10 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_rsa/bigint/ft_bigint_shr.c			\
 				ft_ssl_rsa/bigint/ft_bigint_normalize.c		\
 															\
-				ft_ssl_rsa/asn1/asn1_encode.c				\
-				ft_ssl_rsa/asn1/asn1_decode.c				\
+				ft_ssl_rsa/asn1/asn1_decode_private_key.c	\
+				ft_ssl_rsa/asn1/asn1_decode_public_key.c	\
+				ft_ssl_rsa/asn1/asn1_encode_private_key.c	\
+				ft_ssl_rsa/asn1/asn1_encode_public_key.c	\
 															\
 				ft_ssl_rsa/flag_manager/flag_rand.c			\
 				ft_ssl_rsa/flag_manager/flag_check.c		\
@@ -112,8 +114,11 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_rsa/ft_initial_sieve.c				\
 				ft_ssl_rsa/ft_miller_rabin.c				\
 				ft_ssl_rsa/ft_mod_inverse.c					\
+				ft_ssl_rsa/ft_euclid_gcd.c					\
+				ft_ssl_rsa/ft_is_coprime.c					\
 				ft_ssl_rsa/ft_pow_mod.c						\
 				ft_ssl_rsa/ft_ssl_is_primary.c				\
+				ft_ssl_rsa/ft_rsa_free_data.c				\
 															\
 				hex_ascii.c									\
 				read.c										\

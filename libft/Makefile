@@ -17,6 +17,7 @@ HEADER	=	libft.h
 CFILES	=	ft_free_matrix.c				\
 			ft_bzero.c						\
 			ft_memjoin.c					\
+			ft_memjoin_del.c				\
 			ft_mem_joiner.c					\
 			ft_malloc_str.c					\
 			ft_memalloc.c					\
@@ -25,6 +26,7 @@ CFILES	=	ft_free_matrix.c				\
 			ft_memset.c						\
 			ft_memrev.c						\
 			ft_memswap.c					\
+			ft_memdup.c						\
 			ft_xor_mem.c					\
 			ft_xor_mem_value.c				\
 			ft_memequ.c						\

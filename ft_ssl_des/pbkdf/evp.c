@@ -12,8 +12,19 @@
 
 #include "../../ft_ssl.h"
 
-#define HASH_FUNCTION(x)	ft_sha256(x)
-#define HASH_LEN			32
+/*
+**	FOR UBUNTU:
+**	HASH_FUNCTION(x)	ft_sha256(x)
+**	HASH_LEN			32
+**
+**
+**	FOR MACOS:
+**	HASH_FUNCTION(x)	ft_md5(x)
+**	HASH_LEN			16
+*/
+
+#define HASH_FUNCTION(x)	ft_md5(x)
+#define HASH_LEN			16
 
 static void	ft_hash_function(char **text, size_t *len)
 {
@@ -32,10 +43,9 @@ static void	ft_concat_str(char **hash, size_t *hash_len, char *pass, char *salt)
 {
 	char			*str;
 	size_t			len;
-	static size_t	pass_len;
+	size_t			pass_len;
 
-	if (pass_len == 0)
-		pass_len = ft_strlen(pass);
+	pass_len = ft_strlen(pass);
 	len = *hash_len + pass_len + 8;
 	str = (char *)malloc(len);
 	ft_memcpy(str, *hash, *hash_len);

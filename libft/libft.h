@@ -48,9 +48,11 @@ void			*ft_memcpy(void *dst, void *src, size_t n);
 void			ft_memdel(void **ap);
 void			*ft_memset(void *memptr, int val, size_t num);
 int				ft_memequ(void *mem1, void *mem2, size_t n);
-char			*ft_memjoin(char *s1, char *s2, size_t len1, size_t len2);
+void			*ft_memjoin(void *mem1, void *mem2, size_t n1, size_t n2);
+void			*ft_memjoin_del(void *mem1, void *mem2, size_t n1, size_t n2);
 void			ft_memrev(void *mem, size_t num);
 void			ft_memswap(void *a, void *b, size_t n);
+void			*ft_memdup(void *memptr, size_t n);
 
 void			ft_free_matrix(char ***str);
 char			**ft_strsplit(char *s, char c);

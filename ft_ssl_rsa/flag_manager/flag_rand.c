@@ -12,30 +12,28 @@
 
 #include "../../ft_ssl.h"
 
-int		ft_rsa_make_flag_rand(char *file)
+int		ft_rsa_make_flag_rand(int *fd, char *file)
 {
-	int fd;
-
 	if (file)
 	{
-		fd = open(file, O_RDONLY);
-		if (fd == -1)
+		*fd = open(file, O_RDONLY);
+		if (*fd == -1)
 		{
 			ft_print_fd(2, "ft_ssl: '%s' %s\n", file, "is not a file");
-			return (-1);
+			return (1);
 		}
 	}
 	else
 	{
 		file = "/dev/urandom";
-		fd = open(file, O_RDONLY);
+		*fd = open(file, O_RDONLY);
 	}
-	if (read(fd, 0, 0) == -1)
+	if (read(*fd, 0, 0) == -1)
 	{
 		ft_print_fd(2, "ft_ssl: error in reading '%s'\n", file);
-		return (-1);
+		return (1);
 	}
-	return (fd);
+	return (0);
 }
 
 int		ft_rsa_check_flag_rand(int *i, int ac, char **av, t_rsa_flag *flag)

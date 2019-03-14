@@ -14,7 +14,10 @@
 
 void	ft_bigint_del(t_bigint *a)
 {
-	free(a->value);
-	a->value = NULL;
-	a->size = 0;
+	if (a && a->value)
+	{
+		free(a->value);
+		a->value = NULL;
+		a->size = 0;
+	}
 }

@@ -1,6 +1,7 @@
 *** ft_ssl project ***
 
 Already implemented:
+-genrsa
 -md5
 -sha1
 -sha256
@@ -20,5 +21,4 @@ Already implemented:
 
 In future:
 -rsa
--genrsa
 -rsautl

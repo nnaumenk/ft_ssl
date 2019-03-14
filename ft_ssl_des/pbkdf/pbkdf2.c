@@ -56,7 +56,7 @@ char		*ft_pbkdf2(char *pass, uint8_t *salt, size_t iter, size_t len)
 	while (++block_counter <= blocks)
 	{
 		key_next = ft_pbkdf2_f(pass, salt, iter, block_counter);
-		key = ft_memjoin(key, key_next, current_len, HASH_LEN);
+		key = ft_memjoin_del(key, key_next, current_len, HASH_LEN);
 		current_len += HASH_LEN;
 		ft_strdel(&key_next);
 	}

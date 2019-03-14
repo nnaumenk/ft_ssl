@@ -223,7 +223,7 @@ static short	g_primes_2048[2048] =
 
 static short	g_mods_2048[2048];
 
-void			ft_recalculate_mods(t_bigint *prime)
+static void			ft_recalculate_mods(t_bigint *prime)
 {
 	size_t		i;
 	
@@ -279,52 +279,45 @@ static void		ft_get_round_number(t_bigint *prime, unsigned *rounds)
 	*rounds = 2;
 }
 
-static int		ft_is_safe_prime(t_bigint *prime)
+static int		ft_is_prime_found(
+				t_bigint *prime, t_bigint *public_exp, unsigned rounds)
 {
-	t_bigint	safe_prime;
+	const char	*plus_output = "++++++++++++++++++++";
 
-	safe_prime = ft_bigint_dup(prime);
-	ft_bigint_decrement(&safe_prime);
-	ft_bigint_shr(&safe_prime, 1);
-	if (ft_is_composit_by_miller_rabin(&safe_prime, 2))
+	if (ft_is_composit_by_initial_sieve((short *)g_mods_2048))
 	{
-		ft_bigint_del(&safe_prime);
+		ft_recalculate_mods(prime);
 		return (0);
 	}
-	ft_bigint_del(&safe_prime);
+	ft_printf(".");
+	if (ft_is_composit_by_miller_rabin(prime, rounds))
+	{
+		ft_recalculate_mods(prime);
+		return (0);
+	}
+	write(1, plus_output, rounds);
+	ft_bigint_decrement(prime);
+	if (ft_is_coprime(prime, public_exp) == 0)
+	{
+		ft_bigint_increment(prime);
+		ft_printf("*");
+		ft_recalculate_mods(prime);
+		return (0);
+	}
+	ft_bigint_increment(prime);
+	ft_printf("\n");
 	return (1);
 }
 
-void			ft_find_prime_number(t_bigint *prime)
+void			ft_find_prime_number(t_bigint *prime, t_bigint *public_exp)
 {
-	unsigned rounds;
+	unsigned	rounds;
 
 	ft_get_round_number(prime, &rounds);
 	ft_calculate_mods(prime);
 	while (1)
 	{
-		if (ft_is_composit_by_initial_sieve((short *)g_mods_2048))
-		{
-			ft_recalculate_mods(prime);
-			continue ;
-		}
-		ft_printf(".");
-		if (ft_is_composit_by_miller_rabin(prime, rounds))
-		{
-			ft_recalculate_mods(prime);
-			continue ;
-		}
-		while (rounds--)
-			ft_printf("+");
-		ft_bigint_print("1", prime);
-		if (ft_is_safe_prime(prime) == 0)
-		{
-			ft_printf("*");
-			ft_recalculate_mods(prime);
-			ft_bigint_print("1", prime);
-			continue ;
-		}
-		ft_printf("\n");
-		break ;
+		if (ft_is_prime_found(prime, public_exp, rounds))
+			break ;
 	}
 }

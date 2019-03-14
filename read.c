@@ -32,7 +32,7 @@ char	*ft_read_from(int fd, size_t *len)
 	while (1)
 	{
 		buf_len = read(fd, buf, READ_BUF);
-		str = ft_memjoin(str, buf, *len, buf_len);
+		str = ft_memjoin_del(str, buf, *len, buf_len);
 		*len += buf_len;
 		if (buf_len == 0)
 			break ;

@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memjoin.c                                       :+:      :+:    :+:   */
+/*   ft_mod_inverse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/19 00:04:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2018/08/19 00:04:46 by nnaumenk         ###   ########.fr       */
+/*   Created: 2018/08/24 15:45:35 by nnaumenk          #+#    #+#             */
+/*   Updated: 2019/02/27 18:44:55 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../ft_ssl.h"
 
-void	*ft_memjoin(void *mem1, void *mem2, size_t n1, size_t n2)
+int		ft_is_coprime(t_bigint *a, t_bigint *b)
 {
-	void	*new;
-	size_t	len;
+	t_bigint	gcd;
 
-	len = n1 + n2;
-	new = malloc(len);
-	ft_memcpy(new, mem1, n1);
-	ft_memcpy(new + n1, mem2, n2);
-	return (new);
+	ft_euclid_gcd(&gcd, a, b);
+	if (ft_bigint_isvalue(&gcd, 1))
+	{
+		ft_bigint_del(&gcd);
+		return (1);
+	}
+	ft_bigint_del(&gcd);
+	return (0);
 }

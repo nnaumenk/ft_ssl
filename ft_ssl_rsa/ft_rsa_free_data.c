@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memjoin.c                                       :+:      :+:    :+:   */
+/*   ft_mod_inverse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/19 00:04:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2018/08/19 00:04:46 by nnaumenk         ###   ########.fr       */
+/*   Created: 2018/08/24 15:45:35 by nnaumenk          #+#    #+#             */
+/*   Updated: 2019/02/27 18:44:55 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../ft_ssl.h"
 
-void	*ft_memjoin(void *mem1, void *mem2, size_t n1, size_t n2)
+void	ft_rsa_free_data(t_rsa_data *data)
 {
-	void	*new;
-	size_t	len;
-
-	len = n1 + n2;
-	new = malloc(len);
-	ft_memcpy(new, mem1, n1);
-	ft_memcpy(new + n1, mem2, n2);
-	return (new);
+	ft_bigint_del(&data->modulus);
+	ft_bigint_del(&data->public_exponent);
+	ft_bigint_del(&data->private_exponent);
+	ft_bigint_del(&data->prime1);
+	ft_bigint_del(&data->prime2);
+	ft_bigint_del(&data->exponent1);
+	ft_bigint_del(&data->exponent2);
+	ft_bigint_del(&data->coefficient);
 }

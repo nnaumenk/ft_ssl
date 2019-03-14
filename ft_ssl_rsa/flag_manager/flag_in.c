@@ -12,6 +12,18 @@
 
 #include "../../ft_ssl.h"
 
+int		ft_rsa_make_flag_in(char **text, size_t *len, char *flag_in)
+{
+	int		fd;
+
+	fd = ft_make_input_fd(flag_in);
+	if (fd == -1)
+		return (1);
+	*text = ft_read_from(fd, len);
+	ft_close_fd(fd);
+	return (0);
+}
+
 int		ft_rsa_check_flag_in(int *i, int ac, char **av, t_rsa_flag *flag)
 {
 	if (++(*i) == ac)

@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/19 00:04:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2018/08/19 00:04:46 by nnaumenk         ###   ########.fr       */
+/*   Created: 2018/03/22 14:16:27 by nnaumenk          #+#    #+#             */
+/*   Updated: 2018/08/19 01:12:32 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memjoin(void *mem1, void *mem2, size_t n1, size_t n2)
+void	*ft_memdup(void *memptr, size_t n)
 {
 	void	*new;
-	size_t	len;
 
-	len = n1 + n2;
-	new = malloc(len);
-	ft_memcpy(new, mem1, n1);
-	ft_memcpy(new + n1, mem2, n2);
+	new = malloc(n);
+	ft_memcpy(new, memptr, n);
 	return (new);
 }

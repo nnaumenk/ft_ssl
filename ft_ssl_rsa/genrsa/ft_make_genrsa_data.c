@@ -21,7 +21,8 @@ static int	ft_generate_rand_number(int rand_fd, t_bigint *prime, size_t bitlen)
 	prime->value = (unsigned char *)malloc(prime->size);
 	if (read(rand_fd, prime->value, prime->size) != prime->size)
 	{
-		free(prime->value);
+		ft_print_fd(2, "ft_ssl: not enough random bytes in the source file\n");
+		ft_bigint_del(prime);
 		return (1);
 	}
 	prime->value[0] |= 0x1;
@@ -43,7 +44,17 @@ static int	ft_generate_primes(t_rsa *rsa)
 	if (ft_generate_rand_number(rsa->flag.rand_fd, &rsa->data.prime1, bit_len1))
 		return (1);
 	if (ft_generate_rand_number(rsa->flag.rand_fd, &rsa->data.prime2, bit_len2))
+	{
+		ft_bigint_del(&rsa->data.prime1);
 		return (1);
+	}
+	if (ft_bigint_equal(&rsa->data.prime1, &rsa->data.prime2))
+	{
+		ft_print_fd(2, "ft_ssl: not random data in the source file\n");
+		ft_bigint_del(&rsa->data.prime1);
+		ft_bigint_del(&rsa->data.prime2);
+		return (1);
+	}
 	return (0);
 }
 
@@ -99,12 +110,10 @@ int		ft_make_genrsa_data(t_rsa *rsa)
 {
 	if (ft_generate_primes(rsa))
 		return (1);
-	ft_find_prime_number(&rsa->data.prime1);
-	ft_find_prime_number(&rsa->data.prime2);
-	ft_bigint_print("1", &rsa->data.prime1);
-	ft_bigint_print("2", &rsa->data.prime2);
-	ft_bigint_mul(&rsa->data.modulus, &rsa->data.prime1, &rsa->data.prime2);
 	ft_make_public_exponent(&rsa->data.public_exponent, rsa->flag.exp_value_3);
+	ft_find_prime_number(&rsa->data.prime1, &rsa->data.public_exponent);
+	ft_find_prime_number(&rsa->data.prime2, &rsa->data.public_exponent);
+	ft_bigint_mul(&rsa->data.modulus, &rsa->data.prime1, &rsa->data.prime2);
 	ft_make_private_exponent(&rsa->data.private_exponent,
 	&rsa->data.public_exponent, &rsa->data.prime1, &rsa->data.prime2);
 	ft_make_exponent(&rsa->data.exponent1, &rsa->data.private_exponent,

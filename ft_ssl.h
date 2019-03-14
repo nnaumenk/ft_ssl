@@ -33,14 +33,19 @@
 
 typedef unsigned long long __uint64_t;
 
-int		ft_asn1_encode(t_rsa_data *data, char **text, size_t *len);
-int		ft_asn1_decode(t_rsa_data *data, char *text, size_t len);
+int		ft_asn1_decode_private_key(t_rsa_data *data, char *text, size_t len);
+int		ft_asn1_decode_public_key(t_rsa_data *data, char *text, size_t len);
+int		ft_asn1_encode_private_key(t_rsa_data *data, char **text, size_t *len);
+int		ft_asn1_encode_public_key(t_rsa_data *data, char **text, size_t *len);
 
-void	ft_find_prime_number(t_bigint *prime);
+void	ft_find_prime_number(t_bigint *prime, t_bigint *public_exp);
 int		ft_is_composit_by_initial_sieve(short *mod_array_2048);
 int		ft_is_composit_by_miller_rabin(t_bigint *prime, unsigned probability);
 int		ft_mod_inverse(t_bigint *inverse, t_bigint *a, t_bigint *mod);
 int		ft_ssl_is_primary(__uint64_t number, float probability);
+void	ft_euclid_gcd(t_bigint *gcd, t_bigint *a, t_bigint *b);
+int		ft_is_coprime(t_bigint *a, t_bigint *b);
+void	ft_rsa_free_data(t_rsa_data *data);
 
 int		ft_make_genrsa_data(t_rsa *rsa);
 
@@ -72,9 +77,9 @@ int		ft_rsa_check_exp_f4_value(int *i, int ac, char **av, t_rsa_flag *flag);
 
 
 
-
+int		ft_rsa_make_flag_in(char **text, size_t *len, char *flag_in);
 int		ft_rsa_make_flag_out(char *text, size_t len, char *flag_out);
-int		ft_rsa_make_flag_rand(char *file);
+int		ft_rsa_make_flag_rand(int *fd, char *file);
 int		ft_rsa_make_flag_text(t_rsa *data);
 
 
