@@ -112,7 +112,7 @@ static void	ft_determine_size(t_rsa_data data, size_t *size, size_t *len)
 	*len += 2;
 }
 
-void	ft_asn1_normalize_value(t_bigint *a)
+static void	ft_asn1_normalize_value(t_bigint *a)
 {
 	t_bigint	new;
 
@@ -127,7 +127,7 @@ void	ft_asn1_normalize_value(t_bigint *a)
 	}
 }
 
-void	ft_asn1_normalize(t_rsa_data *data)
+static void	ft_asn1_normalize(t_rsa_data *data)
 {
 	ft_asn1_normalize_value(&data->modulus);
 	ft_asn1_normalize_value(&data->public_exponent);

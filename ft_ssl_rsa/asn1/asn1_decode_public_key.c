@@ -84,7 +84,7 @@ static int	ft_check_size(char **text, size_t *len)
 	return (0);
 }
 
-int			ft_asn1_decode_private_key(t_rsa_data *data, char *text, size_t len)	
+int			ft_asn1_decode_public_key(t_rsa_data *data, char *text, size_t len)	
 {	
 	if (ft_check_size(&text, &len))
 	{
