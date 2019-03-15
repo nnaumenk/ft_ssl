@@ -6,7 +6,7 @@
 #    By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/17 21:34:09 by nnaumenk          #+#    #+#              #
-#    Updated: 2019/02/27 18:41:12 by nnaumenk         ###   ########.fr        #
+#    Updated: 2019/03/15 10:24:31 by nnaumenk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,8 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c						\
 				ft_ssl_rsa/asn1/asn1_decode_public_key.c	\
 				ft_ssl_rsa/asn1/asn1_encode_private_key.c	\
 				ft_ssl_rsa/asn1/asn1_encode_public_key.c	\
+				ft_ssl_rsa/asn1/asn1_get_private_text.c		\
+				ft_ssl_rsa/asn1/asn1_get_public_text.c		\
 															\
 				ft_ssl_rsa/flag_manager/flag_rand.c			\
 				ft_ssl_rsa/flag_manager/flag_check.c		\

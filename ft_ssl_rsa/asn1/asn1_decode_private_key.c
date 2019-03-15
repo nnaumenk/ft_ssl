@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asn1_decode.c                                      :+:      :+:    :+:   */
+/*   asn1_decode_private_key.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/05 17:06:54 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/15 10:06:36 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,12 @@ int			ft_asn1_decode_private_key(t_rsa_data *data, char *text, size_t len)
 {	
 	if (ft_check_size(&text, &len))
 	{
-		ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
 		ft_strdel(&text);
 		return (1);
 	}
 	ft_bzero(data, sizeof(*data));
 	if (ft_parse_values(data, &text, &len))
 	{
-		ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
 		ft_rsa_free_data(data);
 		ft_strdel(&text);
 		return (1);

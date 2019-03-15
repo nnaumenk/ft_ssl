@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_asn1_text.c                                 :+:      :+:    :+:   */
+/*   asn1_get_public_text.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/21 15:23:37 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/15 09:54:12 by nnaumenk         ###   ########.fr       */
+/*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
+/*   Updated: 2019/03/15 10:40:57 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,31 @@ static int		ft_search_word(char **text, size_t *len, const char *line)
 	return (1);
 }
 
-static int		ft_rsa_get_asn1_text(t_rsa *rsa)
+int		ft_asn1_get_public_text(char **text, size_t *len)
 {
-	const char	*line1 = "-----BEGIN RSA PRIVATE KEY-----\n";
-	const char	*line2 = "\n-----END RSA PRIVATE KEY-----";
+	const char	*line1 = "-----BEGIN PUBLIC KEY-----\n";
+	const char	*line2 = "\n-----END PUBLIC KEY-----";
 	char		*start_key;
 	char		*end_key;
+	char		*rsa_key;
 
-	start_key = rsa->text;
-	if (ft_search_word(&start_key, &rsa->len, line1))
-		return (1);
-	start_key += 1;
-	end_key = start_key;
-	if (ft_search_word(&end_key, &rsa->len, line2))
-		return (1);
-	end_key -= 29;
-	rsa->len = end_key - start_key + 1;
-	rsa_key = (char *)malloc(len);
-	ft_memcpy(rsa_key, start_key, rsa->len);
-	ft_strdel(&rsa->text);
-	rsa->text = ft_b64_decode(rsa_key, &rsa->len);
-	if (ft_asn1_decode(data, rsa_key, len))
+	start_key = *text;
+	if (ft_search_word(&start_key, len, line1))
 	{
-		ft_strdel(&rsa->text);
+		ft_strdel(text);
 		return (1);
 	}
-	ft_strdel(&rsa->text);
+	start_key += 1;
+	end_key = start_key;
+	if (ft_search_word(&end_key, len, line2))
+	{
+		ft_strdel(text);
+		return (1);
+	}
+	end_key -= 29;
+	*len = end_key - start_key + 1;
+	rsa_key = (char *)ft_memdup(start_key, *len);
+	ft_strdel(text);
+	*text = ft_b64_decode(rsa_key, len);
 	return (0);
 }
-

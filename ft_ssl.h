@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 22:12:53 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/05 20:05:38 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/15 10:24:09 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@
 # include "ft_ssl_rsa/ft_ssl_rsa.h"	
 # include "main_struct.h"
 
-typedef unsigned long long __uint64_t;
+typedef unsigned long int __uint64_t;
 
 int		ft_asn1_decode_private_key(t_rsa_data *data, char *text, size_t len);
 int		ft_asn1_decode_public_key(t_rsa_data *data, char *text, size_t len);
 int		ft_asn1_encode_private_key(t_rsa_data *data, char **text, size_t *len);
 int		ft_asn1_encode_public_key(t_rsa_data *data, char **text, size_t *len);
+int		ft_asn1_get_private_text(char **text, size_t *len);
+int		ft_asn1_get_public_text(char **text, size_t *len);
 
 void	ft_find_prime_number(t_bigint *prime, t_bigint *public_exp);
 int		ft_is_composit_by_initial_sieve(short *mod_array_2048);
@@ -80,7 +82,8 @@ int		ft_rsa_check_exp_f4_value(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_make_flag_in(char **text, size_t *len, char *flag_in);
 int		ft_rsa_make_flag_out(char *text, size_t len, char *flag_out);
 int		ft_rsa_make_flag_rand(int *fd, char *file);
-int		ft_rsa_make_flag_text(t_rsa *data);
+int		ft_rsa_make_flag_pubin(t_rsa *rsa);
+int		ft_rsa_make_flag_text(t_rsa *rsa);
 
 
 
