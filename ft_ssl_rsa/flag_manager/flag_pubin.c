@@ -16,13 +16,11 @@ int		ft_rsa_make_flag_pubin(t_rsa *rsa)
 {
 	if (rsa->flag.pubin)
 	{
-		ft_printf("1\n");
-		if (ft_asn1_get_public_text(&rsa->text, &rsa->len))
+		if (ft_pem_inform_public_key(&rsa->text, &rsa->len))
 		{
 			ft_print_fd(2, "ft_ssl: unable to load Public Key\n");
 			return (1);
 		}
-		ft_printf("1\n");
 		if (ft_asn1_decode_public_key(&rsa->data, rsa->text, rsa->len))
 		{
 			ft_print_fd(2, "ft_ssl: unable to load Public Key\n");
@@ -30,13 +28,11 @@ int		ft_rsa_make_flag_pubin(t_rsa *rsa)
 		}
 		return (0);
 	}
-	printf("1\n");
-	if (ft_asn1_get_private_text(&rsa->text, &rsa->len))
+	if (ft_pem_inform_private_key(&rsa->text, &rsa->len))
 	{
 		ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
 		return (1);
 	}
-	printf("1\n");
 	if (ft_asn1_decode_private_key(&rsa->data, rsa->text, rsa->len))
 	{
 		ft_print_fd(2, "ft_ssl: unable to load Private Key\n");

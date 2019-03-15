@@ -12,12 +12,12 @@
 
 #include "../../ft_ssl.h"
 
-int		ft_rsa_make_flag_out(char *text, size_t len, char *flag_out)
+int		ft_rsa_make_flag_out(t_rsa *rsa)
 {
 	int		fd;
 
-	fd = ft_make_output_fd(flag_out);
-	write(fd, text, len);
+	fd = ft_make_output_fd(rsa->flag.out);
+	write(fd, rsa->text, rsa->len);
 	ft_close_fd(fd);
 	return (0);
 }

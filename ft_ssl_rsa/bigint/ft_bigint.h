@@ -21,7 +21,7 @@ void		ft_bigint_del(t_bigint *a);
 void		ft_bigint_print(char *name, t_bigint *a);
 
 int			ft_bigint_isnull(t_bigint *a);
-int			ft_bigint_isvalue(t_bigint *a, unsigned char value);
+int			ft_bigint_isvalue(t_bigint *a, size_t value);
 
 void		ft_bigint_normalize(t_bigint *a);
 
@@ -29,7 +29,6 @@ int			ft_bigint_equ_bigger(t_bigint *a, t_bigint *b);
 int			ft_bigint_bigger(t_bigint *a, t_bigint *b);
 int			ft_bigint_smaller(t_bigint *a, t_bigint *b);
 int			ft_bigint_equal(t_bigint *a, t_bigint *b);
-int			ft_bigint_equ_value(t_bigint *a, unsigned char value);
 
 void		ft_bigint_increment(t_bigint *a);
 void		ft_bigint_decrement(t_bigint *a);

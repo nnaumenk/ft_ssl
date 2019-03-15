@@ -12,21 +12,50 @@
 
 #include "ft_bigint.h"
 
-int		ft_bigint_isvalue(t_bigint *a, unsigned char value)
+static int	ft_bigint_big_size(t_bigint *a, size_t value)
 {
-	if (a->size == 0)
-		return (0);
-	if (a->value[0] != value)
-		return (0);
-	a->value++;
-	a->size--;
-	if (ft_bigint_isnull(a))
+	size_t	value2;
+
+	value2 = 0;
+	ft_memcpy(&value2, a->value, 8);
+	if (value2 == value)
 	{
-		a->value--;
-		a->size++;
-		return (1);
+		a->value += 8;
+		a->size -= 8;
+		if (ft_bigint_isnull(a))
+		{
+			a->value -= 8;
+			a->size += 8;
+			return (1);
+		}
+		a->value -= 8;
+		a->size += 8;
 	}
-	a->value--;
-	a->size++;
+	return (0);
+}
+
+static int	ft_bigint_small_size(t_bigint *a, size_t value)
+{
+	size_t	value2;
+
+	value2 = 0;
+	ft_memcpy(&value2, a->value, a->size);
+	if (value2 == value)
+		return (1);
+	return (0);
+}
+
+int			ft_bigint_isvalue(t_bigint *a, size_t value)
+{
+	if (a->size <= 8)
+	{
+		if (ft_bigint_small_size(a, value))
+			return (1);
+	}
+	else
+	{
+		if (ft_bigint_big_size(a, value))
+			return (1);
+	}
 	return (0);
 }

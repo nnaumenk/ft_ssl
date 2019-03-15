@@ -41,34 +41,26 @@
 // }					t_rsa;
 
 
-
-
-
-
 void	ft_rsa(void *v_data)
 {
 	t_rsa	rsa;
 
 	rsa.flag = *(t_rsa_flag *)v_data;
-	if (ft_rsa_make_flag_in(&rsa.text, &rsa.len, rsa.flag.in))
+	if (ft_rsa_make_flag_in(&rsa))
 		return ;
 	if (ft_rsa_make_flag_pubin(&rsa))
 		return ;
+	ft_normalize_input_rsa_values(&rsa);
+
+	ft_rsa_make_flag_text(&rsa);
+
+
+
 	ft_printf("writing RSA key\n");
-
-
-	////check flag text;
-
-	//if (flag->noout)
-		///check flag pubout;
-
-
-	
-	// if (ft_make_genrsa_data(&rsa))
-	// 	return ;
-	// ft_close_fd(rsa.flag.rand_fd);
-	// ft_genrsa_make_asn1_text(&rsa);
-	// ft_rsa_free_data(&rsa.data);
-	//ft_rsa_make_flag_out(rsa.text, rsa.len, rsa.flag.out);
+	if (rsa.flag.noout)
+		return ;
+	if (ft_rsa_make_flag_pubout(&rsa))
+		return ;
+	ft_rsa_make_flag_out(&rsa);
 	ft_strdel(&rsa.text);
 }

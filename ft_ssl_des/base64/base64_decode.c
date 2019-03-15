@@ -13,12 +13,12 @@
 #include "../../ft_ssl.h"
 #include "base64.h"
 
-void	ft_b64_from_base(char *buf, size_t len)
+void	ft_b64_from_base(char *buf, size_t *len)
 {
 	size_t		i;
 
 	i = -1;
-	while (++i < len)
+	while (++i < *len)
 	{
 		if (buf[i] == '\n')
 			buf[i] = 65;
@@ -34,6 +34,11 @@ void	ft_b64_from_base(char *buf, size_t len)
 			buf[i] = buf[i] - 'a' + 26;
 		else if (buf[i] >= 'A' && buf[i] <= 'Z')
 			buf[i] = buf[i] - 'A';
+		else
+		{
+			buf[i] = 65;
+			*len = i + 1;
+		}
 	}
 }
 
@@ -98,7 +103,7 @@ char	*ft_b64_decode(char *buf, size_t *len)
 {
 	char		*new_str;
 
-	ft_b64_from_base(buf, *len);
+	ft_b64_from_base(buf, len);
 	new_str = ft_b64_decode_algor(buf, len);
 	ft_strdel(&buf);
 	return (new_str);

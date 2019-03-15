@@ -59,7 +59,7 @@ static int	ft_is_prime_by_1_statement(
 	ft_pow_mod(&result, rand, min_odd, prime);
 	ft_bigint_del(rand);
 	*rand = result;
-	if (ft_bigint_equ_value(rand, 1))
+	if (ft_bigint_isvalue(rand, 1))
 		return (1);
 	if (ft_bigint_equal(rand, prime_minus_1))
 		return (1);

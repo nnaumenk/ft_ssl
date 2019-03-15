@@ -12,19 +12,6 @@
 
 #include "../../ft_ssl.h"
 
-void	ft_asn1_make_text(t_rsa *rsa)
-{
-	const char	*line1 = "-----BEGIN RSA PRIVATE KEY-----\n";
-	const char	*line2 = "-----END RSA PRIVATE KEY-----\n";
-	char		*tmp;
-
-	rsa->text = ft_b64_encode(rsa->text, &rsa->len);
-	tmp = ft_mem_joiner(&rsa->len, 3,
-	(char *)line1, (size_t)32, rsa->text, rsa->len, (char *)line2, (size_t)30);
-	ft_strdel(&rsa->text);
-	rsa->text = tmp;
-}
-
 void		ft_genrsa(void *v_data)
 {
 	t_rsa	rsa;
@@ -40,9 +27,10 @@ void		ft_genrsa(void *v_data)
 	if (ft_make_genrsa_data(&rsa))
 		return ;
 	ft_close_fd(rsa.flag.rand_fd);
+	ft_normalize_input_rsa_values(&rsa);
 	ft_asn1_encode_private_key(&rsa.data, &rsa.text, &rsa.len);
-	ft_asn1_make_text(&rsa);
 	ft_rsa_free_data(&rsa.data);
-	ft_rsa_make_flag_out(rsa.text, rsa.len, rsa.flag.out);
+	ft_pem_outform_private_key(&rsa.text, &rsa.len);
+	ft_rsa_make_flag_out(&rsa);
 	ft_strdel(&rsa.text);
 }

@@ -31,14 +31,24 @@
 # include "ft_ssl_rsa/ft_ssl_rsa.h"	
 # include "main_struct.h"
 
-typedef unsigned long int __uint64_t;
-
-int		ft_asn1_decode_private_key(t_rsa_data *data, char *text, size_t len);
+int		ft_asn1_check_size(char **ptr, char tag, size_t *len);
+int		ft_asn1_get_value(t_bigint *a, char tag, char **ptr, size_t *len);
+int		ft_asn1_get_size(size_t *size, char **ptr, size_t *len);
 int		ft_asn1_decode_public_key(t_rsa_data *data, char *text, size_t len);
-int		ft_asn1_encode_private_key(t_rsa_data *data, char **text, size_t *len);
+int		ft_asn1_decode_private_key(t_rsa_data *data, char *text, size_t len);	
+
+int		ft_asn1_get_byte_number(size_t len);
+void	ft_asn1_set_version(char **ptr);
+void	ft_asn1_set_value(t_bigint a, char tag, char **ptr);
+void	ft_asn1_set_size(size_t size, char tag, char **ptr);
 int		ft_asn1_encode_public_key(t_rsa_data *data, char **text, size_t *len);
-int		ft_asn1_get_private_text(char **text, size_t *len);
-int		ft_asn1_get_public_text(char **text, size_t *len);
+int		ft_asn1_encode_private_key(t_rsa_data *data, char **text, size_t *len);
+
+int		ft_pem_inform_private_key(char **text, size_t *len);
+int		ft_pem_inform_public_key(char **text, size_t *len);
+int		ft_pem_outform_private_key(char **text, size_t *len);
+int		ft_pem_outform_public_key(char **text, size_t *len);
+
 
 void	ft_find_prime_number(t_bigint *prime, t_bigint *public_exp);
 int		ft_is_composit_by_initial_sieve(short *mod_array_2048);
@@ -48,6 +58,7 @@ int		ft_ssl_is_primary(__uint64_t number, float probability);
 void	ft_euclid_gcd(t_bigint *gcd, t_bigint *a, t_bigint *b);
 int		ft_is_coprime(t_bigint *a, t_bigint *b);
 void	ft_rsa_free_data(t_rsa_data *data);
+void	ft_normalize_input_rsa_value(t_rsa *rsa);
 
 int		ft_make_genrsa_data(t_rsa *rsa);
 
@@ -79,10 +90,11 @@ int		ft_rsa_check_exp_f4_value(int *i, int ac, char **av, t_rsa_flag *flag);
 
 
 
-int		ft_rsa_make_flag_in(char **text, size_t *len, char *flag_in);
-int		ft_rsa_make_flag_out(char *text, size_t len, char *flag_out);
+int		ft_rsa_make_flag_in(t_rsa *rsa);
+int		ft_rsa_make_flag_out(t_rsa *rsa);
 int		ft_rsa_make_flag_rand(int *fd, char *file);
 int		ft_rsa_make_flag_pubin(t_rsa *rsa);
+int		ft_rsa_make_flag_pubout(t_rsa *rsa);
 int		ft_rsa_make_flag_text(t_rsa *rsa);
 
 
@@ -149,7 +161,7 @@ int		ft_b64_process_flags(t_alg *my, t_des *flags);
 void	ft_b64_search_flags(t_alg *my, t_des *data, int argc, char **argv);
 void	ft_b64_flags(void *my, int argc, char **argv);
 
-void	ft_b64_from_base(char *buf, size_t len);
+void	ft_b64_from_base(char *buf, size_t *len);
 void	ft_b64_decode_line(char *str, char *line, size_t *len, size_t blocks);
 void	*ft_memchr(void *mem, char elem, size_t num);
 char	*ft_b64_decode_algor(char *buf, size_t *len);

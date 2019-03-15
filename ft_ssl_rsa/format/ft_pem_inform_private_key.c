@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asn1_get_public_text.c                             :+:      :+:    :+:   */
+/*   asn1_get_private_text.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/15 10:40:57 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/15 10:35:20 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ static int		ft_search_word(char **text, size_t *len, const char *line)
 	return (1);
 }
 
-int		ft_asn1_get_public_text(char **text, size_t *len)
+int		ft_pem_inform_private_key(char **text, size_t *len)
 {
-	const char	*line1 = "-----BEGIN PUBLIC KEY-----\n";
-	const char	*line2 = "\n-----END PUBLIC KEY-----";
+	const char	*line1 = "-----BEGIN RSA PRIVATE KEY-----\n";
+	const char	*line2 = "\n-----END RSA PRIVATE KEY-----";
 	char		*start_key;
 	char		*end_key;
 	char		*rsa_key;

@@ -43,7 +43,6 @@ typedef struct		s_rsa_flag
 
 typedef struct		s_rsa_data
 {
-	t_bigint		version;
 	t_bigint		modulus;
 	t_bigint		public_exponent;
 	t_bigint		private_exponent;

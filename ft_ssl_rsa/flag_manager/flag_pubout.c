@@ -12,6 +12,21 @@
 
 #include "../../ft_ssl.h"
 
+int		ft_rsa_make_flag_pubout(t_rsa *rsa)
+{
+	if (rsa->flag.pubin || rsa->flag.pubout)
+	{
+		ft_asn1_encode_public_key(&rsa->data, &rsa->text, &rsa->len);
+		if (ft_pem_outform_public_key(&rsa->text, &rsa->len))
+			return (1);
+		return (0);
+	}
+	ft_asn1_encode_private_key(&rsa->data, &rsa->text, &rsa->len);
+	if (ft_pem_outform_private_key(&rsa->text, &rsa->len))
+		return (1);
+	return (0);
+}
+
 int		ft_rsa_check_flag_pubout(int *i, int ac, char **av, t_rsa_flag *flag)
 {
 	USE(i);

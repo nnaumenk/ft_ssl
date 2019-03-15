@@ -54,7 +54,7 @@ static int	ft_algor(t_bigint *p, t_bigint *r, t_bigint a, t_bigint mod)
 		else
 			ft_iteration(r, p, &mod, &a);
 	}
-	if (ft_bigint_equ_value(&mod, 1) == 0)
+	if (ft_bigint_isvalue(&mod, 1) == 0)
 	{
 		ft_bigint_del(&a);
 		ft_bigint_del(&mod);

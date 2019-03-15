@@ -12,14 +12,14 @@
 
 #include "../../ft_ssl.h"
 
-int		ft_rsa_make_flag_in(char **text, size_t *len, char *flag_in)
+int		ft_rsa_make_flag_in(t_rsa *rsa)
 {
 	int		fd;
 
-	fd = ft_make_input_fd(flag_in);
+	fd = ft_make_input_fd(rsa->flag.in);
 	if (fd == -1)
 		return (1);
-	*text = ft_read_from(fd, len);
+	rsa->text = ft_read_from(fd, &rsa->len);
 	ft_close_fd(fd);
 	return (0);
 }
