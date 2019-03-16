@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 15:23:37 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/15 10:36:13 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/16 13:36:08 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_rsa(void *v_data)
 	ft_normalize_input_rsa_values(&rsa);
 
 	ft_rsa_make_flag_text(&rsa);
-
+	ft_rsa_make_flag_modulus(&rsa);
 
 
 	ft_printf("writing RSA key\n");

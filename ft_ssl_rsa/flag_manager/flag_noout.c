@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 15:23:37 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/04 16:00:56 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/16 13:29:00 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int		ft_rsa_check_flag_noout(int *i, int ac, char **av, t_rsa_flag *flag)
 	USE(i);
 	USE(ac);
 	USE(av);
-	USE(flag);
 	flag->noout = 1;
 	return (0);
 }

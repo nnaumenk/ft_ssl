@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 15:23:37 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/05 16:36:41 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/16 13:47:18 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,16 @@ static char	g_logarithm_2[] =
 };
 
 static void	ft_print_numbits(char *key, t_bigint *modulus)
-{		
+{
+	size_t			high_byte_number;
 	size_t			numbits;
 
-	numbits = (modulus->size - 2) * 8;
-	numbits += g_logarithm_2[modulus->value[modulus->size - 2]] + 1;
+	if (modulus->value[modulus->size - 1])
+		high_byte_number = modulus->size - 1;
+	else
+		high_byte_number = modulus->size - 2;
+	numbits = high_byte_number * 8;
+	numbits += g_logarithm_2[modulus->value[high_byte_number]] + 1;
 	ft_printf("%s (%zu bit)\n", key, numbits);
 }
 

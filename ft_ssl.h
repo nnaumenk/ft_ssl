@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 22:12:53 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/15 10:24:09 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/16 13:17:29 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		ft_ssl_is_primary(__uint64_t number, float probability);
 void	ft_euclid_gcd(t_bigint *gcd, t_bigint *a, t_bigint *b);
 int		ft_is_coprime(t_bigint *a, t_bigint *b);
 void	ft_rsa_free_data(t_rsa_data *data);
-void	ft_normalize_input_rsa_value(t_rsa *rsa);
+void	ft_normalize_input_rsa_values(t_rsa *rsa);
 
 int		ft_make_genrsa_data(t_rsa *rsa);
 
