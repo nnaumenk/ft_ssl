@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 19:45:00 by nnaumenk          #+#    #+#             */
-/*   Updated: 2018/11/15 21:00:01 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/16 23:40:23 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	ft_b64_to_base(char *str, size_t len)
 {
-	char const	*base = BASE;
+	const char	*base = BASE;
 	size_t		i;
 
 	i = -1;

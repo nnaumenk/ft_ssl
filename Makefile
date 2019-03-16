@@ -6,7 +6,7 @@
 #    By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/17 21:34:09 by nnaumenk          #+#    #+#              #
-#    Updated: 2019/03/15 10:24:31 by nnaumenk         ###   ########.fr        #
+#    Updated: 2019/03/17 01:22:49 by nnaumenk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c								\
 				ft_ssl_rsa/bigint/ft_bigint_decrement.c				\
 				ft_ssl_rsa/bigint/ft_bigint_mul.c					\
 				ft_ssl_rsa/bigint/ft_bigint_div.c					\
+				ft_ssl_rsa/bigint/ft_bigint_div_safe.c				\
 				ft_ssl_rsa/bigint/ft_bigint_shl.c					\
 				ft_ssl_rsa/bigint/ft_bigint_shl_overflow.c			\
 				ft_ssl_rsa/bigint/ft_bigint_shr.c					\
@@ -107,6 +108,10 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c								\
 				ft_ssl_rsa/flag_manager/flag_exp_3_value.c			\
 				ft_ssl_rsa/flag_manager/flag_exp_f4_value.c			\
 																	\
+				ft_ssl_rsa/format/ft_der_inform_private_key.c		\
+				ft_ssl_rsa/format/ft_der_inform_public_key.c		\
+				ft_ssl_rsa/format/ft_der_outform_private_key.c		\
+				ft_ssl_rsa/format/ft_der_outform_public_key.c		\
 				ft_ssl_rsa/format/ft_pem_inform_private_key.c		\
 				ft_ssl_rsa/format/ft_pem_inform_public_key.c		\
 				ft_ssl_rsa/format/ft_pem_outform_private_key.c		\

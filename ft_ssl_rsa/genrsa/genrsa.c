@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 15:23:37 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/15 09:54:20 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/17 00:25:22 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ void		ft_genrsa(void *v_data)
 		return ;
 	ft_close_fd(rsa.flag.rand_fd);
 	ft_normalize_input_rsa_values(&rsa);
-	ft_asn1_encode_private_key(&rsa.data, &rsa.text, &rsa.len);
+	ft_pem_outform_private_key(&rsa);
 	ft_rsa_free_data(&rsa.data);
-	ft_pem_outform_private_key(&rsa.text, &rsa.len);
 	ft_rsa_make_flag_out(&rsa);
 	ft_strdel(&rsa.text);
 }

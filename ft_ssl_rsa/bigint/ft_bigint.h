@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 22:12:53 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/27 18:40:54 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/16 22:19:55 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ void		ft_bigint_sub(t_bigint *a, t_bigint *b);
 
 void		ft_bigint_mul(t_bigint *mul, t_bigint *a, t_bigint *b);
 void		ft_bigint_div(t_bigint *in, t_bigint *rm, t_bigint *a, t_bigint *b);
+void		ft_bigint_div_safe(t_bigint *in, t_bigint *rm, t_bigint *a,
+			t_bigint *b);
 
 #endif

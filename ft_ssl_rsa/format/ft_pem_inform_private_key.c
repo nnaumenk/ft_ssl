@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asn1_get_private_text.c                            :+:      :+:    :+:   */
+/*   ft_pem_inform_private_key.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/15 10:35:20 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/17 01:39:21 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int		ft_search_word(char **text, size_t *len, const char *line)
 	return (1);
 }
 
-int		ft_pem_inform_private_key(char **text, size_t *len)
+static int		ft_get_asn1_text(char **text, size_t *len)
 {
 	const char	*line1 = "-----BEGIN RSA PRIVATE KEY-----\n";
 	const char	*line2 = "\n-----END RSA PRIVATE KEY-----";
@@ -58,6 +58,24 @@ int		ft_pem_inform_private_key(char **text, size_t *len)
 	*len = end_key - start_key + 1;
 	rsa_key = (char *)ft_memdup(start_key, *len);
 	ft_strdel(text);
-	*text = ft_b64_decode(rsa_key, len);
+	*text = rsa_key;
+	return (0);
+}
+
+
+
+int		ft_pem_inform_private_key(t_rsa *rsa)
+{
+	if (ft_get_asn1_text(&rsa->text, &rsa->len))
+	{
+		ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
+		return (1);
+	}
+	rsa->text = ft_b64_decode(rsa->text, &rsa->len);
+	if (ft_asn1_decode_private_key(&rsa->data, rsa->text, rsa->len))
+	{
+		ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
+		return (1);
+	}
 	return (0);
 }

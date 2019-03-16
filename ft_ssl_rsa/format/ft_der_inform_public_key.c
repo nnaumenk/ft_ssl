@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flag_pubout.c                                      :+:      :+:    :+:   */
+/*   ft_der_inform_public_key.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/21 15:23:37 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/16 23:45:48 by nnaumenk         ###   ########.fr       */
+/*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
+/*   Updated: 2019/03/17 01:39:24 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../ft_ssl.h"
 
-int		ft_rsa_make_flag_pubout(t_rsa *rsa)
+int		ft_der_inform_public_key(t_rsa *rsa)
 {
-	if (rsa->flag.pubin || rsa->flag.pubout)
+	if (ft_asn1_decode_public_key(&rsa->data, rsa->text, rsa->len))
 	{
-		if (ft_pem_outform_public_key(rsa))
-			return (1);
+		ft_print_fd(2, "ft_ssl: unable to load Public Key\n");
+		return (1);
 	}
-	else
-	{
-		if (ft_pem_outform_private_key(rsa))
-			return (1);
-	}
-	return (0);
-}
-
-int		ft_rsa_check_flag_pubout(int *i, int ac, char **av, t_rsa_flag *flag)
-{
-	USE(i);
-	USE(ac);
-	USE(av);
-	USE(flag);
-	flag->pubout = 1;
 	return (0);
 }

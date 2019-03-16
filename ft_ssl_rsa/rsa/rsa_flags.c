@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 15:23:37 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/15 09:54:09 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/17 00:32:22 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static t_rsa_option	g_option[] =
 
 static char			*g_options_output =
 
-"-inform format\tinput format (DER, NET or PEM(default))\n"		\
-"-outform format\toutput format (DER, NET or PEM(default))\n"	\
+"-inform format\tinput format (DER or PEM(default))\n"			\
+"-outform format\toutput format (DER or PEM(default))\n"		\
 "-in file\tinput file (default stdin)\n"						\
 "-passin src\tinput file passphrase source\n"					\
 "-out file\toutput file (default stdout)\n"						\

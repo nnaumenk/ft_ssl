@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 15:23:37 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/15 10:38:42 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/17 00:42:15 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,19 @@ int		ft_rsa_make_flag_pubin(t_rsa *rsa)
 {
 	if (rsa->flag.pubin)
 	{
-		if (ft_pem_inform_public_key(&rsa->text, &rsa->len))
+		if (ft_rsa_make_flag_inform(rsa))
 		{
 			ft_print_fd(2, "ft_ssl: unable to load Public Key\n");
 			return (1);
 		}
-		if (ft_asn1_decode_public_key(&rsa->data, rsa->text, rsa->len))
+	}
+	else
+	{
+		if (ft_pem_inform_private_key(rsa))
 		{
 			ft_print_fd(2, "ft_ssl: unable to load Public Key\n");
 			return (1);
 		}
-		return (0);
-	}
-	if (ft_pem_inform_private_key(&rsa->text, &rsa->len))
-	{
-		ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
-		return (1);
-	}
-	if (ft_asn1_decode_private_key(&rsa->data, rsa->text, rsa->len))
-	{
-		ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
-		return (1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 15:27:41 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/15 09:54:08 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/17 01:04:47 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 typedef struct		s_rsa_flag
 {
 	int				rand_fd;
-	char			*inform;
-	char			*outform;
+	int				inform;
+	int				outform;
 	char			*in;
 	//int				fd_input;
 	char			*passin;

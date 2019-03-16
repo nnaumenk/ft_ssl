@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/20 20:29:11 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/17 00:24:06 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void		ft_mul_algor(t_bigint *mul, t_bigint *a, t_bigint *b)
 	}
 	if ((i = a->size % sizeof(unsigned int)) == 0)
 		return ;
+	buf = 0;
 	ft_memcpy(&buf, a32, i);
 	ft_mul_4byte(mul32, &buf, b32, b->size);
 }

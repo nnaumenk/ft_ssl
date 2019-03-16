@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 22:12:53 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/16 13:17:29 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/17 01:00:58 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,14 @@ void	ft_asn1_set_size(size_t size, char tag, char **ptr);
 int		ft_asn1_encode_public_key(t_rsa_data *data, char **text, size_t *len);
 int		ft_asn1_encode_private_key(t_rsa_data *data, char **text, size_t *len);
 
-int		ft_pem_inform_private_key(char **text, size_t *len);
-int		ft_pem_inform_public_key(char **text, size_t *len);
-int		ft_pem_outform_private_key(char **text, size_t *len);
-int		ft_pem_outform_public_key(char **text, size_t *len);
+int		ft_der_outform_private_key(t_rsa *rsa);
+int		ft_der_outform_public_key(t_rsa *rsa);
+int		ft_der_inform_private_key(t_rsa *rsa);
+int		ft_der_inform_public_key(t_rsa *rsa);
+int		ft_pem_inform_private_key(t_rsa *rsa);
+int		ft_pem_inform_public_key(t_rsa *rsa);
+int		ft_pem_outform_private_key(t_rsa *rsa);
+int		ft_pem_outform_public_key(t_rsa *rsa);
 
 
 void	ft_find_prime_number(t_bigint *prime, t_bigint *public_exp);
@@ -96,6 +100,11 @@ int		ft_rsa_make_flag_rand(int *fd, char *file);
 int		ft_rsa_make_flag_pubin(t_rsa *rsa);
 int		ft_rsa_make_flag_pubout(t_rsa *rsa);
 int		ft_rsa_make_flag_text(t_rsa *rsa);
+int		ft_rsa_make_flag_modulus(t_rsa *rsa);
+int		ft_rsa_make_flag_check(t_rsa *rsa);
+
+int		ft_rsa_make_flag_inform(t_rsa *rsa);
+int		ft_rsa_make_flag_outform(t_rsa *rsa);
 
 
 
