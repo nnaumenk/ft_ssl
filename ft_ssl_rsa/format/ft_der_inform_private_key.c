@@ -19,5 +19,6 @@ int		ft_der_inform_private_key(t_rsa *rsa)
 		ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
 		return (1);
 	}
+	ft_strdel(&rsa->text);
 	return (0);
 }
