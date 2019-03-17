@@ -12,27 +12,6 @@
 
 #include "../../ft_ssl.h"
 
-int		ft_rsa_make_flag_pubin(t_rsa *rsa)
-{
-	if (rsa->flag.pubin)
-	{
-		if (ft_rsa_make_flag_inform(rsa))
-		{
-			ft_print_fd(2, "ft_ssl: unable to load Public Key\n");
-			return (1);
-		}
-	}
-	else
-	{
-		if (ft_pem_inform_private_key(rsa))
-		{
-			ft_print_fd(2, "ft_ssl: unable to load Public Key\n");
-			return (1);
-		}
-	}
-	return (0);
-}
-
 int		ft_rsa_check_flag_pubin(int *i, int ac, char **av, t_rsa_flag *flag)
 {
 	USE(i);

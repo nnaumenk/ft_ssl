@@ -14,6 +14,6 @@
 
 int		ft_der_outform_private_key(t_rsa *rsa)
 {
-	ft_asn1_encode_private_key(&rsa->data, &rsa->text, &rsa->len);
+	ft_asn1_encode_private_key(rsa);
 	return (0);
 }

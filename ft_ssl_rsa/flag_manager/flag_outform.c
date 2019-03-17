@@ -12,6 +12,29 @@
 
 #include "../../ft_ssl.h"
 
+static int	(*g_inform[])(t_rsa *) =
+{
+	ft_pem_outform_private_key,
+	ft_der_outform_private_key,
+	ft_pem_outform_public_key,
+	ft_der_outform_public_key
+};
+
+int		ft_rsa_make_flag_outform(t_rsa *rsa)
+{
+	if (rsa->flag.noout)
+	{
+		ft_rsa_free_data(&rsa->data);
+		return (1);
+	}
+	if ((g_inform[rsa->flag.pubout * 2 + rsa->flag.outform])(rsa))
+	{
+		ft_rsa_free_data(&rsa->data);
+		return (1);
+	}
+	ft_rsa_free_data(&rsa->data);
+	return (0);
+}
 int		ft_rsa_check_flag_outform(int *i, int ac, char **av, t_rsa_flag *flag)
 {
 	if (++(*i) == ac)

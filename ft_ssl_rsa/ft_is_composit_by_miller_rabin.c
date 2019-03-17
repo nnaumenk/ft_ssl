@@ -29,6 +29,7 @@ static void	ft_get_random_2_to_prime_minus_2(t_bigint *rand, t_bigint *prime)
 	ft_bigint_increment(prime);
 	ft_bigint_increment(&remainder);
 	ft_bigint_increment(&remainder);
+	ft_bigint_del(rand);
 	*rand = remainder;
 	ft_bigint_del(&integer);
 }
@@ -60,22 +61,29 @@ static int	ft_is_prime_by_1_statement(
 	ft_bigint_del(rand);
 	*rand = result;
 	if (ft_bigint_isvalue(rand, 1))
+	{
+		ft_bigint_del(rand);
 		return (1);
+	}
 	if (ft_bigint_equal(rand, prime_minus_1))
+	{
+		ft_bigint_del(rand);
 		return (1);
+	}
 	return (0);
 }
+
+
 
 static int	ft_is_prime_by_2_statement(
 	t_bigint *rand, t_bigint *prime, t_bigint *pow, t_bigint *prime_minus_1)
 {
+	static	t_bigint	two;
 	t_bigint			result;
-	t_bigint			two;
 	t_bigint			counter;
 
-	two.size = 1;
-	two.value = (unsigned char *)malloc(1);
-	two.value[0] = 2;
+	if (two.value == NULL)
+		two = ft_bigint_dup_value(1, 2);
 	counter = ft_bigint_dup(pow);
 	ft_bigint_decrement(&counter);
 	while (ft_bigint_isnull(&counter) == 0)
@@ -85,16 +93,17 @@ static int	ft_is_prime_by_2_statement(
 		*rand = result;
 		if (ft_bigint_equal(rand, prime_minus_1))
 		{
-			ft_bigint_del(&two);
 			ft_bigint_del(&counter);
+			ft_bigint_del(rand);
 			return (1);
 		}
 		ft_bigint_decrement(&counter);
 	}
-	ft_bigint_del(&two);
 	ft_bigint_del(&counter);
+	ft_bigint_del(rand);
 	return (0);
 }
+
 
 int			ft_is_composit_by_miller_rabin(t_bigint *prime, unsigned rounds)
 {
@@ -108,17 +117,16 @@ int			ft_is_composit_by_miller_rabin(t_bigint *prime, unsigned rounds)
 	{
 		ft_get_random_2_to_prime_minus_2(&rand, prime);
 		if (ft_is_prime_by_1_statement(&rand, &min_odd, prime, &prime_minus_1))
-		{
-			ft_bigint_del(&rand);
 			continue ;
-		}
 		if (ft_is_prime_by_2_statement(&rand, prime, &pow, &prime_minus_1))
-		{
-			ft_bigint_del(&rand);
 			continue ;
-		}
-		ft_bigint_del(&rand);
+		ft_bigint_del(&pow);
+		ft_bigint_del(&prime_minus_1);
+		ft_bigint_del(&min_odd);
 		return (1);
 	}
+	ft_bigint_del(&pow);
+	ft_bigint_del(&prime_minus_1);
+	ft_bigint_del(&min_odd);
 	return (0);
 }

@@ -17,6 +17,7 @@
 # include "ft_bigint_struct.h"
 
 t_bigint	ft_bigint_dup(t_bigint *a);
+t_bigint	ft_bigint_dup_value(size_t value, size_t size);
 void		ft_bigint_del(t_bigint *a);
 void		ft_bigint_print(char *name, t_bigint *a);
 

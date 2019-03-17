@@ -31,5 +31,4 @@ void		ft_genrsa(void *v_data)
 	ft_pem_outform_private_key(&rsa);
 	ft_rsa_free_data(&rsa.data);
 	ft_rsa_make_flag_out(&rsa);
-	ft_strdel(&rsa.text);
 }

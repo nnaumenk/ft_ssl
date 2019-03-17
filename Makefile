@@ -67,6 +67,7 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c								\
 				ft_ssl_rsa/asn1_encode/ft_asn1_set_version.c		\
 																	\
 				ft_ssl_rsa/bigint/ft_bigint_dup.c					\
+				ft_ssl_rsa/bigint/ft_bigint_dup_value.c				\
 				ft_ssl_rsa/bigint/ft_bigint_del.c					\
 				ft_ssl_rsa/bigint/ft_bigint_print.c					\
 				ft_ssl_rsa/bigint/ft_bigint_isnull.c				\

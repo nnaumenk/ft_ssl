@@ -50,6 +50,7 @@ void	ft_rsa(void *v_data)
 		return ;
 	if (ft_rsa_make_flag_inform(&rsa))
 		return ;
+
 	ft_normalize_input_rsa_values(&rsa);
 
 	ft_rsa_make_flag_text(&rsa);
@@ -59,8 +60,9 @@ void	ft_rsa(void *v_data)
 	ft_printf("writing RSA key\n");
 	if (rsa.flag.noout)
 		return ;
-	if (ft_rsa_make_flag_pubout(&rsa))
+	if (ft_rsa_make_flag_outform(&rsa))
 		return ;
 	ft_rsa_make_flag_out(&rsa);
+	ft_rsa_free_data(&rsa.data);
 	ft_strdel(&rsa.text);
 }

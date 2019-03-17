@@ -37,20 +37,20 @@ static int	ft_parse_values(t_rsa_data *data, char **ptr, size_t *len)
 	return (0);
 }
 
-int			ft_asn1_decode_private_key(t_rsa_data *data, char *text, size_t len)	
+int			ft_asn1_decode_private_key(t_rsa *rsa)	
 {
 	char	*ptr;
 
-	ptr = text;
-	if (ft_asn1_check_size(&ptr, 0x30, &len))
+	ptr = rsa->text;
+	if (ft_asn1_check_size(&ptr, 0x30, &rsa->len))
 	{
-		ft_strdel(&text);
+		ft_strdel(&rsa->text);
 		return (1);
 	}
-	if (ft_parse_values(data, &ptr, &len))
+	if (ft_parse_values(&rsa->data, &ptr, &rsa->len))
 	{
-		ft_rsa_free_data(data);
-		ft_strdel(&text);
+		ft_rsa_free_data(&rsa->data);
+		ft_strdel(&rsa->text);
 		return (1);
 	}
 	return (0);

@@ -16,33 +16,28 @@ static void	ft_value(t_bigint *a)
 {
 	t_bigint	new;
 
-	if (a->value[a->size - 1] >= 0x80)
+	if (a->value)
 	{
-		new.size = a->size + 1;
-		new.value = (unsigned char *)malloc(new.size);
-		ft_memcpy(new.value, a->value, a->size);
-		new.value[a->size] = 0;
-		ft_bigint_del(a);
-		*a = new;
+		if (a->value[a->size - 1] >= 0x80)
+		{
+			new.size = a->size + 1;
+			new.value = (unsigned char *)malloc(new.size);
+			ft_memcpy(new.value, a->value, a->size);
+			new.value[a->size] = 0;
+			ft_bigint_del(a);
+			*a = new;
+		}
 	}
 }
 
 void	ft_normalize_input_rsa_values(t_rsa *rsa)
 {
-	if (rsa->data.modulus.value)
-		ft_value(&rsa->data.modulus);
-	if (rsa->data.public_exponent.value)
-		ft_value(&rsa->data.public_exponent);
-	if (rsa->data.private_exponent.value)
-		ft_value(&rsa->data.private_exponent);
-	if (rsa->data.prime1.value)
-		ft_value(&rsa->data.prime1);
-	if (rsa->data.prime2.value)
-		ft_value(&rsa->data.prime2);
-	if (rsa->data.exponent1.value)
-		ft_value(&rsa->data.exponent1);
-	if (rsa->data.exponent2.value)
-		ft_value(&rsa->data.exponent2);
-	if (rsa->data.coefficient.value)
-		ft_value(&rsa->data.coefficient);
+	ft_value(&rsa->data.modulus);
+	ft_value(&rsa->data.public_exponent);
+	ft_value(&rsa->data.private_exponent);
+	ft_value(&rsa->data.prime1);
+	ft_value(&rsa->data.prime2);
+	ft_value(&rsa->data.exponent1);
+	ft_value(&rsa->data.exponent2);
+	ft_value(&rsa->data.coefficient);
 }

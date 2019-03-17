@@ -18,8 +18,17 @@ int		ft_pem_outform_public_key(t_rsa *rsa)
 	const char	*line2 = "-----END PUBLIC KEY-----\n";
 	char		*tmp;
 
-	ft_asn1_encode_public_key(&rsa->data, &rsa->text, &rsa->len);
-	rsa->text = ft_b64_encode(rsa->text, &rsa->len);
+	ft_asn1_encode_public_key(rsa);
+	if (rsa->flag.des)
+	{
+		if (ft_rsa_make_flag_des(rsa))
+		{
+			ft_strdel(&rsa->text);
+			return (1);
+		}
+	}
+	else
+		rsa->text = ft_b64_encode(rsa->text, &rsa->len);
 	tmp = ft_mem_joiner(&rsa->len, 3,
 	(char *)line1, (size_t)27, rsa->text, rsa->len, (char *)line2, (size_t)25);
 	ft_strdel(&rsa->text);

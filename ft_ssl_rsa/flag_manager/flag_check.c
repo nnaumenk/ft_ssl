@@ -22,7 +22,7 @@ int		ft_check_primality(t_bigint prime)
 		return (1);
 	if (ft_bigint_isvalue(&prime, 1))
 		return (1);
-	if (prime.value[0] & 0x01 == 0)
+	if ((prime.value[0] & 0x01) == 0)
 		return (1);
 	if (ft_is_composit_by_miller_rabin(&prime, 2))
 		return (1);
@@ -71,16 +71,6 @@ int		ft_check_private_exponent(t_rsa_data *data)
 	return (0);
 }
 
-// 	RSA key error: bad e value
-// RSA key error: p not prime
-// RSA key error: n does not equal p q
-// RSA key error: d e not congruent to 1
-// RSA key error: dmp1 not congruent to d
-// RSA key error: dmq1 not congruent to d
-// RSA key error: iqmp not inverse of q
-
-//zrobur ft_bigint_div_
-
 int		ft_check_exponent(t_bigint exp, t_bigint private_exp, t_bigint prime)
 {
 	t_bigint	integer;
@@ -116,56 +106,58 @@ int		ft_check_coefficient(t_rsa_data *data)
 	return (0);
 }
 
-int		ft_check_values(t_rsa_data *data)
+static void	ft_check_values2(t_rsa_data *data, int *fail)
 {
-	int		fail;
-
-	fail = 0;
-	if ((data->public_exponent.value[0] & 0x01) == 0)
-	{
-		ft_printf("RSA key error: bad e value\n");
-		fail = 1;
-	}
-	if (ft_check_primality(data->prime1))
-	{
-		ft_printf("RSA key error: p not prime\n");
-		fail = 1;
-	}
-	if (ft_check_primality(data->prime2))
-	{
-		ft_printf("RSA key error: q not prime\n");
-		fail = 1;
-	}
-	if (ft_check_modulus(data))
-	{
-		ft_printf("RSA key error: n does not equal p * q\n");
-		fail = 1;
-	}
 	if (ft_check_private_exponent(data))
 	{
 		ft_printf("RSA key error: d e not congruent to 1\n");
-		fail = 1;
+		*fail = 1;
 	}
 	if (ft_check_exponent(data->exponent1, data->private_exponent, data->prime1))
 	{
 		ft_printf("RSA key error: dmp1 not congruent to d\n");
-		fail = 1;
+		*fail = 1;
 	}
 	if (ft_check_exponent(data->exponent2, data->private_exponent, data->prime2))
 	{
 		ft_printf("RSA key error: dmq1 not congruent to d\n");
-		fail = 1;
+		*fail = 1;
 	}
 	if (ft_check_coefficient(data))
 	{
 		ft_printf("RSA key error: iqmp not inverse of q\n");
-		fail = 1;
+		*fail = 1;
 	}
-	return (fail);
+}
+
+static void	ft_check_values1(t_rsa_data *data, int *fail)
+{
+	if ((data->public_exponent.value[0] & 0x01) == 0)
+	{
+		ft_printf("RSA key error: bad e value\n");
+		*fail = 1;
+	}
+	if (ft_check_primality(data->prime1))
+	{
+		ft_printf("RSA key error: p not prime\n");
+		*fail = 1;
+	}
+	if (ft_check_primality(data->prime2))
+	{
+		ft_printf("RSA key error: q not prime\n");
+		*fail = 1;
+	}
+	if (ft_check_modulus(data))
+	{
+		ft_printf("RSA key error: n does not equal p * q\n");
+		*fail = 1;
+	}
 }
 
 int		ft_rsa_make_flag_check(t_rsa *rsa)
 {
+	int		fail;
+
 	if (rsa->flag.check)
 	{
 		if (rsa->flag.pubin)
@@ -173,7 +165,10 @@ int		ft_rsa_make_flag_check(t_rsa *rsa)
 			ft_printf("Only private keys can be checked\n");
 			return (0);
 		}
-		if (ft_check_values(&rsa->data))
+		fail = 0;
+		ft_check_values1(&rsa->data, &fail);
+		ft_check_values2(&rsa->data, &fail);
+		if (fail)
 			return (1);
 		ft_printf("RSA key ok\n");
 	}

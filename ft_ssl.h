@@ -34,15 +34,15 @@
 int		ft_asn1_check_size(char **ptr, char tag, size_t *len);
 int		ft_asn1_get_value(t_bigint *a, char tag, char **ptr, size_t *len);
 int		ft_asn1_get_size(size_t *size, char **ptr, size_t *len);
-int		ft_asn1_decode_public_key(t_rsa_data *data, char *text, size_t len);
-int		ft_asn1_decode_private_key(t_rsa_data *data, char *text, size_t len);	
+int		ft_asn1_decode_public_key(t_rsa *rsa);
+int		ft_asn1_decode_private_key(t_rsa *rsa);	
 
 int		ft_asn1_get_byte_number(size_t len);
 void	ft_asn1_set_version(char **ptr);
 void	ft_asn1_set_value(t_bigint a, char tag, char **ptr);
 void	ft_asn1_set_size(size_t size, char tag, char **ptr);
-int		ft_asn1_encode_public_key(t_rsa_data *data, char **text, size_t *len);
-int		ft_asn1_encode_private_key(t_rsa_data *data, char **text, size_t *len);
+int		ft_asn1_encode_public_key(t_rsa *rsa);
+int		ft_asn1_encode_private_key(t_rsa *rsa);
 
 int		ft_der_outform_private_key(t_rsa *rsa);
 int		ft_der_outform_public_key(t_rsa *rsa);
@@ -102,9 +102,11 @@ int		ft_rsa_make_flag_pubout(t_rsa *rsa);
 int		ft_rsa_make_flag_text(t_rsa *rsa);
 int		ft_rsa_make_flag_modulus(t_rsa *rsa);
 int		ft_rsa_make_flag_check(t_rsa *rsa);
-
+int		ft_rsa_make_flag_des(t_rsa *rsa);
 int		ft_rsa_make_flag_inform(t_rsa *rsa);
 int		ft_rsa_make_flag_outform(t_rsa *rsa);
+int		ft_rsa_make_flag_passin(t_rsa *rsa);
+int		ft_rsa_make_flag_passout(t_rsa *rsa);
 
 
 

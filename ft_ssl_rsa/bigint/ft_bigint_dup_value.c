@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pem_outform_private_key.c                       :+:      :+:    :+:   */
+/*   ft_bigint_add.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/18 23:52:03 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/17 01:39:19 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/02/20 20:28:40 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../ft_ssl.h"
+#include "ft_bigint.h"
 
-int		ft_pem_outform_private_key(t_rsa *rsa)
+t_bigint	ft_bigint_dup_value(size_t value, size_t size)
 {
-	const char	*line1 = "-----BEGIN RSA PRIVATE KEY-----\n";
-	const char	*line2 = "-----END RSA PRIVATE KEY-----\n";
-	char		*tmp;
+	t_bigint	a;
 
-	ft_asn1_encode_private_key(rsa);
-	if (rsa->flag.des)
-	{
-		if (ft_rsa_make_flag_des(rsa))
-		{
-			ft_strdel(&rsa->text);
-			return (1);
-		}
-	}
-	else
-		rsa->text = ft_b64_encode(rsa->text, &rsa->len);
-	tmp = ft_mem_joiner(&rsa->len, 3,
-	(char *)line1, (size_t)32, rsa->text, rsa->len, (char *)line2, (size_t)30);
-	ft_strdel(&rsa->text);
-	rsa->text = tmp;
-	return (0);
+	a.size = size;
+	a.value = (unsigned char *)malloc(size);
+	ft_bzero(a.value, a.size);
+	*(size_t *)a.value = value;
 }

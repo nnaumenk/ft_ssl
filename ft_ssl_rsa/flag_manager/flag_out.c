@@ -21,6 +21,7 @@ int		ft_rsa_make_flag_out(t_rsa *rsa)
 		return (1);
 	write(fd, rsa->text, rsa->len);
 	ft_close_fd(fd);
+	ft_strdel(&rsa->text);
 	return (0);
 }
 

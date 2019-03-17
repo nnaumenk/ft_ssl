@@ -63,12 +63,12 @@ static void	ft_determine_size(t_rsa_data data, size_t *size, size_t *len)
 	*len += 2;
 }
 
-int		ft_asn1_encode_public_key(t_rsa_data *data, char **text, size_t *len)			
+int		ft_asn1_encode_public_key(t_rsa *rsa)			
 {
 	size_t		size[3];
 
-	ft_determine_size(*data, (size_t *)size, len);
-	*text = (char *)malloc(*len);
-	ft_set_values(*data, (size_t *)size, *text);
+	ft_determine_size(rsa->data, (size_t *)size, &rsa->len);
+	rsa->text = (char *)malloc(rsa->len);
+	ft_set_values(rsa->data, (size_t *)size, rsa->text);
 	return (0);
 }
