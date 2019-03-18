@@ -27,6 +27,7 @@ typedef struct		s_rsa_flag
 	//int				fd_output;
 	char			*passout;
 	int				des;
+	char			vector[8];
 	int				text;
 	int				noout;
 	int				modulus;

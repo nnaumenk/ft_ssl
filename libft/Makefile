@@ -19,6 +19,7 @@ CFILES	=	ft_free_matrix.c				\
 			ft_memjoin.c					\
 			ft_memjoin_del.c				\
 			ft_mem_joiner.c					\
+			ft_str_joiner.c					\
 			ft_malloc_str.c					\
 			ft_memalloc.c					\
 			ft_memcpy.c						\

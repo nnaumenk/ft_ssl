@@ -15,19 +15,22 @@
 static int	(*g_inform[])(t_rsa *) =
 {
 	ft_pem_outform_private_key,
-	ft_der_outform_private_key,
 	ft_pem_outform_public_key,
-	ft_der_outform_public_key
+	ft_der_outform_private_key,
+	ft_der_outform_public_key,
 };
 
 int		ft_rsa_make_flag_outform(t_rsa *rsa)
 {
+	int		number;
+	
 	if (rsa->flag.noout)
 	{
 		ft_rsa_free_data(&rsa->data);
 		return (1);
 	}
-	if ((g_inform[rsa->flag.pubout * 2 + rsa->flag.outform])(rsa))
+	number = rsa->flag.outform * 2 + (rsa->flag.pubout | rsa->flag.pubin);
+	if ((g_inform[number](rsa)))
 	{
 		ft_rsa_free_data(&rsa->data);
 		return (1);
@@ -43,9 +46,9 @@ int		ft_rsa_check_flag_outform(int *i, int ac, char **av, t_rsa_flag *flag)
 		return (1);
 	}
 	if (ft_strequ(av[*i], "PEM") || ft_strequ(av[*i], "pem"))
-		flag->inform = 0;
+		flag->outform = 0;
 	if (ft_strequ(av[*i], "DER") || ft_strequ(av[*i], "der"))
-		flag->inform = 1;
+		flag->outform = 1;
 	else
 		return (1);
 	return (0);

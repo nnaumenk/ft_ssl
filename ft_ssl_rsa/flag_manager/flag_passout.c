@@ -12,7 +12,7 @@
 
 #include "../../ft_ssl.h"
 
-int	ft_read_password(t_rsa *rsa)
+static int		ft_read_password(t_rsa *rsa)
 {
 	char	*password;
 
@@ -52,7 +52,6 @@ int		ft_rsa_make_flag_passout(t_rsa *rsa)
 			return (1);
 	}
 	return (0);
-	
 }
 
 int		ft_rsa_check_flag_passout(int *i, int ac, char **av, t_rsa_flag *flag)

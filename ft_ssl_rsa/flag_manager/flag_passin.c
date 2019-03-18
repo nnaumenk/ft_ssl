@@ -12,6 +12,30 @@
 
 #include "../../ft_ssl.h"
 
+static int	ft_read_password(t_rsa *rsa)
+{
+	rsa->flag.passin = getpass("Enter PEM pass phrase:");
+	if (ft_strlen(rsa->flag.passin) < 4)
+	{
+		ft_print_fd(2, "unable to write key\npassword too small\n");
+		return (1);
+	}
+	return (0);
+}
+
+
+int		ft_rsa_make_flag_passin(t_rsa *rsa)
+{
+	char	*password1;
+
+	if (rsa->flag.passout == 0)
+	{
+		if (ft_read_password(rsa))
+			return (1);
+	}
+	return (0);
+}
+
 int		ft_rsa_check_flag_passin(int *i, int ac, char **av, t_rsa_flag *flag)
 {
 	const char	*pass = "pass:";

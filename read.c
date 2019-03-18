@@ -12,7 +12,7 @@
 
 #include "ft_ssl.h"
 
-#define READ_BUF 1000
+#define READ_BUF 3000000
 
 void	ft_close_fd(int fd)
 {

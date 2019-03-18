@@ -44,15 +44,17 @@ void	ft_asn1_set_size(size_t size, char tag, char **ptr);
 int		ft_asn1_encode_public_key(t_rsa *rsa);
 int		ft_asn1_encode_private_key(t_rsa *rsa);
 
-int		ft_der_outform_private_key(t_rsa *rsa);
-int		ft_der_outform_public_key(t_rsa *rsa);
-int		ft_der_inform_private_key(t_rsa *rsa);
-int		ft_der_inform_public_key(t_rsa *rsa);
 int		ft_pem_inform_private_key(t_rsa *rsa);
 int		ft_pem_inform_public_key(t_rsa *rsa);
+int		ft_pem_des_inform_private_key(t_rsa *rsa);
+int		ft_der_inform_private_key(t_rsa *rsa);
+int		ft_der_inform_public_key(t_rsa *rsa);
+
+int		ft_der_outform_private_key(t_rsa *rsa);
+int		ft_der_outform_public_key(t_rsa *rsa);
+int		ft_pem_des_outform_private_key(t_rsa *rsa);
 int		ft_pem_outform_private_key(t_rsa *rsa);
 int		ft_pem_outform_public_key(t_rsa *rsa);
-
 
 void	ft_find_prime_number(t_bigint *prime, t_bigint *public_exp);
 int		ft_is_composit_by_initial_sieve(short *mod_array_2048);
@@ -221,7 +223,7 @@ void	ft_des_encrypt_make_output(t_des *data);
 
 void	ft_des_decrypt_keys(uint8_t *keys16_48, uint8_t *key8);
 void	ft_des3_decrypt_keys(uint8_t *keys16_48, uint8_t *key8);
-void	ft_des_check_padding(uint8_t *last_block, size_t *len, int pad_flag);
+int		ft_des_check_padding(uint8_t *last_block, size_t *len, int pad_flag);
 void	ft_des_decrypt_make_output(t_des *data);
 
 void	ft_des_make_left_shift(uint8_t *arr, uint8_t len);

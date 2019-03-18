@@ -44,33 +44,33 @@ void	ft_des3_decrypt_keys(uint8_t *keys16_48, uint8_t *key8)
 	ft_des_decrypt_keys(keys16_48 + 1536, key8);
 }
 
-void	ft_des_check_padding(uint8_t *last_block, size_t *len, int pad_flag)
+int		ft_des_check_padding(uint8_t *last_block, size_t *len, int pad_flag)
 {
 	int			counter;
 	int			padded_number;
-	uint8_t		*pointer;
 
 	if (pad_flag == 0)
-		return ;
+		return (0);
 	padded_number = last_block[7];
 	if (padded_number < 1 || padded_number > 8)
 	{
 		*len = (*len - 1) / 8 * 8;
 		ft_print_fd(2, "Bad decrypt\n");
-		return ;
+		return (1);
 	}
-	pointer = &last_block[7];
+	last_block += 7;
 	counter = padded_number;
 	while (counter--)
 	{
-		if (*pointer-- != padded_number)
+		if (*last_block-- != padded_number)
 		{
 			*len = (*len - 1) / 8 * 8;
 			ft_print_fd(2, "Bad decrypt\n");
-			return ;
+			return (1);
 		}
 	}
 	*len -= padded_number;
+	return (0);
 }
 
 void	ft_des_decrypt_make_output(t_des *data)

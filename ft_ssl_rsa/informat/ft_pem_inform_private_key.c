@@ -62,7 +62,17 @@ static int		ft_get_asn1_text(char **text, size_t *len)
 	return (0);
 }
 
+static int	ft_is_encrypted(t_rsa *rsa)
+{
+	const char	*line = "Proc-Type: 4,ENCRYPTED\nDEK-Info: DES-CBC";
+	const int	len = 40;
 
+	if (rsa->len < len)
+		return (0);
+	if (ft_memequ((void *)line, (void *)rsa->text, 40) == 0)
+		return (0);
+	return (1);
+}
 
 int		ft_pem_inform_private_key(t_rsa *rsa)
 {
@@ -71,12 +81,23 @@ int		ft_pem_inform_private_key(t_rsa *rsa)
 		ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
 		return (1);
 	}
-	rsa->text = ft_b64_decode(rsa->text, &rsa->len);
-	if (ft_asn1_decode_private_key(rsa))
+	if (ft_is_encrypted(rsa))
 	{
-		ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
-		return (1);
+		if (ft_pem_des_inform_private_key(rsa))
+		{
+			ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
+			return (1);
+		}
 	}
-	ft_strdel(&rsa->text);
+	else
+	{
+		rsa->text = ft_b64_decode(rsa->text, &rsa->len);
+		if (ft_asn1_decode_private_key(rsa))
+		{
+			ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
+			return (1);
+		}
+		ft_strdel(&rsa->text);
+	}
 	return (0);
 }

@@ -18,17 +18,10 @@ int		ft_pem_outform_private_key(t_rsa *rsa)
 	const char	*line2 = "-----END RSA PRIVATE KEY-----\n";
 	char		*tmp;
 
-	ft_asn1_encode_private_key(rsa);
 	if (rsa->flag.des)
-	{
-		if (ft_rsa_make_flag_des(rsa))
-		{
-			ft_strdel(&rsa->text);
-			return (1);
-		}
-	}
-	else
-		rsa->text = ft_b64_encode(rsa->text, &rsa->len);
+		return (ft_pem_des_outform_private_key(rsa));
+	ft_asn1_encode_private_key(rsa);
+	rsa->text = ft_b64_encode(rsa->text, &rsa->len);
 	tmp = ft_mem_joiner(&rsa->len, 3,
 	(char *)line1, (size_t)32, rsa->text, rsa->len, (char *)line2, (size_t)30);
 	ft_strdel(&rsa->text);

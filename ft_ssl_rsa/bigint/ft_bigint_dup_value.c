@@ -20,4 +20,5 @@ t_bigint	ft_bigint_dup_value(size_t value, size_t size)
 	a.value = (unsigned char *)malloc(size);
 	ft_bzero(a.value, a.size);
 	*(size_t *)a.value = value;
+	return (a);
 }
