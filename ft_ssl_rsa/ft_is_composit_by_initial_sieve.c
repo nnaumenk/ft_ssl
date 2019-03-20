@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 
 #include "../ft_ssl.h"
-     
+
 int			ft_is_composit_by_initial_sieve(short *mod_array_2048)
 {
 	size_t		i;
-	
+
 	i = -1;
 	while (++i < 2048)
 	{

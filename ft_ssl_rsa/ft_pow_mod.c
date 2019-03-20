@@ -27,7 +27,7 @@ static void	ft_is_even(t_bigint *r, t_bigint *mod)
 	ft_bigint_del(&mul);
 }
 
-static void ft_is_odd(t_bigint *r, t_bigint *num, t_bigint *mod)
+static void	ft_is_odd(t_bigint *r, t_bigint *num, t_bigint *mod)
 {
 	t_bigint	mul;
 	t_bigint	integer;
@@ -44,7 +44,7 @@ static void ft_is_odd(t_bigint *r, t_bigint *num, t_bigint *mod)
 	*r = remainder;
 }
 
-static void		ft_algor(t_bigint *r, t_bigint *num, t_bigint *pow, t_bigint *mod)
+static void	ft_algor(t_bigint *r, t_bigint *num, t_bigint *pow, t_bigint *mod)
 {
 	if (ft_bigint_isnull(pow))
 	{

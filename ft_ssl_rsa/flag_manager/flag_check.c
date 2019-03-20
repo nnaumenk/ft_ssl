@@ -12,100 +12,6 @@
 
 #include "../../ft_ssl.h"
 
-int		ft_check_primality(t_bigint prime)
-{
-	if (ft_bigint_isvalue(&prime, 2))
-		return (0);
-	if (ft_bigint_isvalue(&prime, 3))
-		return (0);
-	if (ft_bigint_isvalue(&prime, 0))
-		return (1);
-	if (ft_bigint_isvalue(&prime, 1))
-		return (1);
-	if ((prime.value[0] & 0x01) == 0)
-		return (1);
-	if (ft_is_composit_by_miller_rabin(&prime, 2))
-		return (1);
-	return (0);
-}
-
-int		ft_check_modulus(t_rsa_data *data)
-{
-	t_bigint	mul;
-
-	ft_bigint_mul(&mul, &data->prime1, &data->prime2);
-	if (ft_bigint_equal(&data->modulus, &mul) == 0)
-	{
-		ft_bigint_del(&mul);
-		return (1);
-	}
-	ft_bigint_del(&mul);
-	return (0);
-}
-
-int		ft_check_private_exponent(t_rsa_data *data)
-{
-	t_bigint	eiler;
-	t_bigint	integer;
-	t_bigint	remainder;
-	t_bigint	mul;
-
-	if (ft_bigint_isvalue(&data->prime1, 1) || ft_bigint_isvalue(&data->prime2, 1))
-		return (1);
-	ft_bigint_decrement(&data->prime1);
-	ft_bigint_decrement(&data->prime2);
-	ft_bigint_mul(&eiler, &data->prime1, &data->prime2);
-	ft_bigint_increment(&data->prime1);
-	ft_bigint_increment(&data->prime2);
-	ft_bigint_mul(&mul, &data->private_exponent, &data->public_exponent);
-	ft_bigint_div(&integer, &remainder, &mul, &eiler);
-	ft_bigint_del(&integer);
-	ft_bigint_del(&eiler);
-	ft_bigint_del(&mul);
-	if (ft_bigint_isvalue(&remainder, 1) == 0)
-	{
-		ft_bigint_del(&remainder);
-		return (1);
-	}
-	ft_bigint_del(&remainder);
-	return (0);
-}
-
-int		ft_check_exponent(t_bigint exp, t_bigint private_exp, t_bigint prime)
-{
-	t_bigint	integer;
-	t_bigint	remainder;
-
-	if (ft_bigint_isvalue(&prime, 1))
-		return (1);
-	ft_bigint_decrement(&prime);
-	ft_bigint_div_safe(&integer, &remainder, &private_exp, &prime);
-	ft_bigint_increment(&prime);
-	ft_bigint_del(&integer);
-	if (ft_bigint_equal(&remainder, &exp) == 0)
-	{
-		ft_bigint_del(&remainder);
-		return (1);
-	}
-	ft_bigint_del(&remainder);
-	return (0);
-}
-
-int		ft_check_coefficient(t_rsa_data *data)
-{
-	t_bigint	coefficient;
-
-	if (ft_mod_inverse(&coefficient, &data->prime2, &data->prime1))
-		return (1);
-	if (ft_bigint_equal(&coefficient, &data->coefficient) == 0)
-	{
-		ft_bigint_del(&coefficient);
-		return (1);
-	}
-	ft_bigint_del(&coefficient);
-	return (0);
-}
-
 static void	ft_check_values2(t_rsa_data *data, int *fail)
 {
 	if (ft_check_private_exponent(data))
@@ -113,12 +19,12 @@ static void	ft_check_values2(t_rsa_data *data, int *fail)
 		ft_printf("RSA key error: d e not congruent to 1\n");
 		*fail = 1;
 	}
-	if (ft_check_exponent(data->exponent1, data->private_exponent, data->prime1))
+	if (ft_check_exp(data->exponent1, data->private_exponent, data->prime1))
 	{
 		ft_printf("RSA key error: dmp1 not congruent to d\n");
 		*fail = 1;
 	}
-	if (ft_check_exponent(data->exponent2, data->private_exponent, data->prime2))
+	if (ft_check_exp(data->exponent2, data->private_exponent, data->prime2))
 	{
 		ft_printf("RSA key error: dmq1 not congruent to d\n");
 		*fail = 1;
@@ -154,7 +60,7 @@ static void	ft_check_values1(t_rsa_data *data, int *fail)
 	}
 }
 
-int		ft_rsa_make_flag_check(t_rsa *rsa)
+int			ft_rsa_make_flag_check(t_rsa *rsa)
 {
 	int		fail;
 
@@ -175,7 +81,7 @@ int		ft_rsa_make_flag_check(t_rsa *rsa)
 	return (0);
 }
 
-int		ft_rsa_check_flag_check(int *i, int ac, char **av, t_rsa_flag *flag)
+int			ft_rsa_check_flag_check(int *i, int ac, char **av, t_rsa_flag *flag)
 {
 	USE(i);
 	USE(ac);

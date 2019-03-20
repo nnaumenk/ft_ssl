@@ -12,14 +12,6 @@
 
 #include "../../ft_ssl.h"
 
-static t_rsa_option	g_option[] =
-{
-	{"-rand", ft_rsa_check_flag_rand},
-	{"-in", ft_rsa_check_flag_in},
-	{"-out", ft_rsa_check_flag_out},
-	{0, 0}
-};
-
 static char			*g_options_output =
 
 "-in file\tinput file\n"					\
@@ -32,7 +24,19 @@ static char			*g_options_output =
 
 ;
 
-static void		ft_search_flags(t_alg *my, t_rsa_flag *flag, int ac, char **av)
+static t_rsa_option	g_option[] =
+{
+	{"-in", ft_rsa_check_flag_in},
+	{"-out", ft_rsa_check_flag_out},
+	{"-inkey", ft_rsa_check_flag_inkey},
+	{"-pubin", ft_rsa_check_flag_pubin},
+	{"-encrypt", ft_rsa_check_flag_encrypt},
+	{"-decrypt", ft_rsa_check_flag_decrypt},
+	{"-hexdump", ft_rsa_check_flag_hexdump},
+	{0, 0}
+};
+
+static void	ft_search_flags(t_alg *my, t_rsa_flag *flag, int ac, char **av)
 {
 	int		i;
 	int		j;
@@ -58,7 +62,7 @@ static void		ft_search_flags(t_alg *my, t_rsa_flag *flag, int ac, char **av)
 	(my->alg_pointer)(flag);
 }
 
-void			ft_rsautl_flags(void *my, int ac, char **av)
+void		ft_rsautl_flags(void *my, int ac, char **av)
 {
 	t_rsa_flag		flag;
 

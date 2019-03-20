@@ -16,7 +16,7 @@ static void	ft_big_int(char *name, t_bigint *a)
 {
 	size_t			i;
 	unsigned char	*byte;
-	
+
 	byte = a->value + a->size;
 	ft_printf("%s\n    %.2hhx:", name, *--byte);
 	i = 0;

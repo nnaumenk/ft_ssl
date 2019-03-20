@@ -51,7 +51,7 @@ char			*ft_mem_joiner(size_t *len, const int n, ...)
 	char	*str_full;
 	char	*mem_pointers[10];
 	size_t	len_pointers[10];
-	
+
 	if (n > 10)
 		return (NULL);
 	va_start(argptr, n);

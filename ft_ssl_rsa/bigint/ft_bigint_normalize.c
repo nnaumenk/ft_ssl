@@ -16,8 +16,6 @@ void	ft_bigint_normalize(t_bigint *a)
 {
 	unsigned char	*ptr;
 
-	// if (a->size < 8)
-	// 	return ;
 	ptr = a->value + a->size;
 	while (a->size > 1)
 	{
@@ -26,12 +24,4 @@ void	ft_bigint_normalize(t_bigint *a)
 			break ;
 		a->size--;
 	}
-	// if (a->size == 7)
-	// {
-	// 	a->size++;
-	// 	ft_bigint_print("before", a);
-	// 	//a->size--;
-	// 	ft_bigint_print("after1", a);
-	// 	ft_printf("govno\n");
-	// }
 }

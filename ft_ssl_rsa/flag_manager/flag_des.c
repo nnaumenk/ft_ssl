@@ -18,7 +18,7 @@ static void	ft_rsa_des_cbc_encryption(t_rsa *rsa, char *key, char *iv)
 	char		keys[16][48];
 	char		*ptr;
 	size_t		blocks;
-		
+
 	ft_des_encrypt_keys((uint8_t *)keys, (uint8_t *)key);
 	ft_memcpy(vector, iv, 8);
 	rsa->text = ft_des_add_padding(rsa->text, &rsa->len, 1);
@@ -32,7 +32,7 @@ static void	ft_rsa_des_cbc_encryption(t_rsa *rsa, char *key, char *iv)
 		ptr += 8;
 	}
 }
-	
+
 int			ft_rsa_make_flag_des(t_rsa *rsa)
 {
 	char		*key;
@@ -53,4 +53,3 @@ int			ft_rsa_check_flag_des(int *i, int ac, char **av, t_rsa_flag *flag)
 	flag->des = 1;
 	return (0);
 }
-

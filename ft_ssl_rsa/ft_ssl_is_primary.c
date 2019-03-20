@@ -13,11 +13,9 @@
 #include "../ft_ssl.h"
 
 /*
-**
 **	miller-rabin probability is calculated by next formula
 **	probability = 1 - 1/(4^rounds)
 **	rounds = -(ln(1 - probability) / ln(4));
-**
 */
 
 static unsigned	ft_get_round_number(float probability)

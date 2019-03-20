@@ -30,7 +30,7 @@ static void	ft_value(t_bigint *a)
 	}
 }
 
-void	ft_normalize_input_rsa_values(t_rsa *rsa)
+void		ft_normalize_input_rsa_values(t_rsa *rsa)
 {
 	ft_value(&rsa->data.modulus);
 	ft_value(&rsa->data.public_exponent);

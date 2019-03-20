@@ -18,13 +18,12 @@ static int	(*g_inform[])(t_rsa *) =
 	ft_pem_inform_public_key,
 	ft_der_inform_private_key,
 	ft_der_inform_public_key,
-	ft_pem_des_inform_private_key
 };
 
 int		ft_rsa_make_flag_inform(t_rsa *rsa)
 {
 	int		number;
-	
+
 	number = rsa->flag.inform * 2 + rsa->flag.pubin;
 	if ((g_inform[number])(rsa))
 		return (1);

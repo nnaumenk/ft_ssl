@@ -37,7 +37,7 @@ static int	ft_parse_values(t_rsa_data *data, char **ptr, size_t *len)
 	return (0);
 }
 
-int			ft_asn1_decode_private_key(t_rsa *rsa)	
+int			ft_asn1_decode_private_key(t_rsa *rsa)
 {
 	char	*ptr;
 

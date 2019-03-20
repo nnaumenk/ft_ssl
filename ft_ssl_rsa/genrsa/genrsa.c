@@ -12,6 +12,25 @@
 
 #include "../../ft_ssl.h"
 
+static int	ft_make_data(t_rsa *rsa)
+{
+	if (ft_make_primes(rsa))
+		return (1);
+	ft_make_public_exponent(&rsa->data.public_exponent, rsa->flag.exp_value_3);
+	ft_find_prime_number(&rsa->data.prime1, &rsa->data.public_exponent);
+	ft_find_prime_number(&rsa->data.prime2, &rsa->data.public_exponent);
+	ft_bigint_mul(&rsa->data.modulus, &rsa->data.prime1, &rsa->data.prime2);
+	ft_make_private_exponent(&rsa->data.private_exponent,
+	&rsa->data.public_exponent, &rsa->data.prime1, &rsa->data.prime2);
+	ft_make_exponent(&rsa->data.exponent1, &rsa->data.private_exponent,
+	&rsa->data.prime1);
+	ft_make_exponent(&rsa->data.exponent2, &rsa->data.private_exponent,
+	&rsa->data.prime2);
+	ft_mod_inverse(
+	&rsa->data.coefficient, &rsa->data.prime2, &rsa->data.prime1);
+	return (0);
+}
+
 void		ft_genrsa(void *v_data)
 {
 	t_rsa	rsa;
@@ -24,7 +43,7 @@ void		ft_genrsa(void *v_data)
 	}
 	if (ft_rsa_make_flag_rand(&rsa.flag.rand_fd, rsa.flag.in))
 		return ;
-	if (ft_make_genrsa_data(&rsa))
+	if (ft_make_data(&rsa))
 		return ;
 	ft_close_fd(rsa.flag.rand_fd);
 	ft_normalize_input_rsa_values(&rsa);

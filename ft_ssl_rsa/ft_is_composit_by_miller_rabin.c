@@ -73,8 +73,6 @@ static int	ft_is_prime_by_1_statement(
 	return (0);
 }
 
-
-
 static int	ft_is_prime_by_2_statement(
 	t_bigint *rand, t_bigint *prime, t_bigint *pow, t_bigint *prime_minus_1)
 {
@@ -103,7 +101,6 @@ static int	ft_is_prime_by_2_statement(
 	ft_bigint_del(rand);
 	return (0);
 }
-
 
 int			ft_is_composit_by_miller_rabin(t_bigint *prime, unsigned rounds)
 {

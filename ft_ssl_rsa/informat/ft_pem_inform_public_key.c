@@ -12,7 +12,7 @@
 
 #include "../../ft_ssl.h"
 
-static int		ft_search_word(char **text, size_t *len, const char *line)
+static int	ft_search_word(char **text, size_t *len, const char *line)
 {
 	size_t		i;
 
@@ -62,7 +62,7 @@ static int	ft_get_asn1_text(char **text, size_t *len)
 	return (0);
 }
 
-int		ft_pem_inform_public_key(t_rsa *rsa)
+int			ft_pem_inform_public_key(t_rsa *rsa)
 {
 	if (ft_get_asn1_text(&rsa->text, &rsa->len))
 	{

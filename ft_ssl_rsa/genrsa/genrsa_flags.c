@@ -12,19 +12,9 @@
 
 #include "../../ft_ssl.h"
 
-static t_rsa_option	g_option[] =
-{
-	{"-rand", ft_rsa_check_flag_rand},
-	{"-i", ft_rsa_check_flag_in},
-	{"-o", ft_rsa_check_flag_out},
-	{"-3", ft_rsa_check_exp_3_value},
-	{"-f4", ft_rsa_check_exp_f4_value},
-	{0, 0}
-};
+static char	*g_usage = "genrsa [args] [numbits]";
 
-static char			*g_usage = "genrsa [args] [numbits]";
-
-static char			*g_options_output =
+static char	*g_options_output =
 
 "-rand\t\tusing dev/urandom as input random data (default)\n"	\
 "-i file\t\tusing input file as input random data\n"			\
@@ -34,7 +24,17 @@ static char			*g_options_output =
 
 ;
 
-static int		ft_is_flag_numbits(t_rsa_flag *flag, char *str)
+static	t_rsa_option	g_option[] =
+{
+	{"-rand", ft_rsa_check_flag_rand},
+	{"-i", ft_rsa_check_flag_in},
+	{"-o", ft_rsa_check_flag_out},
+	{"-3", ft_rsa_check_exp_3_value},
+	{"-f4", ft_rsa_check_exp_f4_value},
+	{0, 0}
+};
+
+static int	ft_is_flag_numbits(t_rsa_flag *flag, char *str)
 {
 	size_t	numbits;
 
@@ -49,7 +49,7 @@ static int		ft_is_flag_numbits(t_rsa_flag *flag, char *str)
 	return (0);
 }
 
-static void		ft_search_flags(t_alg *my, t_rsa_flag *flag, int ac, char **av)
+static void	ft_search_flags(t_alg *my, t_rsa_flag *flag, int ac, char **av)
 {
 	int		i;
 	int		j;

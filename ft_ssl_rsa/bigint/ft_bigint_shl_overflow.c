@@ -49,10 +49,9 @@ static void	ft_shift_1byte(void *memptr, size_t shift, size_t n)
 
 void		ft_bigint_shl_overflow(t_bigint *a, size_t shift)
 {
-	t_bigint				new;
-	const unsigned char		overflow_check[] =
-	{0, 0x80, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFE};
-	
+	t_bigint	new;
+	const char	overflow[] = {0x0, 0x80, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFE};
+
 	if (shift >= 8)
 	{
 		new.size = a->size + (shift + 7) / 8;
@@ -62,7 +61,7 @@ void		ft_bigint_shl_overflow(t_bigint *a, size_t shift)
 		ft_bigint_del(a);
 		*a = new;
 	}
-	else if (a->value[a->size - 1] & overflow_check[shift])
+	else if (a->value[a->size - 1] & overflow[shift])
 	{
 		new.size = a->size + 1;
 		new.value = (unsigned char *)malloc(new.size);

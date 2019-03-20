@@ -32,19 +32,19 @@ static void	ft_determine_size(t_rsa_data data, size_t *size, size_t *len)
 	if (data.modulus.size >= 0x80)
 		*len += ft_asn1_get_byte_number(data.modulus.size);
 	if (data.public_exponent.size >= 0x80)
-		*len +=  ft_asn1_get_byte_number(data.public_exponent.size);
+		*len += ft_asn1_get_byte_number(data.public_exponent.size);
 	if (data.private_exponent.size >= 0x80)
-		*len +=  ft_asn1_get_byte_number(data.private_exponent.size); 
+		*len += ft_asn1_get_byte_number(data.private_exponent.size);
 	if (data.prime1.size >= 0x80)
-		*len +=  ft_asn1_get_byte_number(data.prime1.size);
+		*len += ft_asn1_get_byte_number(data.prime1.size);
 	if (data.prime2.size >= 0x80)
-		*len +=  ft_asn1_get_byte_number(data.prime2.size);
+		*len += ft_asn1_get_byte_number(data.prime2.size);
 	if (data.exponent1.size >= 0x80)
-		*len +=  ft_asn1_get_byte_number(data.exponent1.size); 
+		*len += ft_asn1_get_byte_number(data.exponent1.size);
 	if (data.exponent2.size >= 0x80)
-		*len +=  ft_asn1_get_byte_number(data.exponent2.size); 
+		*len += ft_asn1_get_byte_number(data.exponent2.size);
 	if (data.coefficient.size >= 0x80)
-		*len +=  ft_asn1_get_byte_number(data.coefficient.size);
+		*len += ft_asn1_get_byte_number(data.coefficient.size);
 	*len += 1 + data.modulus.size + data.public_exponent.size +
 	data.private_exponent.size + data.prime1.size + data.prime2.size +
 	data.exponent1.size + data.exponent2.size + data.coefficient.size;
@@ -54,7 +54,7 @@ static void	ft_determine_size(t_rsa_data data, size_t *size, size_t *len)
 	*len += 2;
 }
 
-int		ft_asn1_encode_private_key(t_rsa *rsa)			
+int			ft_asn1_encode_private_key(t_rsa *rsa)
 {
 	size_t		size;
 

@@ -2,6 +2,7 @@
 
 Already implemented:
 -genrsa
+-rsa
 -md5
 -sha1
 -sha256
@@ -20,5 +21,4 @@ Already implemented:
 -des3-ofb
 
 In future:
--rsa
 -rsautl

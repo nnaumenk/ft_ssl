@@ -23,12 +23,9 @@ static int	ft_read_password(t_rsa *rsa)
 	return (0);
 }
 
-
-int		ft_rsa_make_flag_passin(t_rsa *rsa)
+int			ft_rsa_make_flag_passin(t_rsa *rsa)
 {
-	char	*password1;
-
-	if (rsa->flag.passout == 0)
+	if (rsa->flag.passin == 0)
 	{
 		if (ft_read_password(rsa))
 			return (1);
@@ -36,7 +33,8 @@ int		ft_rsa_make_flag_passin(t_rsa *rsa)
 	return (0);
 }
 
-int		ft_rsa_check_flag_passin(int *i, int ac, char **av, t_rsa_flag *flag)
+int			ft_rsa_check_flag_passin(
+			int *i, int ac, char **av, t_rsa_flag *flag)
 {
 	const char	*pass = "pass:";
 
@@ -48,7 +46,7 @@ int		ft_rsa_check_flag_passin(int *i, int ac, char **av, t_rsa_flag *flag)
 	if (ft_memequ((void *)pass, (void *)av[*i], 5) == 0)
 	{
 		ft_print_fd(2, "Invalid password argument\n");
-		ft_print_fd(2, "Error getting passwords\n");///perenesty v des
+		ft_print_fd(2, "Error getting passwords\n");
 		return (1);
 	}
 	flag->passin = av[*i] + 5;

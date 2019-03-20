@@ -23,7 +23,7 @@ int		ft_asn1_get_size(size_t *size, char **ptr, size_t *len)
 		byte_count = value - 0x80;
 		*len -= 1;
 		(*ptr) += 1;
-		if (byte_count > 8 || byte_count == 0 || *len < byte_count)////maybe byte_count > 8 is bad
+		if (byte_count > 8 || byte_count == 0 || *len < byte_count)
 			return (1);
 		*size = 0;
 		ft_memcpy(&*size, *ptr, byte_count);

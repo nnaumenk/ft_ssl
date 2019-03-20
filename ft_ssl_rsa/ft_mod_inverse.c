@@ -69,7 +69,7 @@ int			ft_mod_inverse(t_bigint *inverse, t_bigint *a, t_bigint *mod)
 {
 	t_bigint		p;
 	t_bigint		r;
-	
+
 	ft_init(&p, &r, mod);
 	if (ft_algor(&p, &r, ft_bigint_dup(a), ft_bigint_dup(mod)))
 	{

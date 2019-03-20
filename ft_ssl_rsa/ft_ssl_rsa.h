@@ -21,10 +21,8 @@ typedef struct		s_rsa_flag
 	int				inform;
 	int				outform;
 	char			*in;
-	//int				fd_input;
 	char			*passin;
 	char			*out;
-	//int				fd_output;
 	char			*passout;
 	int				des;
 	char			vector[8];

@@ -89,6 +89,7 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c									\
 				ft_ssl_rsa/bigint/ft_bigint_normalize.c					\
 																		\
 				ft_ssl_rsa/flag_manager/flag_rand.c						\
+				ft_ssl_rsa/flag_manager/flag_check_2.c					\
 				ft_ssl_rsa/flag_manager/flag_check.c					\
 				ft_ssl_rsa/flag_manager/flag_des.c						\
 				ft_ssl_rsa/flag_manager/flag_in.c						\
@@ -124,7 +125,10 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c									\
 				ft_ssl_rsa/rsa/rsa.c									\
 				ft_ssl_rsa/rsa/rsa_flags.c								\
 																		\
-				ft_ssl_rsa/genrsa/ft_make_genrsa_data.c					\
+				ft_ssl_rsa/genrsa/ft_make_exponent.c					\
+				ft_ssl_rsa/genrsa/ft_make_primes.c						\
+				ft_ssl_rsa/genrsa/ft_make_private_exponent.c			\
+				ft_ssl_rsa/genrsa/ft_make_public_exponent.c				\
 				ft_ssl_rsa/genrsa/genrsa.c								\
 				ft_ssl_rsa/genrsa/genrsa_flags.c						\
 																		\
@@ -150,7 +154,7 @@ OFILES		=	$(CFILES:.c=.o)
 
 CC			=	gcc
 
-FLAGS		= 	-O2 #-Wall -Wextra -Werror
+FLAGS		= 	-O2 -Wall -Wextra -Werror
 
 LIBFT		=	libft/libft.a
 

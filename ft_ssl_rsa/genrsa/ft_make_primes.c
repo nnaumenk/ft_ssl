@@ -19,7 +19,7 @@ static int	ft_generate_rand_number(int rand_fd, t_bigint *prime, size_t bitlen)
 
 	prime->size = (bitlen + 7) / 8;
 	prime->value = (unsigned char *)malloc(prime->size);
-	if (read(rand_fd, prime->value, prime->size) != prime->size)
+	if ((size_t)read(rand_fd, prime->value, prime->size) != prime->size)
 	{
 		ft_print_fd(2, "ft_ssl: not enough random bytes in the source file\n");
 		ft_bigint_del(prime);
@@ -31,12 +31,11 @@ static int	ft_generate_rand_number(int rand_fd, t_bigint *prime, size_t bitlen)
 	return (0);
 }
 
-
-static int	ft_generate_primes(t_rsa *rsa)
+int			ft_make_primes(t_rsa *rsa)
 {
 	size_t		bit_len1;
 	size_t		bit_len2;
-	
+
 	ft_printf("Generating RSA private key, %zu bit long modulus\n",
 	rsa->flag.numbits);
 	bit_len1 = rsa->flag.numbits / 2;
@@ -55,77 +54,5 @@ static int	ft_generate_primes(t_rsa *rsa)
 		ft_bigint_del(&rsa->data.prime2);
 		return (1);
 	}
-	return (0);
-}
-
-static void	ft_make_exponent(t_bigint *exp, t_bigint *pr_exp, t_bigint *prime)
-{
-	t_bigint	integer;
-	t_bigint	remainder;
-
-	ft_bigint_decrement(prime);
-	if (ft_bigint_smaller(pr_exp, prime))
-		*exp = ft_bigint_dup(pr_exp);
-	else
-	{
-		ft_bigint_div(&integer, &remainder, pr_exp, prime);
-		ft_bigint_del(&integer);
-		*exp = remainder;
-	}
-	ft_bigint_increment(prime);
-}
-
-static int	ft_make_private_exponent(
-			t_bigint *exp, t_bigint *publ_exp, t_bigint *p1, t_bigint *p2)
-{
-	t_bigint	eiler;
-
-	ft_bigint_decrement(p1);
-	ft_bigint_decrement(p2);
-	ft_bigint_mul(&eiler, p1, p2);
-	ft_bigint_increment(p1);
-	ft_bigint_increment(p2);
-	if (ft_mod_inverse(exp, publ_exp, &eiler))
-	{
-		ft_printf("inverse error\n");
-		return (1);
-	}
-	ft_bigint_del(&eiler);
-	return (0);
-}
-
-static void	ft_make_public_exponent(t_bigint *exp, int exp_value_3)
-{
-	if (exp_value_3 == 0)
-	{
-		exp->value = (unsigned char *)malloc(3);
-		exp->size = 3;
-		*(unsigned int *)(exp->value) = 65537;
-	}
-	else
-	{
-		exp->value = (unsigned char *)malloc(1);
-		exp->size = 1;
-		*(unsigned char *)exp->value = 3;
-	}
-	ft_bigint_print("e is", exp);
-}
-
-int		ft_make_genrsa_data(t_rsa *rsa)
-{
-	if (ft_generate_primes(rsa))
-		return (1);
-	ft_make_public_exponent(&rsa->data.public_exponent, rsa->flag.exp_value_3);
-	ft_find_prime_number(&rsa->data.prime1, &rsa->data.public_exponent);
-	ft_find_prime_number(&rsa->data.prime2, &rsa->data.public_exponent);
-	ft_bigint_mul(&rsa->data.modulus, &rsa->data.prime1, &rsa->data.prime2);
-	ft_make_private_exponent(&rsa->data.private_exponent,
-	&rsa->data.public_exponent, &rsa->data.prime1, &rsa->data.prime2);
-	ft_make_exponent(&rsa->data.exponent1, &rsa->data.private_exponent,
-	&rsa->data.prime1);
-	ft_make_exponent(&rsa->data.exponent2, &rsa->data.private_exponent,
-	&rsa->data.prime2);
-	ft_mod_inverse(
-	&rsa->data.coefficient, &rsa->data.prime2, &rsa->data.prime1);
 	return (0);
 }

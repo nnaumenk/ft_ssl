@@ -57,7 +57,7 @@ void		ft_md5_output_flag_p(t_alg *my)
 {
 	char			output[128 + 1];
 	t_md5_data		data;
-	int			fd;
+	int				fd;
 
 	fd = ft_make_input_fd(NULL);
 	if (fd == -1)
@@ -75,7 +75,7 @@ void		ft_md5_output_noflags(t_alg *my)
 {
 	char			output[128 + 1];
 	t_md5_data		data;
-	int			fd;
+	int				fd;
 
 	fd = ft_make_input_fd(NULL);
 	if (fd == -1)

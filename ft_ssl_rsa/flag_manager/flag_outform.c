@@ -23,7 +23,7 @@ static int	(*g_inform[])(t_rsa *) =
 int		ft_rsa_make_flag_outform(t_rsa *rsa)
 {
 	int		number;
-	
+
 	if (rsa->flag.noout)
 	{
 		ft_rsa_free_data(&rsa->data);
@@ -38,6 +38,7 @@ int		ft_rsa_make_flag_outform(t_rsa *rsa)
 	ft_rsa_free_data(&rsa->data);
 	return (0);
 }
+
 int		ft_rsa_check_flag_outform(int *i, int ac, char **av, t_rsa_flag *flag)
 {
 	if (++(*i) == ac)

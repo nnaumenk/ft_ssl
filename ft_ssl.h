@@ -23,19 +23,17 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <stdio.h>/////ubrat
-# include <math.h>///ubrat
 
 # include "ft_ssl_md5/ft_ssl_md5.h"
 # include "ft_ssl_des/ft_ssl_des.h"
-# include "ft_ssl_rsa/ft_ssl_rsa.h"	
+# include "ft_ssl_rsa/ft_ssl_rsa.h"
 # include "main_struct.h"
 
 int		ft_asn1_check_size(char **ptr, char tag, size_t *len);
 int		ft_asn1_get_value(t_bigint *a, char tag, char **ptr, size_t *len);
 int		ft_asn1_get_size(size_t *size, char **ptr, size_t *len);
 int		ft_asn1_decode_public_key(t_rsa *rsa);
-int		ft_asn1_decode_private_key(t_rsa *rsa);	
+int		ft_asn1_decode_private_key(t_rsa *rsa);
 
 int		ft_asn1_get_byte_number(size_t len);
 void	ft_asn1_set_version(char **ptr);
@@ -66,8 +64,6 @@ int		ft_is_coprime(t_bigint *a, t_bigint *b);
 void	ft_rsa_free_data(t_rsa_data *data);
 void	ft_normalize_input_rsa_values(t_rsa *rsa);
 
-int		ft_make_genrsa_data(t_rsa *rsa);
-
 size_t	ft_pow_mod_int(size_t num, size_t pow, size_t mod);
 void	ft_pow_mod(t_bigint *r, t_bigint *num, t_bigint *pow, t_bigint *mod);
 
@@ -94,8 +90,6 @@ int		ft_rsa_check_flag_hexdump(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_exp_3_value(int *i, int ac, char **av, t_rsa_flag *flag);
 int		ft_rsa_check_exp_f4_value(int *i, int ac, char **av, t_rsa_flag *flag);
 
-
-
 int		ft_rsa_make_flag_in(t_rsa *rsa);
 int		ft_rsa_make_flag_out(t_rsa *rsa);
 int		ft_rsa_make_flag_rand(int *fd, char *file);
@@ -103,18 +97,28 @@ int		ft_rsa_make_flag_pubin(t_rsa *rsa);
 int		ft_rsa_make_flag_pubout(t_rsa *rsa);
 int		ft_rsa_make_flag_text(t_rsa *rsa);
 int		ft_rsa_make_flag_modulus(t_rsa *rsa);
-int		ft_rsa_make_flag_check(t_rsa *rsa);
 int		ft_rsa_make_flag_des(t_rsa *rsa);
 int		ft_rsa_make_flag_inform(t_rsa *rsa);
 int		ft_rsa_make_flag_outform(t_rsa *rsa);
 int		ft_rsa_make_flag_passin(t_rsa *rsa);
 int		ft_rsa_make_flag_passout(t_rsa *rsa);
+int		ft_rsa_make_flag_check(t_rsa *rsa);
 
+int		ft_make_primes(t_rsa *rsa);
+void	ft_make_exponent(t_bigint *exp, t_bigint *pr_exp, t_bigint *prime);
+void	ft_make_public_exponent(t_bigint *exp, int exp_value_3);
+int		ft_make_private_exponent(
+		t_bigint *exp, t_bigint *publ_exp, t_bigint *p1, t_bigint *p2);
 
+int		ft_check_primality(t_bigint prime);
+int		ft_check_modulus(t_rsa_data *data);
+int		ft_check_private_exponent(t_rsa_data *data);
+int		ft_check_exp(t_bigint exp, t_bigint private_exp, t_bigint prime);
+int		ft_check_coefficient(t_rsa_data *data);
 
 void	ft_rsa_flags(void *my, int ac, char **av);
 void	ft_genrsa_flags(void *my, int ac, char **av);
-void	ft_rsautl_flags(void *my, int ac, char **av);	
+void	ft_rsautl_flags(void *my, int ac, char **av);
 
 void	ft_md5_output(t_alg *my, t_md5_flags *flags, char *file);
 void	ft_md5_output_flag_p(t_alg *my);

@@ -12,7 +12,7 @@
 
 #include "ft_bigint.h"
 
-static void		ft_mul_4byte(
+static void	ft_mul_4byte(
 		unsigned int *mul32, unsigned int *a32, unsigned int *b32, size_t n)
 {
 	size_t			i;
@@ -39,7 +39,7 @@ static void		ft_mul_4byte(
 	*++mul32 = overflow;
 }
 
-static void		ft_mul_algor(t_bigint *mul, t_bigint *a, t_bigint *b)
+static void	ft_mul_algor(t_bigint *mul, t_bigint *a, t_bigint *b)
 {
 	size_t			i;
 	unsigned int	*mul32;
@@ -64,7 +64,7 @@ static void		ft_mul_algor(t_bigint *mul, t_bigint *a, t_bigint *b)
 	ft_mul_4byte(mul32, &buf, b32, b->size);
 }
 
-void					ft_bigint_mul(t_bigint *mul, t_bigint *a, t_bigint *b)
+void		ft_bigint_mul(t_bigint *mul, t_bigint *a, t_bigint *b)
 {
 	mul->size = a->size + b->size + 4;
 	mul->value = (unsigned char *)malloc(mul->size);

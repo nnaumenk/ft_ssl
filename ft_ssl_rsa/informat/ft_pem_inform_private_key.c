@@ -12,7 +12,7 @@
 
 #include "../../ft_ssl.h"
 
-static int		ft_search_word(char **text, size_t *len, const char *line)
+static int	ft_search_word(char **text, size_t *len, const char *line)
 {
 	size_t		i;
 
@@ -33,7 +33,7 @@ static int		ft_search_word(char **text, size_t *len, const char *line)
 	return (1);
 }
 
-static int		ft_get_asn1_text(char **text, size_t *len)
+static int	ft_get_asn1_text(char **text, size_t *len)
 {
 	const char	*line1 = "-----BEGIN RSA PRIVATE KEY-----\n";
 	const char	*line2 = "\n-----END RSA PRIVATE KEY-----";
@@ -74,7 +74,7 @@ static int	ft_is_encrypted(t_rsa *rsa)
 	return (1);
 }
 
-int		ft_pem_inform_private_key(t_rsa *rsa)
+int			ft_pem_inform_private_key(t_rsa *rsa)
 {
 	if (ft_get_asn1_text(&rsa->text, &rsa->len))
 	{
@@ -88,6 +88,7 @@ int		ft_pem_inform_private_key(t_rsa *rsa)
 			ft_print_fd(2, "ft_ssl: unable to load Private Key\n");
 			return (1);
 		}
+		ft_strdel(&rsa->text);
 	}
 	else
 	{

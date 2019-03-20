@@ -16,7 +16,7 @@ int		ft_rsa_make_flag_modulus(t_rsa *rsa)
 {
 	size_t			i;
 	unsigned char	*byte;
-	
+
 	if (rsa->flag.modulus)
 	{
 		ft_printf("Modulus=");

@@ -15,7 +15,7 @@
 static void	ft_check_size(t_bigint *a, t_bigint *b)
 {
 	void	*newptr;
-	
+
 	if (b->size > a->size)
 	{
 		newptr = (void *)malloc(b->size + 1);
@@ -76,7 +76,7 @@ static void	ft_add_1byte(void **mem1, void **mem2, size_t i, char *overflow)
 	unsigned char	*val1;
 	unsigned char	*val2;
 	unsigned char	sum8;
-	
+
 	val1 = (unsigned char *)*mem1;
 	val2 = (unsigned char *)*mem2;
 	while (i--)
@@ -109,8 +109,5 @@ void		ft_bigint_add(t_bigint *a, t_bigint *b)
 	ft_add_8byte(&val1, &val2, b->size / sizeof(size_t), &overflow);
 	ft_add_1byte(&val1, &val2, b->size % sizeof(size_t), &overflow);
 	if (overflow)
-	{
 		ft_overflow(a, b);
-	}
-	//ft_bigint_normalize(*mem1, n1);
 }

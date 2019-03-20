@@ -15,25 +15,25 @@
 
 typedef struct	s_bit
 {
-	unsigned 	n8:1;
-	unsigned 	n7:1;
-	unsigned 	n6:1;
-	unsigned 	n5:1;
-	unsigned 	n4:1;
-	unsigned 	n3:1;
-	unsigned 	n2:1;
-	unsigned 	n1:1;
+	unsigned	n8:1;
+	unsigned	n7:1;
+	unsigned	n6:1;
+	unsigned	n5:1;
+	unsigned	n4:1;
+	unsigned	n3:1;
+	unsigned	n2:1;
+	unsigned	n1:1;
 }				t_bit;
 
 typedef struct	s_tetrit
 {
-	unsigned 	n4:2;
-	unsigned 	n3:2;
-	unsigned 	n2:2;
-	unsigned 	n1:2;
+	unsigned	n4:2;
+	unsigned	n3:2;
+	unsigned	n2:2;
+	unsigned	n1:2;
 }				t_tetrit;
 
-typedef union	s_byte
+typedef union	u_byte
 {
 	t_bit		bit;
 	t_tetrit	tetrit;

@@ -12,7 +12,7 @@
 
 #include "../../ft_ssl.h"
 
-static char		*ft_vector_to_hex(char *salt)
+static char	*ft_vector_to_hex(char *salt)
 {
 	char const		*base = "0123456789ABCDEF";
 	size_t			len;
@@ -36,7 +36,7 @@ static char		*ft_vector_to_hex(char *salt)
 	return (new);
 }
 
-int		ft_pem_des_outform_private_key(t_rsa *rsa)
+int			ft_pem_des_outform_private_key(t_rsa *rsa)
 {
 	const char	*info = "Proc-Type: 4,ENCRYPTED\nDEK-Info: DES-CBC,";
 	const char	*line1 = "-----BEGIN RSA PRIVATE KEY-----\n";

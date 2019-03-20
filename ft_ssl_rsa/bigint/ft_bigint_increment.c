@@ -67,7 +67,7 @@ static void	ft_increment_1byte(void **memptr, size_t i, char *overflow)
 void		ft_check_overflow(t_bigint *a, char overflow)
 {
 	t_bigint	new;
-	
+
 	if (overflow)
 	{
 		new.size = a->size + 1;
@@ -89,5 +89,4 @@ void		ft_bigint_increment(t_bigint *a)
 	ft_increment_8byte(&memptr, a->size / sizeof(size_t), &overflow);
 	ft_increment_1byte(&memptr, a->size % sizeof(size_t), &overflow);
 	ft_check_overflow(a, overflow);
-	
 }

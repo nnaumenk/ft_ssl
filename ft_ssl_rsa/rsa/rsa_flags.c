@@ -12,24 +12,6 @@
 
 #include "../../ft_ssl.h"
 
-static t_rsa_option	g_option[] =
-{
-	{"-inform", ft_rsa_check_flag_inform},
-	{"-outform", ft_rsa_check_flag_outform},
-	{"-in", ft_rsa_check_flag_in},
-	{"-passin", ft_rsa_check_flag_passin},
-	{"-out", ft_rsa_check_flag_out},
-	{"-passout", ft_rsa_check_flag_passout},
-	{"-des", ft_rsa_check_flag_des},
-	{"-text", ft_rsa_check_flag_text},
-	{"-noout", ft_rsa_check_flag_noout},
-	{"-modulus", ft_rsa_check_flag_modulus},
-	{"-check", ft_rsa_check_flag_check},
-	{"-pubin", ft_rsa_check_flag_pubin},
-	{"-pubout", ft_rsa_check_flag_pubout},
-	{0, 0}
-};
-
 static char			*g_options_output =
 
 "-inform format\tinput format (DER or PEM(default))\n"			\
@@ -48,7 +30,25 @@ static char			*g_options_output =
 
 ;
 
-static void		ft_search_flags(t_alg *my, t_rsa_flag *flag, int ac, char **av)
+static t_rsa_option	g_option[] =
+{
+	{"-inform", ft_rsa_check_flag_inform},
+	{"-outform", ft_rsa_check_flag_outform},
+	{"-in", ft_rsa_check_flag_in},
+	{"-passin", ft_rsa_check_flag_passin},
+	{"-out", ft_rsa_check_flag_out},
+	{"-passout", ft_rsa_check_flag_passout},
+	{"-des", ft_rsa_check_flag_des},
+	{"-text", ft_rsa_check_flag_text},
+	{"-noout", ft_rsa_check_flag_noout},
+	{"-modulus", ft_rsa_check_flag_modulus},
+	{"-check", ft_rsa_check_flag_check},
+	{"-pubin", ft_rsa_check_flag_pubin},
+	{"-pubout", ft_rsa_check_flag_pubout},
+	{0, 0}
+};
+
+static void	ft_search_flags(t_alg *my, t_rsa_flag *flag, int ac, char **av)
 {
 	int		i;
 	int		j;

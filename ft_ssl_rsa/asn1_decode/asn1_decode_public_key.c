@@ -22,20 +22,21 @@ static int	ft_parse_values(t_rsa_data *data, char **ptr, size_t *len)
 	return (0);
 }
 
+static char g_magic_string[] =
+{
+	0x00, 0x05, 0x01, 0x01, 0x01, 0x0d, 0xf7,
+	0x86, 0x48, 0x86, 0x2a, 0x09, 0x06
+};
+
 static int	ft_check_magic_number(char **ptr, size_t *len)
 {
 	t_bigint			my_magic;
 	t_bigint			original_magic;
-	const char			str[] =
-	{
-		0x00, 0x05, 0x01, 0x01, 0x01, 0x0d, 0xf7,
-		0x86, 0x48, 0x86, 0x2a, 0x09, 0x06, 
-	};
 
 	if (ft_asn1_get_value(&my_magic, 0x30, ptr, len))
 		return (1);
 	original_magic.size = 13;
-	original_magic.value = (unsigned char *)str;
+	original_magic.value = (unsigned char *)g_magic_string;
 	if (ft_bigint_equal(&my_magic, &original_magic) == 0)
 	{
 		ft_bigint_del(&my_magic);
@@ -47,8 +48,6 @@ static int	ft_check_magic_number(char **ptr, size_t *len)
 
 static int	ft_check_size(char **ptr, size_t *len)
 {
-	size_t		size;
-
 	if (ft_asn1_check_size(ptr, 0x03, len))
 		return (1);
 	*len -= 1;
@@ -58,7 +57,7 @@ static int	ft_check_size(char **ptr, size_t *len)
 	return (0);
 }
 
-int			ft_asn1_decode_public_key(t_rsa *rsa)	
+int			ft_asn1_decode_public_key(t_rsa *rsa)
 {
 	char	*ptr;
 

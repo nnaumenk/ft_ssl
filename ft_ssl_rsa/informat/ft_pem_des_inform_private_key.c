@@ -12,10 +12,10 @@
 
 #include "../../ft_ssl.h"
 
-static int		ft_get_asn1_text(char **text, size_t *len)
+static int	ft_get_asn1_text(char **text, size_t *len)
 {
 	char		*start_key;
-	
+
 	start_key = *text + 57;
 	*len -= 57;
 	if (*start_key != '\n')
@@ -37,9 +37,10 @@ static int		ft_get_asn1_text(char **text, size_t *len)
 	*text = start_key;
 	return (0);
 }
-	
+
 static int	ft_rsa_des_cbc_decryption(t_rsa *rsa, char *key, char *iv)
 {
+	uint8_t		buf[8];
 	char		vector[8];
 	char		keys[16][48];
 	char		*ptr;
@@ -51,9 +52,10 @@ static int	ft_rsa_des_cbc_decryption(t_rsa *rsa, char *key, char *iv)
 	blocks = rsa->len / 8;
 	while (blocks--)
 	{
-		ft_xor_mem(ptr, vector, 8);
+		ft_memcpy(buf, ptr, 8);
 		ft_des_algor((uint8_t *)ptr, (uint8_t *)keys);
-		ft_memcpy(vector, ptr, 8);
+		ft_xor_mem((void *)ptr, (void *)vector, 8);
+		ft_memcpy(vector, buf, 8);
 		ptr += 8;
 	}
 	if (ft_des_check_padding((uint8_t *)(ptr - 8), &rsa->len, 1))
@@ -66,7 +68,10 @@ static int	ft_rsa_make_decryption(t_rsa *rsa)
 	char	*key;
 
 	if (ft_rsa_make_flag_passin(rsa))
+	{
+		ft_strdel(&rsa->text);
 		return (1);
+	}
 	key = ft_evp(rsa->flag.passin, (uint8_t *)rsa->flag.vector, 8);
 	if (ft_rsa_des_cbc_decryption(rsa, key, rsa->flag.vector))
 	{
@@ -78,36 +83,11 @@ static int	ft_rsa_make_decryption(t_rsa *rsa)
 	return (0);
 }
 
-static int	ft_hex_to_vector()
-{
-	char const		*base = "0123456789ABCDEF";
-	size_t			len;
-	char			*new;
-	unsigned char	*byte;
-	char			*hex;
-
-	byte = (unsigned char *)salt;
-	new = ft_strnew(18);
-	new[17] = '\n';
-	new[16] = '\n';
-	hex = new;
-	len = 8;
-	while (len--)
-	{
-		hex[1] = base[(*byte) % 16];
-		hex[0] = base[((*byte) / 16) % 16];
-		hex += 2;
-		byte++;
-	}
-	return (new);
-}
-
-int		ft_pem_des_inform_private_key(t_rsa *rsa)
+int			ft_pem_des_inform_private_key(t_rsa *rsa)
 {
 	char	*hex;
 
 	hex = rsa->text + 41;
-	ft_printf("ras = %s\n", hex);
 	if (rsa->len < (41 + 16))
 	{
 		ft_strdel(&rsa->text);
@@ -125,6 +105,5 @@ int		ft_pem_des_inform_private_key(t_rsa *rsa)
 		return (1);
 	if (ft_asn1_decode_private_key(rsa))
 		return (1);
-	ft_strdel(&rsa->text);
 	return (0);
 }

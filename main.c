@@ -44,14 +44,14 @@ static char			*g_all_commands =
 "rsa\n"									\
 "genrsa\n"								\
 "rsautl\n"								\
-										\
+
 "\nMessage Digest commands:\n"			\
 "md5\n"									\
 "sha1\n"								\
 "sha256\n"								\
 "sha512\n"								\
 "whirlpool\n"							\
-										\
+
 "\nCipher commands:\n"					\
 "base64\n"								\
 "des\n"									\
@@ -155,33 +155,9 @@ int		main(int ac, char **av)
 {
 	t_alg	my;
 
-	// t_bigint	a;
-	// t_bigint	b;
-	// t_bigint	gcd;
-
-	// a.size = 8;
-	// a.value = malloc(a.size);
-	// ft_bzero(a.value, a.size);
-	// *(size_t *)a.value = 1;
-
-	
-	// b.size = 8;
-	// b.value = malloc(b.size);
-	// ft_generate_urandom(b.value, b.size);
-
-
-	// ft_bigint_print("a", &a);
-	// ft_bigint_print("b", &b);
-	// ft_euclid_gcd(&gcd, &a, &b);
-
-	// ft_bigint_print("gcd", &gcd);
-
 	if (ac == 1)
 		ft_parse_from_console(&my);
 	else if (ft_choose_first_param(&my, av[1]))
 		(my.flag_pointer)(&my, ac - 2, av + 2);
-
-	//system("leaks ft_ssl");
-
 	return (0);
 }
