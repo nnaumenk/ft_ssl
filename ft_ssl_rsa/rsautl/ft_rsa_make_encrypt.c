@@ -12,16 +12,8 @@
 
 #include "../../ft_ssl.h"
 
-void	ft_rsautl(void *v_data)
+int		ft_rsa_make_encrypt(t_rsa *rsa)
 {
-	t_rsa	rsa;
-
-	rsa.flag = *(t_rsa_flag *)v_data;
-	if (ft_rsa_make_flag_inkey(&rsa))
-		return ;
-	if (ft_rsa_make_flag_in(&rsa))
-		return ;
-	if (ft_rsa_make_flag_encrypt(&rsa))
-		return ;
-	ft_rsa_make_flag_out(&rsa);
+	USE(rsa);
+	return (0);
 }

@@ -103,12 +103,17 @@ int		ft_rsa_make_flag_outform(t_rsa *rsa);
 int		ft_rsa_make_flag_passin(t_rsa *rsa);
 int		ft_rsa_make_flag_passout(t_rsa *rsa);
 int		ft_rsa_make_flag_check(t_rsa *rsa);
+int		ft_rsa_make_flag_inkey(t_rsa *rsa);
+int		ft_rsa_make_flag_encrypt(t_rsa *rsa);
 
 int		ft_make_primes(t_rsa *rsa);
 void	ft_make_exponent(t_bigint *exp, t_bigint *pr_exp, t_bigint *prime);
 void	ft_make_public_exponent(t_bigint *exp, int exp_value_3);
 int		ft_make_private_exponent(
 		t_bigint *exp, t_bigint *publ_exp, t_bigint *p1, t_bigint *p2);
+
+int		ft_rsa_make_decrypt(t_rsa *rsa);
+int		ft_rsa_make_encrypt(t_rsa *rsa);
 
 int		ft_check_primality(t_bigint prime);
 int		ft_check_modulus(t_rsa_data *data);

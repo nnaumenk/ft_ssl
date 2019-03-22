@@ -12,11 +12,27 @@
 
 #include "../../ft_ssl.h"
 
+static int	(*g_encrypt[])(t_rsa *) =
+{
+	ft_rsa_make_decrypt,
+	ft_rsa_make_encrypt
+};
+
+int		ft_rsa_make_flag_encrypt(t_rsa *rsa)
+{
+	if (g_encrypt[rsa->flag.encrypt](rsa))
+	{
+		ft_strdel(&rsa->text);
+		return (1);
+	}
+	return (0);
+}
+
 int		ft_rsa_check_flag_encrypt(int *i, int ac, char **av, t_rsa_flag *flag)
 {
 	USE(i);
 	USE(ac);
 	USE(av);
-	USE(flag);
+	flag->encrypt = 1;
 	return (0);
 }

@@ -132,6 +132,8 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c									\
 				ft_ssl_rsa/genrsa/genrsa.c								\
 				ft_ssl_rsa/genrsa/genrsa_flags.c						\
 																		\
+				ft_ssl_rsa/rsautl/ft_rsa_make_decrypt.c					\
+				ft_ssl_rsa/rsautl/ft_rsa_make_encrypt.c					\
 				ft_ssl_rsa/rsautl/rsautl.c								\
 				ft_ssl_rsa/rsautl/rsautl_flags.c						\
 																		\
