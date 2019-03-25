@@ -159,5 +159,6 @@ int		main(int ac, char **av)
 		ft_parse_from_console(&my);
 	else if (ft_choose_first_param(&my, av[1]))
 		(my.flag_pointer)(&my, ac - 2, av + 2);
+	//system("leaks ft_ssl");
 	return (0);
 }

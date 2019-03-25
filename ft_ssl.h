@@ -63,6 +63,7 @@ void	ft_euclid_gcd(t_bigint *gcd, t_bigint *a, t_bigint *b);
 int		ft_is_coprime(t_bigint *a, t_bigint *b);
 void	ft_rsa_free_data(t_rsa_data *data);
 void	ft_normalize_input_rsa_values(t_rsa *rsa);
+void	ft_denormalize_input_rsa_values(t_rsa *rsa);
 
 size_t	ft_pow_mod_int(size_t num, size_t pow, size_t mod);
 void	ft_pow_mod(t_bigint *r, t_bigint *num, t_bigint *pow, t_bigint *mod);
@@ -104,7 +105,7 @@ int		ft_rsa_make_flag_passin(t_rsa *rsa);
 int		ft_rsa_make_flag_passout(t_rsa *rsa);
 int		ft_rsa_make_flag_check(t_rsa *rsa);
 int		ft_rsa_make_flag_inkey(t_rsa *rsa);
-int		ft_rsa_make_flag_encrypt(t_rsa *rsa);
+int		ft_rsa_make_flag_decrypt(t_rsa *rsa);
 
 int		ft_make_primes(t_rsa *rsa);
 void	ft_make_exponent(t_bigint *exp, t_bigint *pr_exp, t_bigint *prime);

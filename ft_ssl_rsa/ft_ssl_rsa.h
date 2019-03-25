@@ -33,7 +33,6 @@ typedef struct		s_rsa_flag
 	int				pubin;
 	int				pubout;
 	char			*inkey;
-	int				encrypt;
 	int				decrypt;
 	int				hexdump;
 	int				exp_value_3;

@@ -147,6 +147,7 @@ CFILES		=	ft_ssl_md5/md5/md5_1.c									\
 				ft_ssl_rsa/ft_ssl_is_primary.c							\
 				ft_ssl_rsa/ft_rsa_free_data.c							\
 				ft_ssl_rsa/ft_normalize_input_rsa_values.c				\
+				ft_ssl_rsa/ft_denormalize_input_rsa_values.c			\
 																		\
 				hex_ascii.c												\
 				read.c													\
