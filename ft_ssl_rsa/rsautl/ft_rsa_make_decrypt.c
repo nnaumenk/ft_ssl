@@ -14,33 +14,30 @@
 
 static int	ft_rsa_check_padding(t_rsa *rsa)
 {
-	
-	if (rsa->text[rsa->len - 1] != 0x02)
+	size_t	r;
+	char	*ptr;
+	char	*original_text;
+	size_t	original_len;
+
+	ptr = rsa->text + rsa->len - 1;
+	if (*ptr-- != 0x02)
 		return (1);
-
-
-
-
-
-
-
-	if (rsa->data.modulus.size < rsa->len + 11)
+	r = 0;
+	while (1)
 	{
-		ft_print_fd(2, "ft_ssl: data too large for key size\n");
-		ft_rsa_free_data(&rsa->data);
-		ft_strdel(&rsa->text);
-		return (1);
+		if (*ptr-- == 0x00)
+			break ;
+		r++;
 	}
-	r = rsa->data.modulus.size - 3 - rsa->len;
-	padding_text = (char *)malloc(rsa->len + r + 3);
-	padding_text[0] = 0x00;
-	padding_text[1] = 0x02;
-	ft_generate_urandom(padding_text + 2, r);
-	padding_text[r + 2] = 0x00;
-	ft_memcpy(padding_text + r + 3, rsa->text, rsa->len);
+	if (r < 8)
+		return (1);
+	original_len = rsa->len - r - 2;
+	original_text = (char *)malloc(original_len);
+	ft_memcpy(original_text, rsa->text, original_len);
+	ft_memrev(original_text, original_len);
 	ft_strdel(&rsa->text);
-	rsa->text = padding_text;
-	rsa->len = rsa->len + r + 3;
+	rsa->text = original_text;
+	rsa->len = original_len;
 	return (0);
 }
 
@@ -75,5 +72,6 @@ int				ft_rsa_make_decrypt(t_rsa *rsa)
 		ft_strdel(&rsa->text);
 		return (1);
 	}
+	ft_rsa_free_data(&rsa->data);
 	return (0);
 }
