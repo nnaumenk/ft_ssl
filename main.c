@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 14:10:46 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/17 00:25:10 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/26 18:39:27 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,101 +150,6 @@ void	ft_parse_from_console(t_alg *my)
 		break ;
 	}
 }
-
-0000 - 2a 2a 2a 20 66 74 5f 73-73 6c 20 70 72 6f 6a 65   *** ft_ssl proje
-0010 - 63 74 20 2a 2a 2a 0a 0a-41 6c 72 65 61 64 79 20   ct ***..Already
-0020 - 69 6d 70 6c 65 6d 65 6e-74 65 64 3a 0a 2d 67 65   implemented:.-ge
-0030 - 6e 72 73 61 0a 2d 72 73-61 0a 2d 6d 64 35 0a 2d   nrsa.-rsa.-md5.-
-0040 - 73 68 61 31 0a 2d 73 68-61 32 35 36 0a 2d 73 68   sha1.-sha256.-sh
-0050 - 61 35 31 32 0a 2d 77 68-69 72 6c 70 6f 6f 6c 0a   a512.-whirlpool.
-0060 - 2d 62 61 73 65 36 34 0a-2d 64 65 73 2d 63 62 63   -base64.-des-cbc
-0070 - 0a 2d 64 65 73 2d 65 63-62 20 0a 2d 64 65 73 2d   .-des-ecb .-des-
-0080 - 70 63 62 63 0a 2d 64 65-73 2d 63 66 62 0a 2d 64   pcbc.-des-cfb.-d
-0090 - 65 73 2d 6f 66 62 0a 2d-64 65 73 33 2d 63 62 63   es-ofb.-des3-cbc
-00a0 - 0a 2d 64 65 73 33 2d 65-63 62 0a 2d 64 65 73 33   .-des3-ecb.-des3
-00b0 - 2d 70 63 62 63 0a 2d 64-65 73 33 2d 63 66 62 0a   -pcbc.-des3-cfb.
-00c0 - 2d 64 65 73 33 2d 6f 66-62 0a 0a 49 6e 20 66 75   -des3-ofb..In fu
-00d0 - 74 75 72 65 3a 0a 2d 72-73 61 75 74 6c 0a         ture:.-rsautl.
-
-
-
-
-
-void	ft_all_blocks(char *text, size_t len, size_t row_count)
-{
-	size_t	i;
-
-	while (row_count--)
-	{
-		ft_printf("%4zx -", i);///pererobyt
-		i = 8;
-		while (i--)
-			ft_printf("% 2x", text++);
-		ft_printf("-%2x", text++);
-		i = 7;
-		while (i--)
-			ft_printf("% 2x", text++);
-		ft_printf("   ");
-		write(1, text, 16);
-		ft_printf("\n");
-		text += 16;
-	}
-}
-
-void	ft_last_block_output(char *text, size_t len, size_t spaces_len)
-{
-	const char *space = "                                       ";
-
-	write(1, spaces, spaces_len);
-	write(1, text, len);
-	write(1, "\n", 1);
-}
-
-void		ft_last_block(char *text, size_t len, size_t column_count)
-{
-	size_t	spaces;
-	size_t	i;
-
-	if (column_count == 0)
-		return ;
-	ft_printf("%4zx -", i);////////
-	i = -1;
-	while (++i < 8)
-	{
-		if (i < column_count)
-			ft_printf("% 2x", block++);
-		else
-			return (ft_last_block_output(text, column_count, 10));
-	}
-	if (i < column_count)
-		ft_printf("-%2x", block++);
-	else
-		return (ft_last_block_output(text, column_count, 10));
-	while (++i < 8)
-	{
-		if (i < column_count)
-			ft_printf("% 2x", block++);
-		else
-			return (ft_last_block_output(text, column_count, 10));
-	}
-}
-
-
-int		ft_flag_hex_dump(t_rsa *rsa)
-{
-	size_t	new_len;
-	char	*new;
-
-	new = malloc()
-
-	integer_value = rsa->len / 16;
-	ft_all_block(rsa->text, integer_value);
-	ft_last_block(rsa->text + integer_value, rsa->len - integer_value * 16);
-}
-
-
-
-
 
 int		main(int ac, char **av)
 {

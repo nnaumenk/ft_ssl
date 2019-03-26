@@ -6,7 +6,7 @@
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 22:12:53 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/03/17 01:00:58 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/26 18:37:37 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int		ft_rsa_make_flag_passout(t_rsa *rsa);
 int		ft_rsa_make_flag_check(t_rsa *rsa);
 int		ft_rsa_make_flag_inkey(t_rsa *rsa);
 int		ft_rsa_make_flag_decrypt(t_rsa *rsa);
+int		ft_rsa_make_flag_hexdump(t_rsa *rsa);
 
 int		ft_make_primes(t_rsa *rsa);
 void	ft_make_exponent(t_bigint *exp, t_bigint *pr_exp, t_bigint *prime);

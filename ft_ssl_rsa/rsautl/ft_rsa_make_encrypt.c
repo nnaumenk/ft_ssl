@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rsautl.c                                           :+:      :+:    :+:   */
+/*   ft_rsa_make_encrypt.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnaumenk <nnaumenk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 15:23:37 by nnaumenk          #+#    #+#             */
-/*   Updated: 2019/02/05 16:29:09 by nnaumenk         ###   ########.fr       */
+/*   Updated: 2019/03/26 18:57:07 by nnaumenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	ft_rsa_make_padding(t_rsa *rsa)
 	size_t	padding_len;
 
 	r = rsa->data.modulus.size - 3 - rsa->len;
-	ft_printf("r = %zu\n", r);
 	padding_len = rsa->len + r + 2;
 	padding_text = (char *)malloc(padding_len);
 	ptr = padding_text;
