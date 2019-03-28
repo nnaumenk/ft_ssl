@@ -12,7 +12,7 @@
 
 #include "../../ft_ssl.h"
 
-static int	ft_rsa_check_padding(t_rsa *rsa)
+static int		ft_rsa_check_padding(t_rsa *rsa)
 {
 	size_t	r;
 	char	*ptr;

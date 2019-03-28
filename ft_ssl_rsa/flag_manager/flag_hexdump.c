@@ -43,7 +43,7 @@ static void	ft_set_values(char *new, size_t *i, char *text, size_t len)
 		{
 			new[(*i)++] = base[((unsigned char)*text / 16) % 16];
 			new[(*i)++] = base[((unsigned char)*text / 1) % 16];
-			((column_count == 8) ? (new[(*i)++] = '-') : (new[(*i)++] = ' '));
+			new[(*i)++] = (column_count == 8 ? '-' : ' ');
 			text++;
 		}
 		else

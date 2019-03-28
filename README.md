@@ -3,6 +3,7 @@
 Already implemented:
 -genrsa
 -rsa
+-rsautl
 -md5
 -sha1
 -sha256
@@ -19,6 +20,3 @@ Already implemented:
 -des3-pcbc
 -des3-cfb
 -des3-ofb
-
-In future:
--rsautl

@@ -12,6 +12,20 @@
 
 #include "../../ft_ssl.h"
 
+static void	ft_rsa_add_rand_bytes(char **ptr, size_t n)
+{
+	while (n--)
+	{
+		while (1)
+		{
+			ft_generate_urandom(*ptr, 1);
+			if (**ptr)
+				break ;
+		}
+		(*ptr)++;
+	}
+}
+
 static int	ft_rsa_make_padding(t_rsa *rsa)
 {
 	size_t	r;
@@ -27,16 +41,7 @@ static int	ft_rsa_make_padding(t_rsa *rsa)
 	ft_memrev(ptr, rsa->len);
 	ptr += rsa->len;
 	*ptr++ = 0x00;
-	while (r--)
-	{
-		while (1)
-		{
-			ft_generate_urandom(ptr, 1);
-			if (*ptr)
-				break ;
-		}
-		ptr++;
-	}
+	ft_rsa_add_rand_bytes(&ptr, r);
 	*ptr++ = 0x02;
 	ft_strdel(&rsa->text);
 	rsa->text = padding_text;
@@ -69,5 +74,6 @@ int			ft_rsa_make_encrypt(t_rsa *rsa)
 	}
 	ft_rsa_make_padding(rsa);
 	ft_rsa_make_encrypt_algor(rsa);
+	ft_rsa_free_data(&rsa->data);
 	return (0);
 }
